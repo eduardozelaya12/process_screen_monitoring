@@ -7,6 +7,7 @@ import sys
 import signal
 import os
 import logging
+import io
 from threading import Thread
 import time
 
@@ -14,12 +15,24 @@ import time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 # Configurar logging
+# Força UTF-8 no console do Windows para evitar UnicodeEncodeError com emojis
+try:
+    sys.stdout.reconfigure(encoding='utf-8')
+    sys.stderr.reconfigure(encoding='utf-8')
+except Exception:
+    pass
+utf8_stream = None
+try:
+    utf8_stream = io.TextIOWrapper(getattr(sys.stdout, 'buffer', sys.stdout), encoding='utf-8', errors='replace')
+except Exception:
+    utf8_stream = sys.stdout
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('storage/logs/dashboard.log'),
-        logging.StreamHandler()
+        logging.FileHandler('storage/logs/dashboard.log', encoding='utf-8'),
+        logging.StreamHandler(stream=utf8_stream)
     ]
 )
 

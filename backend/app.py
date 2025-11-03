@@ -2,15 +2,26 @@ from flask import Flask
 from flask_socketio import SocketIO
 from flask_cors import CORS
 import logging
+import io
 
 # Configuração de logging
+utf8_stream = None
+try:
+    import sys
+    utf8_stream = io.TextIOWrapper(getattr(sys.stdout, 'buffer', sys.stdout), encoding='utf-8', errors='replace')
+except Exception:
+    utf8_stream = None
+
+handlers = [logging.FileHandler('storage/logs/backend.log', encoding='utf-8')]
+if utf8_stream:
+    handlers.append(logging.StreamHandler(stream=utf8_stream))
+else:
+    handlers.append(logging.StreamHandler())
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler('storage/logs/backend.log'),
-        logging.StreamHandler()
-    ]
+    handlers=handlers
 )
 
 logger = logging.getLogger(__name__)

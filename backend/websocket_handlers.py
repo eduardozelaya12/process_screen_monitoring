@@ -92,12 +92,12 @@ def broadcast_update(socketio, system_name, data):
     try:
         logger.info(f"📡 Broadcasting update: {system_name}")
         
-        # Emitir para todos os clientes conectados
+        # Emitir para todos os clientes conectados (Flask-SocketIO 5+: broadcast implícito)
         socketio.emit('update', {
             'system': system_name,
             'data': data,
             'timestamp': data.get('timestamp')
-        }, broadcast=True)
+        })
         
         # Emitir também para room específica do sistema
         socketio.emit('system_update', data, room=f"system_{system_name}")
