@@ -45,8 +45,7 @@ class LocalStorage:
                     success INTEGER,
                     success_rate REAL,
                     status TEXT,
-                    data JSON,
-                    INDEX idx_system_timestamp (system_name, timestamp DESC)
+                    data JSON
                 )
             """)
             
@@ -57,8 +56,7 @@ class LocalStorage:
                     system_name TEXT NOT NULL,
                     timestamp DATETIME NOT NULL,
                     file_path TEXT NOT NULL,
-                    file_size INTEGER,
-                    INDEX idx_system_screenshot (system_name, timestamp DESC)
+                    file_size INTEGER
                 )
             """)
             
@@ -70,9 +68,22 @@ class LocalStorage:
                     event_type TEXT NOT NULL,
                     message TEXT,
                     severity TEXT,
-                    timestamp DATETIME NOT NULL,
-                    INDEX idx_events (system_name, timestamp DESC)
+                    timestamp DATETIME NOT NULL
                 )
+            """)
+
+            # Índices (SQLite exige CREATE INDEX separado)
+            cursor.execute("""
+                CREATE INDEX IF NOT EXISTS idx_metrics_system_timestamp
+                ON metrics (system_name, timestamp DESC)
+            """)
+            cursor.execute("""
+                CREATE INDEX IF NOT EXISTS idx_screenshots_system_timestamp
+                ON screenshots (system_name, timestamp DESC)
+            """)
+            cursor.execute("""
+                CREATE INDEX IF NOT EXISTS idx_events_system_timestamp
+                ON events (system_name, timestamp DESC)
             """)
             
             logger.info("✓ Banco de dados inicializado")

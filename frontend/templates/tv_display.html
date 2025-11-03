@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Process Monitor TV</title>
+	<style>
+		html, body { margin:0; padding:0; height:100%; background:#111; color:#eee; font-family:system-ui, Arial, sans-serif; }
+		.container { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; gap:16px; }
+		img { max-width:95vw; max-height:82vh; object-fit:contain; border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.6); background:#000; }
+		.header { display:flex; gap:12px; align-items:center; }
+		.badge { background:#2a2a2a; padding:6px 10px; border-radius:6px; font-size:14px; }
+		.small { opacity:.8; font-size:12px; }
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<div class="badge" id="systemName">Peoplesoft</div>
+			<div class="small" id="timestamp">—</div>
+		</div>
+		<img id="shot" alt="Screenshot do sistema" src="" />
+		<div class="small">Atualiza automaticamente a cada 15s</div>
+	</div>
+
+	<script>
+		async function loadShot() {
+			const img = document.getElementById('shot');
+			const ts = document.getElementById('timestamp');
+			try {
+				const res = await fetch('/api/screenshot/peoplesoft', { cache: 'no-store' });
+				if (!res.ok) throw new Error('no screenshot');
+				const data = await res.json();
+				if (data && data.path) {
+					img.src = data.path + `?t=${Date.now()}`; // evitar cache
+					ts.textContent = new Date().toLocaleString();
+					return;
+				}
+				throw new Error('invalid json');
+			} catch (e) {
+				// Fallback para o protótipo: screenshot do Google
+				img.src = '/storage/logs/google_home.png' + `?t=${Date.now()}`;
+				ts.textContent = 'fallback: google_home.png';
+			}
+		}
+
+		loadShot();
+		setInterval(loadShot, 15000);
+	</script>
+</body>
+</html>
+

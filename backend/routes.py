@@ -1,7 +1,8 @@
-from flask import render_template, jsonify, request
+from flask import render_template, jsonify, request, send_from_directory
 from storage.local_storage import LocalStorage
 import logging
 import json
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -20,6 +21,12 @@ def register_routes(app):
     def tv_display():
         """Versão otimizada para TV"""
         return render_template('tv_display.html')
+    
+    @app.route('/storage/<path:filename>')
+    def serve_storage(filename):
+        """Serve qualquer arquivo dentro de storage/ de forma read-only"""
+        safe_root = os.path.abspath('storage')
+        return send_from_directory(safe_root, filename)
     
     @app.route('/api/health')
     def health_check():
@@ -126,7 +133,6 @@ def register_routes(app):
         """Retorna caminho do último screenshot"""
         try:
             # Buscar último screenshot do sistema
-            import os
             screenshot_dir = f"storage/screenshots/{system_name}"
             
             if not os.path.exists(screenshot_dir):
@@ -141,7 +147,8 @@ def register_routes(app):
             return jsonify({
                 'system': system_name,
                 'filename': latest,
-                'path': f"/static/screenshots/{system_name}/{latest}"
+                # Passa a servir do diretório storage via rota dedicada
+                'path': f"/storage/screenshots/{system_name}/{latest}"
             })
             
         except Exception as e:

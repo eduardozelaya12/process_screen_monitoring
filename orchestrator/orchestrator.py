@@ -7,7 +7,7 @@ from typing import Dict, Optional
 
 # Importações dos módulos do projeto
 from collectors.peoplesoft_collector import PeopleSoftCollector
-from processors.data_processor import DataProcessor
+from processors.data_processors import DataProcessor
 from storage.local_storage import LocalStorage
 
 logger = logging.getLogger(__name__)
