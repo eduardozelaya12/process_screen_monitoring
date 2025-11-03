@@ -256,8 +256,12 @@ class PeopleSoftCollector(BaseCollector):
             except Exception:
                 logger.exception("Erro durante verificação de redirecionamento/login")
             
-            # Listar frames/iframes disponíveis (útil para detectar ptifrmtgtframe)
+            # Tentar switch para iframe principal do PeopleSoft
             try:
+                # Primeiro volta para contexto padrão
+                self.driver.switch_to.default_content()
+                
+                # Lista frames disponíveis para debug
                 frames = self.driver.find_elements(By.TAG_NAME, "iframe") + self.driver.find_elements(By.TAG_NAME, "frame")
                 frame_info = []
                 for f in frames:
@@ -270,8 +274,19 @@ class PeopleSoftCollector(BaseCollector):
                     except Exception:
                         continue
                 logger.info(f"Frames encontrados: {frame_info}")
-            except Exception:
-                logger.debug("Não foi possível listar frames")
+                
+                # Tenta fazer switch para o iframe principal (ptifrmtgtframe)
+                try:
+                    WebDriverWait(self.driver, 5).until(
+                        EC.frame_to_be_available_and_switch_to_it((By.NAME, 'ptifrmtgtframe'))
+                    )
+                    logger.info("✓ Switch para iframe 'ptifrmtgtframe' realizado com sucesso")
+                except Exception as e:
+                    logger.warning(f"⚠ Não foi possível trocar para iframe ptifrmtgtframe: {type(e).__name__}")
+                    logger.info("Continuando no contexto atual (pode estar correto)")
+                    
+            except Exception as e:
+                logger.debug(f"Erro ao processar frames: {e}")
 
             # --- ADICIONADO: continuar fluxo de extração (limpar filtros, extrair métricas e salvar screenshot)
             try:
@@ -311,31 +326,42 @@ class PeopleSoftCollector(BaseCollector):
     def _clear_name_filter(self):
         """Limpa filtro de nome e clica refresh"""
         try:
-            # Tentar limpar campo de nome
-            try:
-                campo_nome = WebDriverWait(self.driver, 5).until(
-                    EC.presence_of_element_located((By.ID, "PMN_FILTER_WRK_PRCSNAME"))
-                )
-                campo_nome.clear()
-                campo_nome.send_keys(Keys.CONTROL, "a")
-                campo_nome.send_keys(Keys.BACKSPACE)
-                logger.info("✓ Campo de nome limpo")
-            except Exception as e:
-                logger.debug(f"Campo de nome não encontrado ou erro: {type(e).__name__} - {e}")
+            logger.info("🧹 Limpando filtros e atualizando grid...")
+            
+            # Lista de campos de filtro para limpar
+            filter_fields = [
+                "PMN_FILTER_WRK_PRCSNAME",  # Nome do processo
+                # Adicione outros campos se necessário
+            ]
+            
+            # Tentar limpar campos de filtro
+            for field_id in filter_fields:
+                try:
+                    campo = WebDriverWait(self.driver, 3).until(
+                        EC.presence_of_element_located((By.ID, field_id))
+                    )
+                    campo.clear()
+                    campo.send_keys(Keys.CONTROL, "a")
+                    campo.send_keys(Keys.BACKSPACE)
+                    logger.debug(f"✓ Campo {field_id} limpo")
+                except Exception as e:
+                    logger.debug(f"Campo {field_id} não encontrado: {type(e).__name__}")
             
             # Clicar refresh
             try:
                 botao_refresh = WebDriverWait(self.driver, 5).until(
                     EC.element_to_be_clickable((By.ID, "REFRESH_BTN"))
                 )
+                # Usar JavaScript click para evitar problemas de sobreposição
                 self.driver.execute_script("arguments[0].click();", botao_refresh)
-                logger.info("✓ Botão refresh clicado")
+                logger.info("✓ Botão Refresh clicado - aguardando atualização...")
+                time.sleep(3)  # Aguardar grid atualizar
             except Exception as e:
-                logger.debug(f"Botão refresh não encontrado ou erro: {type(e).__name__} - {e}")
+                logger.warning(f"⚠ Botão refresh não encontrado: {type(e).__name__}")
             
         except Exception as e:
             logger.warning(f"⚠ Erro ao limpar filtros: {type(e).__name__} - {e}")
-    
+
     def _extract_metrics_from_page(self) -> Dict:
         """
         Extrai métricas da página do Process Monitor
@@ -380,29 +406,35 @@ class PeopleSoftCollector(BaseCollector):
                 
                 # Se não encontrou, tentar procurar linhas por XPath que capturem grid interno
                 if not table:
+                    logger.debug("Tabela não encontrada com seletores CSS, tentando XPath...")
                     try:
                         possible = self.driver.find_elements(By.XPATH, "//table//tr")
                         logger.debug(f"Encontradas {len(possible)} <tr> em todo o documento (fallback)")
-                        # não assume que seja a tabela certa; usa fallback abaixo
                     except Exception as e:
                         logger.debug(f"Erro contando <tr>: {e}")
                 
+                # Último recurso: verificar se já estamos no iframe correto
                 if not table:
-                    # tentar mudar para frame padrão e procurar novamente
+                    logger.info("Tabela ainda não encontrada, verificando contexto de frame...")
                     try:
+                        # Volta para default e tenta novamente
                         self.driver.switch_to.default_content()
-                        WebDriverWait(self.driver, 1).until(EC.frame_to_be_available_and_switch_to_it((By.NAME, 'ptifrmtgtframe')))
-                        logger.info("✓ Switch para ptifrmtgtframe no fallback da extração")
+                        WebDriverWait(self.driver, 2).until(
+                            EC.frame_to_be_available_and_switch_to_it((By.NAME, 'ptifrmtgtframe'))
+                        )
+                        logger.info("✓ Realizou switch para ptifrmtgtframe no fallback")
+                        
+                        # Tenta seletores novamente após switch
                         for selector in table_selectors:
                             try:
                                 table = self.driver.find_element(By.CSS_SELECTOR, selector)
                                 if table:
-                                    logger.info(f"✓ Tabela encontrada com selector (após switch): {selector}")
+                                    logger.info(f"✓ Tabela encontrada após switch: {selector}")
                                     break
                             except Exception:
                                 continue
-                    except Exception:
-                        logger.debug("Não foi possível fazer switch/fallback para frame na extração")
+                    except Exception as e:
+                        logger.debug(f"Não foi possível fazer switch para frame: {type(e).__name__}")
                 
                 if table:
                     # Extrair linhas da tabela

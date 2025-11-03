@@ -900,3 +900,302 @@
 2025-11-03 16:14:20,219 - apscheduler.scheduler - INFO - Scheduler has been shut down
 2025-11-03 16:14:20,220 - orchestrator.orchestrator - INFO - ✓ Orquestrador parado
 2025-11-03 16:14:20,220 - __main__ - INFO - 👋 Encerrando aplicação...
+2025-11-03 16:30:34,124 - storage.local_storage - INFO - ✓ Banco de dados inicializado
+2025-11-03 16:30:34,142 - backend.routes - INFO - ✓ Rotas registradas
+2025-11-03 16:30:34,143 - backend.websocket_handlers - INFO - ✓ Handlers WebSocket registrados
+2025-11-03 16:30:34,145 - backend.app - INFO - ✓ Backend Flask inicializado
+2025-11-03 16:30:34,146 - __main__ - INFO - 
+============================================================
+2025-11-03 16:30:34,146 - __main__ - INFO -     PROCESS MONITOR DASHBOARD
+2025-11-03 16:30:34,146 - __main__ - INFO -     Versão 1.0.0
+2025-11-03 16:30:34,146 - __main__ - INFO - ============================================================
+
+2025-11-03 16:30:34,154 - __main__ - INFO - ✓ Estrutura de diretórios verificada
+2025-11-03 16:30:34,207 - __main__ - INFO - 🔧 Iniciando componentes...
+2025-11-03 16:30:34,228 - storage.local_storage - INFO - ✓ Banco de dados inicializado
+2025-11-03 16:30:34,231 - orchestrator.orchestrator - INFO - 📋 Orquestrador criado
+2025-11-03 16:30:34,233 - orchestrator.orchestrator - INFO - ✓ SocketIO configurado no orquestrador
+2025-11-03 16:30:34,235 - orchestrator.orchestrator - INFO - ============================================================
+2025-11-03 16:30:34,236 - orchestrator.orchestrator - INFO - 🚀 INICIANDO ORQUESTRADOR
+2025-11-03 16:30:34,236 - orchestrator.orchestrator - INFO - ============================================================
+2025-11-03 16:30:34,236 - orchestrator.orchestrator - INFO - 🔧 Inicializando coletores...
+2025-11-03 16:30:34,237 - collectors.base_collector - INFO - ✓ Coletor PeopleSoft inicializado
+2025-11-03 16:30:34,239 - orchestrator.orchestrator - INFO - ✓ Coletor peoplesoft inicializado
+2025-11-03 16:30:34,240 - orchestrator.orchestrator - INFO - ⏭ Sistema oracle_fusion desabilitado, pulando...
+2025-11-03 16:30:34,241 - orchestrator.orchestrator - INFO - ⏭ Sistema bonita desabilitado, pulando...
+2025-11-03 16:30:34,241 - orchestrator.orchestrator - INFO - ⏭ Sistema n8n desabilitado, pulando...
+2025-11-03 16:30:34,242 - orchestrator.orchestrator - INFO - ✓ 1 coletores inicializados
+2025-11-03 16:30:34,242 - orchestrator.orchestrator - INFO - 📅 Agendando jobs de coleta...
+2025-11-03 16:30:34,668 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-03 16:30:34,668 - orchestrator.orchestrator - INFO - ✓ Job agendado: peoplesoft a cada 300s
+2025-11-03 16:30:34,683 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-03 16:30:34,685 - orchestrator.orchestrator - INFO - ✓ Jobs agendados
+2025-11-03 16:30:34,693 - apscheduler.scheduler - INFO - Added job "Coleta peoplesoft" to job store "default"
+2025-11-03 16:30:34,694 - apscheduler.scheduler - INFO - Added job "Limpeza diária" to job store "default"
+2025-11-03 16:30:34,695 - apscheduler.scheduler - INFO - Scheduler started
+2025-11-03 16:30:34,697 - orchestrator.orchestrator - INFO - ✓ Orquestrador ativo!
+2025-11-03 16:30:34,698 - apscheduler.executors.default - INFO - Running job "Coleta peoplesoft (trigger: interval[0:05:00], next run at: 2025-11-03 16:35:34 -03)" (scheduled at 2025-11-03 16:30:34.667901-03:00)
+2025-11-03 16:30:34,698 - orchestrator.orchestrator - INFO - 
+📋 Jobs agendados (2):
+2025-11-03 16:30:34,699 - orchestrator.orchestrator - INFO - 🔄 Coletando: peoplesoft
+2025-11-03 16:30:34,700 - orchestrator.orchestrator - INFO -   • Coleta peoplesoft | próxima execução: 2025-11-03 16:35:34.667901-03:00
+2025-11-03 16:30:34,700 - collectors.peoplesoft_collector - INFO - 📸 Coletando dados: PeopleSoft
+2025-11-03 16:30:34,701 - orchestrator.orchestrator - INFO -   • Limpeza diária | próxima execução: 2025-11-04 02:00:00-03:00
+2025-11-03 16:30:37,224 - __main__ - INFO - 
+============================================================
+2025-11-03 16:30:37,225 - __main__ - INFO - ✓ Dashboard disponível em: http://localhost:5000
+2025-11-03 16:30:37,226 - __main__ - INFO - ✓ Versão TV disponível em: http://localhost:5000/tv
+2025-11-03 16:30:37,229 - __main__ - INFO - ============================================================
+
+2025-11-03 16:30:37,235 - __main__ - INFO - 🌐 Iniciando servidor web...
+2025-11-03 16:30:37,302 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.185:5000
+2025-11-03 16:30:37,303 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-03 16:30:39,128 - collectors.peoplesoft_collector - INFO - ✓ WebDriver inicializado
+2025-11-03 16:30:52,250 - collectors.peoplesoft_collector - INFO - ✓ Cookies carregados
+2025-11-03 16:30:52,251 - collectors.peoplesoft_collector - INFO - Navegando para: http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/c/PROCESSMONITOR.PROCESSMONITOR.GBL?FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS.PT_PROCESS_SCHEDULER.PT_PROCESSMONITOR_GBL&IsFolder=false&IgnoreParamTempl=FolderPath%2cIsFolder
+2025-11-03 16:30:56,532 - collectors.peoplesoft_collector - INFO - URL atual após navegação: http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/c/PROCESSMONITOR.PROCESSMONITOR.GBL?FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS.PT_PROCESS_SCHEDULER.PT_PROCESSMONITOR_GBL&IsFolder=false&IgnoreParamTempl=FolderPath%2cIsFolder&cmd=login&errorCode=105&languageCd=ENG
+2025-11-03 16:30:56,542 - collectors.peoplesoft_collector - INFO - 🛠 Após tentativa de navegação, URL atual: http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/c/PROCESSMONITOR.PROCESSMONITOR.GBL?FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS.PT_PROCESS_SCHEDULER.PT_PROCESSMONITOR_GBL&IsFolder=false&IgnoreParamTempl=FolderPath%2cIsFolder&cmd=login&errorCode=105&languageCd=ENG
+2025-11-03 16:30:56,588 - collectors.peoplesoft_collector - INFO - ✓ URL ok - prosseguindo para extrair métricas!
+2025-11-03 16:30:56,609 - collectors.peoplesoft_collector - WARNING - ⚠ Detectado redirecionamento para login/host diferente: http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/c/PROCESSMONITOR.PROCESSMONITOR.GBL?FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS.PT_PROCESS_SCHEDULER.PT_PROCESSMONITOR_GBL&IsFolder=false&IgnoreParamTempl=FolderPath%2cIsFolder&cmd=login&errorCode=105&languageCd=ENG
+2025-11-03 16:30:56,621 - collectors.peoplesoft_collector - WARNING - ✓ page_source salvo em storage\logs\page_structure.html
+2025-11-03 16:30:56,622 - collectors.peoplesoft_collector - INFO - ↻ Tentando relogin automático e nova navegação...
+2025-11-03 16:30:56,622 - collectors.peoplesoft_collector - INFO - 🔐 Fazendo login em PeopleSoft...
+2025-11-03 16:31:18,921 - collectors.peoplesoft_collector - INFO - ✓ Login OK! 0 cookies salvos
+2025-11-03 16:31:28,908 - collectors.peoplesoft_collector - INFO - ✓ WebDriver inicializado
+2025-11-03 16:31:40,792 - collectors.peoplesoft_collector - INFO - ✓ Cookies carregados
+2025-11-03 16:31:40,794 - collectors.peoplesoft_collector - INFO - ✓ Cookies recarregados após relogin, tentando navegar novamente
+2025-11-03 16:31:48,028 - collectors.peoplesoft_collector - INFO - URL atual após retry: http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/c/PROCESSMONITOR.PROCESSMONITOR.GBL?FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS.PT_PROCESS_SCHEDULER.PT_PROCESSMONITOR_GBL&IsFolder=false&IgnoreParamTempl=FolderPath%2cIsFolder&cmd=login&errorCode=105&languageCd=ENG
+2025-11-03 16:31:48,071 - collectors.peoplesoft_collector - INFO - Frames encontrados: []
+2025-11-03 16:32:05,852 - collectors.peoplesoft_collector - WARNING - ⚠ Tabela de processos não encontrada — page_source salvo em storage\logs\page_structure.html
+2025-11-03 16:32:05,865 - collectors.peoplesoft_collector - WARNING - URL atual: http://pswebt1.ajover.com:83/psp/pa91test/EMPLOYEE/EMPL/h/?cmd=login&languageCd=ENG
+2025-11-03 16:32:05,942 - collectors.peoplesoft_collector - INFO - ✓ Screenshot salvo: storage/screenshots/peoplesoft/screenshot_20251103_163205.png
+2025-11-03 16:32:12,676 - processors.data_processors - INFO - ✓ Dados de peoplesoft processados
+2025-11-03 16:32:12,696 - backend.websocket_handlers - INFO - 📡 Broadcasting update: peoplesoft
+2025-11-03 16:32:12,696 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: peoplesoft
+2025-11-03 16:32:12,696 - apscheduler.executors.default - INFO - Job "Coleta peoplesoft (trigger: interval[0:05:00], next run at: 2025-11-03 16:35:34 -03)" executed successfully
+2025-11-03 16:32:39,057 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:32:39] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:32:39,255 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:32:39] "GET /storage/screenshots/peoplesoft/screenshot_20251103_163205.png?t=1762198359060 HTTP/1.1" 200 -
+2025-11-03 16:32:54,397 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:32:54] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:32:54,658 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:32:54] "GET /storage/screenshots/peoplesoft/screenshot_20251103_163205.png?t=1762198374400 HTTP/1.1" 200 -
+2025-11-03 16:33:09,409 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:33:09] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:33:09,653 - __main__ - INFO - 
+
+🛑 Recebido sinal de interrupção...
+2025-11-03 16:33:09,654 - orchestrator.orchestrator - INFO - 🛑 Parando orquestrador...
+2025-11-03 16:33:09,658 - apscheduler.scheduler - INFO - Scheduler has been shut down
+2025-11-03 16:33:09,661 - orchestrator.orchestrator - INFO - ✓ Orquestrador parado
+2025-11-03 16:33:09,661 - __main__ - INFO - 👋 Encerrando aplicação...
+2025-11-03 16:33:55,934 - storage.local_storage - INFO - ✓ Banco de dados inicializado
+2025-11-03 16:33:55,940 - backend.routes - INFO - ✓ Rotas registradas
+2025-11-03 16:33:55,940 - backend.websocket_handlers - INFO - ✓ Handlers WebSocket registrados
+2025-11-03 16:33:55,940 - backend.app - INFO - ✓ Backend Flask inicializado
+2025-11-03 16:33:55,941 - __main__ - INFO - 
+============================================================
+2025-11-03 16:33:55,941 - __main__ - INFO -     PROCESS MONITOR DASHBOARD
+2025-11-03 16:33:55,941 - __main__ - INFO -     Versão 1.0.0
+2025-11-03 16:33:55,941 - __main__ - INFO - ============================================================
+
+2025-11-03 16:33:55,943 - __main__ - INFO - ✓ Estrutura de diretórios verificada
+2025-11-03 16:33:55,944 - __main__ - INFO - 🔧 Iniciando componentes...
+2025-11-03 16:33:55,947 - storage.local_storage - INFO - ✓ Banco de dados inicializado
+2025-11-03 16:33:55,948 - orchestrator.orchestrator - INFO - 📋 Orquestrador criado
+2025-11-03 16:33:55,949 - orchestrator.orchestrator - INFO - ✓ SocketIO configurado no orquestrador
+2025-11-03 16:33:55,949 - orchestrator.orchestrator - INFO - ============================================================
+2025-11-03 16:33:55,950 - orchestrator.orchestrator - INFO - 🚀 INICIANDO ORQUESTRADOR
+2025-11-03 16:33:55,950 - orchestrator.orchestrator - INFO - ============================================================
+2025-11-03 16:33:55,951 - orchestrator.orchestrator - INFO - 🔧 Inicializando coletores...
+2025-11-03 16:33:55,952 - collectors.base_collector - INFO - ✓ Coletor PeopleSoft inicializado
+2025-11-03 16:33:55,952 - orchestrator.orchestrator - INFO - ✓ Coletor peoplesoft inicializado
+2025-11-03 16:33:55,953 - orchestrator.orchestrator - INFO - ⏭ Sistema oracle_fusion desabilitado, pulando...
+2025-11-03 16:33:55,953 - orchestrator.orchestrator - INFO - ⏭ Sistema bonita desabilitado, pulando...
+2025-11-03 16:33:55,953 - orchestrator.orchestrator - INFO - ⏭ Sistema n8n desabilitado, pulando...
+2025-11-03 16:33:55,953 - orchestrator.orchestrator - INFO - ✓ 1 coletores inicializados
+2025-11-03 16:33:55,954 - orchestrator.orchestrator - INFO - 📅 Agendando jobs de coleta...
+2025-11-03 16:33:56,067 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-03 16:33:56,068 - orchestrator.orchestrator - INFO - ✓ Job agendado: peoplesoft a cada 300s
+2025-11-03 16:33:56,077 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-03 16:33:56,077 - orchestrator.orchestrator - INFO - ✓ Jobs agendados
+2025-11-03 16:33:56,083 - apscheduler.scheduler - INFO - Added job "Coleta peoplesoft" to job store "default"
+2025-11-03 16:33:56,084 - apscheduler.scheduler - INFO - Added job "Limpeza diária" to job store "default"
+2025-11-03 16:33:56,085 - apscheduler.scheduler - INFO - Scheduler started
+2025-11-03 16:33:56,087 - orchestrator.orchestrator - INFO - ✓ Orquestrador ativo!
+2025-11-03 16:33:56,087 - apscheduler.executors.default - INFO - Running job "Coleta peoplesoft (trigger: interval[0:05:00], next run at: 2025-11-03 16:38:56 -03)" (scheduled at 2025-11-03 16:33:56.067413-03:00)
+2025-11-03 16:33:56,088 - orchestrator.orchestrator - INFO - 
+📋 Jobs agendados (2):
+2025-11-03 16:33:56,088 - orchestrator.orchestrator - INFO - 🔄 Coletando: peoplesoft
+2025-11-03 16:33:56,089 - orchestrator.orchestrator - INFO -   • Coleta peoplesoft | próxima execução: 2025-11-03 16:38:56.067413-03:00
+2025-11-03 16:33:56,089 - collectors.peoplesoft_collector - INFO - 📸 Coletando dados: PeopleSoft
+2025-11-03 16:33:56,089 - orchestrator.orchestrator - INFO -   • Limpeza diária | próxima execução: 2025-11-04 02:00:00-03:00
+2025-11-03 16:33:58,810 - collectors.peoplesoft_collector - INFO - ✓ WebDriver inicializado
+2025-11-03 16:33:58,948 - __main__ - INFO - 
+============================================================
+2025-11-03 16:33:58,963 - __main__ - INFO - ✓ Dashboard disponível em: http://localhost:5000
+2025-11-03 16:33:58,973 - __main__ - INFO - ✓ Versão TV disponível em: http://localhost:5000/tv
+2025-11-03 16:33:59,000 - __main__ - INFO - ============================================================
+
+2025-11-03 16:33:59,003 - __main__ - INFO - 🌐 Iniciando servidor web...
+2025-11-03 16:33:59,059 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.185:5000
+2025-11-03 16:33:59,060 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-03 16:34:08,262 - collectors.peoplesoft_collector - INFO - ✓ Cookies carregados
+2025-11-03 16:34:08,263 - collectors.peoplesoft_collector - INFO - Navegando para: http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/c/PROCESSMONITOR.PROCESSMONITOR.GBL?FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS.PT_PROCESS_SCHEDULER.PT_PROCESSMONITOR_GBL&IsFolder=false&IgnoreParamTempl=FolderPath%2cIsFolder
+2025-11-03 16:34:09,408 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:34:09] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:34:09,711 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:34:09] "GET /storage/screenshots/peoplesoft/screenshot_20251103_163205.png?t=1762198449411 HTTP/1.1" 200 -
+2025-11-03 16:34:15,164 - collectors.peoplesoft_collector - INFO - URL atual após navegação: http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/c/PROCESSMONITOR.PROCESSMONITOR.GBL?FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS.PT_PROCESS_SCHEDULER.PT_PROCESSMONITOR_GBL&IsFolder=false&IgnoreParamTempl=FolderPath%2cIsFolder&cmd=login&errorCode=105&languageCd=ENG
+2025-11-03 16:34:15,171 - collectors.peoplesoft_collector - INFO - 🛠 Após tentativa de navegação, URL atual: http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/c/PROCESSMONITOR.PROCESSMONITOR.GBL?FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS.PT_PROCESS_SCHEDULER.PT_PROCESSMONITOR_GBL&IsFolder=false&IgnoreParamTempl=FolderPath%2cIsFolder&cmd=login&errorCode=105&languageCd=ENG
+2025-11-03 16:34:15,194 - collectors.peoplesoft_collector - INFO - ✓ URL ok - prosseguindo para extrair métricas!
+2025-11-03 16:34:15,208 - collectors.peoplesoft_collector - WARNING - ⚠ Detectado redirecionamento para login/host diferente: http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/c/PROCESSMONITOR.PROCESSMONITOR.GBL?FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS.PT_PROCESS_SCHEDULER.PT_PROCESSMONITOR_GBL&IsFolder=false&IgnoreParamTempl=FolderPath%2cIsFolder&cmd=login&errorCode=105&languageCd=ENG
+2025-11-03 16:34:15,217 - collectors.peoplesoft_collector - WARNING - ✓ page_source salvo em storage\logs\page_structure.html
+2025-11-03 16:34:15,218 - collectors.peoplesoft_collector - INFO - ↻ Tentando relogin automático e nova navegação...
+2025-11-03 16:34:15,218 - collectors.peoplesoft_collector - INFO - 🔐 Fazendo login em PeopleSoft...
+2025-11-03 16:34:24,082 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:34:24] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:34:24,403 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:34:24] "GET /storage/screenshots/peoplesoft/screenshot_20251103_163205.png?t=1762198464085 HTTP/1.1" 200 -
+2025-11-03 16:34:29,910 - collectors.peoplesoft_collector - INFO - ✓ Login OK! 16 cookies salvos
+2025-11-03 16:34:38,385 - collectors.peoplesoft_collector - INFO - ✓ WebDriver inicializado
+2025-11-03 16:34:39,394 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:34:39] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:34:39,655 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:34:39] "GET /storage/screenshots/peoplesoft/screenshot_20251103_163205.png?t=1762198479396 HTTP/1.1" 200 -
+2025-11-03 16:34:50,069 - collectors.peoplesoft_collector - INFO - ✓ Cookies carregados
+2025-11-03 16:34:50,069 - collectors.peoplesoft_collector - INFO - ✓ Cookies recarregados após relogin, tentando navegar novamente
+2025-11-03 16:34:54,400 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:34:54] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:34:54,661 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:34:54] "GET /storage/screenshots/peoplesoft/screenshot_20251103_163205.png?t=1762198494402 HTTP/1.1" 200 -
+2025-11-03 16:34:57,502 - collectors.peoplesoft_collector - INFO - URL atual após retry: http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/c/PROCESSMONITOR.PROCESSMONITOR.GBL?FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS.PT_PROCESS_SCHEDULER.PT_PROCESSMONITOR_GBL&IsFolder=false&IgnoreParamTempl=FolderPath%2cIsFolder&cmd=login&errorCode=105&languageCd=ENG
+2025-11-03 16:34:57,571 - collectors.peoplesoft_collector - INFO - Frames encontrados: []
+2025-11-03 16:35:09,415 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:35:09] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:35:09,665 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:35:09] "GET /storage/screenshots/peoplesoft/screenshot_20251103_163205.png?t=1762198509417 HTTP/1.1" 200 -
+2025-11-03 16:35:14,970 - collectors.peoplesoft_collector - WARNING - ⚠ Tabela de processos não encontrada — page_source salvo em storage\logs\page_structure.html
+2025-11-03 16:35:14,982 - collectors.peoplesoft_collector - WARNING - URL atual: http://pswebt1.ajover.com:83/psp/pa91test/EMPLOYEE/EMPL/h/?cmd=login&languageCd=ENG
+2025-11-03 16:35:15,084 - collectors.peoplesoft_collector - INFO - ✓ Screenshot salvo: storage/screenshots/peoplesoft/screenshot_20251103_163514.png
+2025-11-03 16:35:21,779 - processors.data_processors - INFO - ✓ Dados de peoplesoft processados
+2025-11-03 16:35:21,794 - backend.websocket_handlers - INFO - 📡 Broadcasting update: peoplesoft
+2025-11-03 16:35:21,795 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: peoplesoft
+2025-11-03 16:35:21,796 - apscheduler.executors.default - INFO - Job "Coleta peoplesoft (trigger: interval[0:05:00], next run at: 2025-11-03 16:38:56 -03)" executed successfully
+2025-11-03 16:35:24,394 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:35:24] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:35:24,669 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:35:24] "GET /storage/screenshots/peoplesoft/screenshot_20251103_163514.png?t=1762198524396 HTTP/1.1" 200 -
+2025-11-03 16:35:49,367 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:35:49] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:35:49,613 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:35:49] "GET /storage/screenshots/peoplesoft/screenshot_20251103_163514.png?t=1762198549370 HTTP/1.1" 200 -
+2025-11-03 16:35:51,345 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:35:51] "GET / HTTP/1.1" 200 -
+2025-11-03 16:35:51,653 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:35:51] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:35:51,961 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:35:51] "GET /storage/screenshots/peoplesoft/screenshot_20251103_163514.png?t=1762198551655 HTTP/1.1" 200 -
+2025-11-03 16:35:55,764 - __main__ - INFO - 
+
+🛑 Recebido sinal de interrupção...
+2025-11-03 16:35:55,765 - orchestrator.orchestrator - INFO - 🛑 Parando orquestrador...
+2025-11-03 16:35:55,766 - apscheduler.scheduler - INFO - Scheduler has been shut down
+2025-11-03 16:35:55,767 - orchestrator.orchestrator - INFO - ✓ Orquestrador parado
+2025-11-03 16:35:55,767 - __main__ - INFO - 👋 Encerrando aplicação...
+2025-11-03 16:53:33,298 - storage.local_storage - INFO - ✓ Banco de dados inicializado
+2025-11-03 16:53:33,310 - backend.routes - INFO - ✓ Rotas registradas
+2025-11-03 16:53:33,310 - backend.websocket_handlers - INFO - ✓ Handlers WebSocket registrados
+2025-11-03 16:53:33,310 - backend.app - INFO - ✓ Backend Flask inicializado
+2025-11-03 16:53:33,311 - __main__ - INFO - 
+============================================================
+2025-11-03 16:53:33,312 - __main__ - INFO -     PROCESS MONITOR DASHBOARD
+2025-11-03 16:53:33,312 - __main__ - INFO -     Versão 1.0.0
+2025-11-03 16:53:33,312 - __main__ - INFO - ============================================================
+
+2025-11-03 16:53:33,314 - __main__ - INFO - ✓ Estrutura de diretórios verificada
+2025-11-03 16:53:33,315 - __main__ - INFO - 🔧 Iniciando componentes...
+2025-11-03 16:53:33,322 - storage.local_storage - INFO - ✓ Banco de dados inicializado
+2025-11-03 16:53:33,323 - orchestrator.orchestrator - INFO - 📋 Orquestrador criado
+2025-11-03 16:53:33,325 - orchestrator.orchestrator - INFO - ✓ SocketIO configurado no orquestrador
+2025-11-03 16:53:33,327 - orchestrator.orchestrator - INFO - ============================================================
+2025-11-03 16:53:33,328 - orchestrator.orchestrator - INFO - 🚀 INICIANDO ORQUESTRADOR
+2025-11-03 16:53:33,329 - orchestrator.orchestrator - INFO - ============================================================
+2025-11-03 16:53:33,329 - orchestrator.orchestrator - INFO - 🔧 Inicializando coletores...
+2025-11-03 16:53:33,331 - collectors.base_collector - INFO - ✓ Coletor PeopleSoft inicializado
+2025-11-03 16:53:33,331 - orchestrator.orchestrator - INFO - ✓ Coletor peoplesoft inicializado
+2025-11-03 16:53:33,332 - orchestrator.orchestrator - INFO - ⏭ Sistema oracle_fusion desabilitado, pulando...
+2025-11-03 16:53:33,333 - orchestrator.orchestrator - INFO - ⏭ Sistema bonita desabilitado, pulando...
+2025-11-03 16:53:33,333 - orchestrator.orchestrator - INFO - ⏭ Sistema n8n desabilitado, pulando...
+2025-11-03 16:53:33,334 - orchestrator.orchestrator - INFO - ✓ 1 coletores inicializados
+2025-11-03 16:53:33,336 - orchestrator.orchestrator - INFO - 📅 Agendando jobs de coleta...
+2025-11-03 16:53:33,523 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-03 16:53:33,523 - orchestrator.orchestrator - INFO - ✓ Job agendado: peoplesoft a cada 300s
+2025-11-03 16:53:33,535 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-03 16:53:33,535 - orchestrator.orchestrator - INFO - ✓ Jobs agendados
+2025-11-03 16:53:33,541 - apscheduler.scheduler - INFO - Added job "Coleta peoplesoft" to job store "default"
+2025-11-03 16:53:33,542 - apscheduler.scheduler - INFO - Added job "Limpeza diária" to job store "default"
+2025-11-03 16:53:33,543 - apscheduler.scheduler - INFO - Scheduler started
+2025-11-03 16:53:33,545 - orchestrator.orchestrator - INFO - ✓ Orquestrador ativo!
+2025-11-03 16:53:33,546 - apscheduler.executors.default - INFO - Running job "Coleta peoplesoft (trigger: interval[0:05:00], next run at: 2025-11-03 16:53:33 -03)" (scheduled at 2025-11-03 16:53:33.523155-03:00)
+2025-11-03 16:53:33,547 - orchestrator.orchestrator - INFO - 
+📋 Jobs agendados (2):
+2025-11-03 16:53:33,548 - orchestrator.orchestrator - INFO - 🔄 Coletando: peoplesoft
+2025-11-03 16:53:33,548 - orchestrator.orchestrator - INFO -   • Coleta peoplesoft | próxima execução: 2025-11-03 16:58:33.523155-03:00
+2025-11-03 16:53:33,549 - collectors.peoplesoft_collector - INFO - 📸 Coletando dados: PeopleSoft
+2025-11-03 16:53:33,551 - orchestrator.orchestrator - INFO -   • Limpeza diária | próxima execução: 2025-11-04 02:00:00-03:00
+2025-11-03 16:53:36,319 - __main__ - INFO - 
+============================================================
+2025-11-03 16:53:36,319 - __main__ - INFO - ✓ Dashboard disponível em: http://localhost:5000
+2025-11-03 16:53:36,319 - __main__ - INFO - ✓ Versão TV disponível em: http://localhost:5000/tv
+2025-11-03 16:53:36,319 - __main__ - INFO - ============================================================
+
+2025-11-03 16:53:36,320 - __main__ - INFO - 🌐 Iniciando servidor web...
+2025-11-03 16:53:36,357 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.185:5000
+2025-11-03 16:53:36,358 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-03 16:53:37,851 - collectors.peoplesoft_collector - INFO - ✓ WebDriver inicializado
+2025-11-03 16:53:49,804 - collectors.peoplesoft_collector - INFO - ✓ Cookies carregados
+2025-11-03 16:53:49,805 - collectors.peoplesoft_collector - INFO - Navegando para: http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/c/PROCESSMONITOR.PROCESSMONITOR.GBL?FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS.PT_PROCESS_SCHEDULER.PT_PROCESSMONITOR_GBL&IsFolder=false&IgnoreParamTempl=FolderPath%2cIsFolder
+2025-11-03 16:53:56,102 - collectors.peoplesoft_collector - INFO - URL atual após navegação: http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/c/PROCESSMONITOR.PROCESSMONITOR.GBL?FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS.PT_PROCESS_SCHEDULER.PT_PROCESSMONITOR_GBL&IsFolder=false&IgnoreParamTempl=FolderPath%2cIsFolder&cmd=login&errorCode=105&languageCd=ENG
+2025-11-03 16:53:56,109 - collectors.peoplesoft_collector - INFO - 🛠 Após tentativa de navegação, URL atual: http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/c/PROCESSMONITOR.PROCESSMONITOR.GBL?FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS.PT_PROCESS_SCHEDULER.PT_PROCESSMONITOR_GBL&IsFolder=false&IgnoreParamTempl=FolderPath%2cIsFolder&cmd=login&errorCode=105&languageCd=ENG
+2025-11-03 16:53:56,130 - collectors.peoplesoft_collector - INFO - ✓ URL ok - prosseguindo para extrair métricas!
+2025-11-03 16:53:56,146 - collectors.peoplesoft_collector - WARNING - ⚠ Detectado redirecionamento para login/host diferente: http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/c/PROCESSMONITOR.PROCESSMONITOR.GBL?FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS.PT_PROCESS_SCHEDULER.PT_PROCESSMONITOR_GBL&IsFolder=false&IgnoreParamTempl=FolderPath%2cIsFolder&cmd=login&errorCode=105&languageCd=ENG
+2025-11-03 16:53:56,154 - collectors.peoplesoft_collector - WARNING - ✓ page_source salvo em storage\logs\page_structure.html
+2025-11-03 16:53:56,155 - collectors.peoplesoft_collector - INFO - ↻ Tentando relogin automático e nova navegação...
+2025-11-03 16:53:56,155 - collectors.peoplesoft_collector - INFO - 🔐 Fazendo login em PeopleSoft...
+2025-11-03 16:54:14,155 - collectors.peoplesoft_collector - INFO - ✓ Login OK! 0 cookies salvos
+2025-11-03 16:54:17,318 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:54:17] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:54:17,665 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:54:17] "GET /storage/screenshots/peoplesoft/screenshot_20251103_163514.png?t=1762199657326 HTTP/1.1" 200 -
+2025-11-03 16:54:19,327 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:54:19] "GET / HTTP/1.1" 200 -
+2025-11-03 16:54:19,650 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:54:19] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:54:19,656 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:54:19] "GET /storage/screenshots/peoplesoft/screenshot_20251103_163514.png?t=1762199659652 HTTP/1.1" 200 -
+2025-11-03 16:54:23,689 - collectors.peoplesoft_collector - INFO - ✓ WebDriver inicializado
+2025-11-03 16:54:35,519 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:54:35] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:54:35,674 - collectors.peoplesoft_collector - INFO - ✓ Cookies carregados
+2025-11-03 16:54:35,675 - collectors.peoplesoft_collector - INFO - ✓ Cookies recarregados após relogin, tentando navegar novamente
+2025-11-03 16:54:35,806 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:54:35] "GET /storage/screenshots/peoplesoft/screenshot_20251103_163514.png?t=1762199675529 HTTP/1.1" 200 -
+2025-11-03 16:54:42,990 - collectors.peoplesoft_collector - INFO - URL atual após retry: http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/c/PROCESSMONITOR.PROCESSMONITOR.GBL?FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS.PT_PROCESS_SCHEDULER.PT_PROCESSMONITOR_GBL&IsFolder=false&IgnoreParamTempl=FolderPath%2cIsFolder&cmd=login&errorCode=105&languageCd=ENG
+2025-11-03 16:54:43,032 - collectors.peoplesoft_collector - INFO - Frames encontrados: []
+2025-11-03 16:54:48,125 - collectors.peoplesoft_collector - WARNING - ⚠ Não foi possível trocar para iframe ptifrmtgtframe: TimeoutException
+2025-11-03 16:54:48,126 - collectors.peoplesoft_collector - INFO - Continuando no contexto atual (pode estar correto)
+2025-11-03 16:54:48,126 - collectors.peoplesoft_collector - INFO - 🧹 Limpando filtros e atualizando grid...
+2025-11-03 16:54:50,407 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:54:50] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:54:50,669 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:54:50] "GET /storage/screenshots/peoplesoft/screenshot_20251103_163514.png?t=1762199690409 HTTP/1.1" 200 -
+2025-11-03 16:54:56,393 - collectors.peoplesoft_collector - WARNING - ⚠ Botão refresh não encontrado: TimeoutException
+2025-11-03 16:55:02,503 - collectors.peoplesoft_collector - INFO - Tabela ainda não encontrada, verificando contexto de frame...
+2025-11-03 16:55:04,575 - collectors.peoplesoft_collector - WARNING - ⚠ Tabela de processos não encontrada — page_source salvo em storage\logs\page_structure.html
+2025-11-03 16:55:04,583 - collectors.peoplesoft_collector - WARNING - URL atual: http://pswebt1.ajover.com:83/psp/pa91test/EMPLOYEE/EMPL/h/?cmd=login&languageCd=ENG
+2025-11-03 16:55:04,664 - collectors.peoplesoft_collector - INFO - ✓ Screenshot salvo: storage/screenshots/peoplesoft/screenshot_20251103_165504.png
+2025-11-03 16:55:04,697 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:55:04] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:55:04,962 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:55:04] "GET /storage/screenshots/peoplesoft/screenshot_20251103_165504.png?t=1762199704702 HTTP/1.1" 200 -
+2025-11-03 16:55:11,181 - processors.data_processors - INFO - ✓ Dados de peoplesoft processados
+2025-11-03 16:55:11,190 - backend.websocket_handlers - INFO - 📡 Broadcasting update: peoplesoft
+2025-11-03 16:55:11,190 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: peoplesoft
+2025-11-03 16:55:11,190 - apscheduler.executors.default - INFO - Job "Coleta peoplesoft (trigger: interval[0:05:00], next run at: 2025-11-03 16:58:33 -03)" executed successfully
+2025-11-03 16:55:20,398 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:55:20] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:55:20,658 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:55:20] "GET /storage/screenshots/peoplesoft/screenshot_20251103_165504.png?t=1762199720400 HTTP/1.1" 200 -
+2025-11-03 16:55:35,400 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:55:35] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:55:35,667 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:55:35] "GET /storage/screenshots/peoplesoft/screenshot_20251103_165504.png?t=1762199735403 HTTP/1.1" 200 -
+2025-11-03 16:55:50,396 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:55:50] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:55:50,660 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:55:50] "GET /storage/screenshots/peoplesoft/screenshot_20251103_165504.png?t=1762199750406 HTTP/1.1" 200 -
+2025-11-03 16:56:05,398 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:56:05] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:56:05,657 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:56:05] "GET /storage/screenshots/peoplesoft/screenshot_20251103_165504.png?t=1762199765400 HTTP/1.1" 200 -
+2025-11-03 16:56:19,685 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:56:19] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:56:19,948 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:56:19] "GET /storage/screenshots/peoplesoft/screenshot_20251103_165504.png?t=1762199779687 HTTP/1.1" 200 -
+2025-11-03 16:56:34,686 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:56:34] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-03 16:56:34,953 - werkzeug - INFO - 127.0.0.1 - - [03/Nov/2025 16:56:34] "GET /storage/screenshots/peoplesoft/screenshot_20251103_165504.png?t=1762199794688 HTTP/1.1" 200 -
+2025-11-03 16:56:38,553 - __main__ - INFO - 
+
+🛑 Recebido sinal de interrupção...
+2025-11-03 16:56:38,553 - orchestrator.orchestrator - INFO - 🛑 Parando orquestrador...
+2025-11-03 16:56:38,554 - apscheduler.scheduler - INFO - Scheduler has been shut down
+2025-11-03 16:56:38,554 - orchestrator.orchestrator - INFO - ✓ Orquestrador parado
+2025-11-03 16:56:38,555 - __main__ - INFO - 👋 Encerrando aplicação...
