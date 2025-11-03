@@ -1,0 +1,151 @@
+<html dir="ltr" lang="en"><!-- Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved. --><!--
+* ***************************************************************
+*  This software and related documentation are provided under a
+*  license agreement containing restrictions on use and
+*  disclosure and are protected by intellectual property
+*  laws. Except as expressly permitted in your license agreement
+*  or allowed by law, you may not use, copy, reproduce,
+*  translate, broadcast, modify, license, transmit, distribute,
+*  exhibit, perform, publish or display any part, in any form or
+*  by any means. Reverse engineering, disassembly, or
+*  decompilation of this software, unless required by law for
+*  interoperability, is prohibited.
+*  The information contained herein is subject to change without
+*  notice and is not warranted to be error-free. If you find any
+*  errors, please report them to us in writing.
+*
+*  Copyright (C) 1988, 2018, Oracle and/or its affiliates.
+*  All Rights Reserved.
+* ***************************************************************
+--><head>
+<title>Oracle PeopleSoft Sign-in</title>
+<!-- Ajover Customization-->
+<meta http-equiv="refresh" content="5; url=http://pswebt1.ajover.com:83/psp/pa91test/EMPLOYEE/EMPL/h/?cmd=login&amp;languageCd=ENG">
+<!-- Ajover Customization-->
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">    
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=yes">  
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<script language="JavaScript">
+    var sDomain = ".ajover.com";
+    try {
+        document.domain = ".ajover.com";
+    }
+    catch (err) {; }
+</script>
+
+<script type="text/javascript">
+if (self === top) {
+    var fb = document.getElementById("ptfb");
+    fb.parentNode.removeChild(fb);
+} else {
+    try { 
+        top.location = self.location;
+    } catch(ex) {}
+}
+</script>
+<link type="text/css" href="/erptest/signin.css" rel="stylesheet">
+<script type="text/javascript" src="/erptest/signin.js"></script>
+
+</head>
+<body onload="ptSignon().login();">
+<div id="pswrapper">
+  <form id="login" name="login" method="post" action="?FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS.PT_PROCESS_SCHEDULER.PT_PROCESSMONITOR_GBL&amp;IsFolder=false&amp;IgnoreParamTempl=FolderPath%2cIsFolder&amp;cmd=login&amp;languageCd=ENG" autocomplete="off">
+      <input type="hidden" id="lcsrf_token" name="lcsrf_token" value="L5Ar4645rIzukKLc2Y7KUVCb0g6JFaViY4Dv//toByM=">
+      <input type="hidden" id="timezoneOffset" name="timezoneOffset" value="0">
+      <input type="hidden" id="ptmode" name="ptmode" value="f">
+      <input type="hidden" id="ptlangcd" name="ptlangcd" value="ENG">
+      <input type="hidden" id="ptinstalledlang" name="ptinstalledlang" value="ENG,ESP">
+      <div class="signonMain">
+          <h1><img src="/erptest/images/Header.png" class="ps-staticimg" alt="Oracle PeopleSoft Sign-in" title="Oracle PeopleSoft Sign-in"></h1>
+          <div class="ps_signinentry">            
+            <div id="ptloginerrorcont" class="ps_login_error" style="display: block;">
+              <div class="ps_login_error_inner" id="ps_login_error_inner" tabindex="-1" role="heading" aria-level="2">
+		        <a id="error_link" name="error_link" tabindex="-1"><img src="/erptest/images/PT_LOGIN_ERROR.gif" alt="Error"></a>
+                <div class="psloginerror" id="discovery_error" name="discovery_error"></div>
+                <span class="psloginerror" id="login_error" name="login_error" style="display: block;">Your User ID and/or Password are invalid.</span>                     
+		   </div>
+		   <div class="ps_box-control psloginerror" id="browsercheck_error" name="browsercheck_error" aria-live="assertive" role="alert"></div>
+            </div>
+	       
+           <div> 
+               <span class="ps_label-show" id="ptLabelUserid"><label for="userid">User ID</label></span>
+           </div>
+            <div class="ps_box-control">
+               <input type="text" id="userid" name="userid" value="" title="User ID">
+            </div>
+           <div>
+               <span class="ps_label-show" id="ptLabelPassword"><label for="pwd">Password</label></span>
+           </div>
+            <div class="ps_box-control">
+               <input type="password" id="pwd" name="pwd" title="Password">
+            </div>
+	    <div>
+               <span class="ps_label-show" id="ptLabelSelect"><label for="ptlangsel">Select a Language</label></span>
+           </div>
+            <div id="ps_select_parent">
+              <div id="ps_select_box" class="ps_box-control">            
+                <select id="ptlangsel" name="ptlangsel" title="Select a Language" class="ps_select" onchange="ptSignon().changeLangFunc(this, event)">
+                  <option value="ENG" title="English">English</option>
+                  
+                  <option value="ESP" title="Spanish">Español</option>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                </select>
+              </div>     
+            </div>
+            <div class="ps_box-button">
+                <input name="Submit" type="submit" class="ps-button" value="Sign In" aria-label="To enable screen reader mode, please check the checkbox &quot;Enable Screen Reader Mode&quot; before you sign in. Sign In">
+            </div>
+            <div class="ps_box-button">
+                <input type="checkbox" name="accessible" id="accessible">
+               	<label for="accessible">Enable Screen Reader Mode</label>
+           	</div>          
+          </div>
+          <div class="ps_box-link">
+              <span class="ps-link"><a href="/psp/erptest/EMPLOYEE%2fERP%2fc%2fPROCESSMONITOR.PROCESSMONITOR.GBL?cmd=login&amp;trace=y&amp;languageCd=ENG">Set Trace Flags</a></span>
+          </div>
+	      <img src="/erptest/images/Footer.png" width="100%" alt="">
+      	  <footer id="ptfooter" class="ps_footer_text ">Copyright © 2000, 2018, Oracle and/or its affiliates. All rights reserved. </footer>
+      </div>  
+  </form>
+<!-- Ajover Customization-->
+<img src="http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/?cmd=logout" style="display: none;">
+<img src="http://pswebt1.ajover.com:81/psp/crmtest/EMPLOYEE/CRM/?cmd=logout" style="display: none;">
+<img src="http://pswebt1.ajover.com:8081/psp/hr92sys/EMPLOYEE/HRMS/?cmd=logout" style="display: none;">
+<img src="http://pswebt1.darnelgroup.com:85/psp/e91brt2/EMPLOYEE/ERPBR/?cmd=logout" style="display: none;">
+<!-- Ajover Customization--> 
+</div>
+
+
+</body></html>

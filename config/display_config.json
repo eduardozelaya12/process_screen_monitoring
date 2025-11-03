@@ -1,0 +1,36 @@
+{
+  "carousel": {
+    "enabled": true,
+    "auto_rotate": true,
+    "rotation_interval": 15,
+    "transition_effect": "fade",
+    "transition_duration": 1,
+    "display_order": [
+      {"system": "peoplesoft", "duration": 15},
+      {"system": "oracle_fusion", "duration": 15},
+      {"system": "bonita", "duration": 10},
+      {"system": "n8n", "duration": 10}
+    ]
+  },
+  "dashboard": {
+    "title": "Monitor de Processos",
+    "theme": "dark",
+    "show_timestamp": true,
+    "show_connection_status": true,
+    "refresh_rate": 5,
+    "fullscreen": true
+  },
+  "metrics_display": {
+    "show_total_processes": true,
+    "show_running": true,
+    "show_failed": true,
+    "show_success_rate": true,
+    "show_error_list": true,
+    "max_errors_displayed": 10
+  },
+  "alerts": {
+    "enabled": true,
+    "sound_on_error": false,
+    "highlight_critical": true
+  }
+}
