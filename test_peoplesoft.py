@@ -131,80 +131,298 @@ def test_navegacao_monitor():
         time.sleep(4)
 
         # Tentar entrar no iframe do conteúdo principal
+        iframe_switched = False
         try:
             driver.switch_to.default_content()
-            WebDriverWait(driver, 5).until(
-                EC.frame_to_be_available_and_switch_to_it((By.NAME, "ptifrmtgtframe"))
-            )
-            print(">> Switch para iframe ptifrmtgtframe OK")
-        except Exception:
-            print(">> Não foi possível trocar para iframe; tentando no contexto atual…")
+            
+            # Listar todos os iframes disponíveis para debug
+            iframes = driver.find_elements(By.TAG_NAME, "iframe") + driver.find_elements(By.TAG_NAME, "frame")
+            print(f">> {len(iframes)} frames encontrados na página")
+            for idx, frame in enumerate(iframes):
+                frame_id = frame.get_attribute('id') or '(sem id)'
+                frame_name = frame.get_attribute('name') or '(sem name)'
+                print(f"   Frame {idx}: id='{frame_id}', name='{frame_name}'")
+            
+            # Tentar múltiplas formas de acessar o iframe
+            try:
+                # Tentativa 1: Por NAME
+                WebDriverWait(driver, 5).until(
+                    EC.frame_to_be_available_and_switch_to_it((By.NAME, "ptifrmtgtframe"))
+                )
+                print(">> ✓ Switch para iframe ptifrmtgtframe OK (por NAME)")
+                iframe_switched = True
+            except Exception as e1:
+                print(f">> Tentativa por NAME falhou: {type(e1).__name__}")
+                try:
+                    # Tentativa 2: Por ID
+                    driver.switch_to.default_content()
+                    WebDriverWait(driver, 5).until(
+                        EC.frame_to_be_available_and_switch_to_it((By.ID, "ptifrmtgtframe"))
+                    )
+                    print(">> ✓ Switch para iframe ptifrmtgtframe OK (por ID)")
+                    iframe_switched = True
+                except Exception as e2:
+                    print(f">> Tentativa por ID falhou: {type(e2).__name__}")
+                    try:
+                        # Tentativa 3: Por índice (geralmente é o primeiro ou único)
+                        driver.switch_to.default_content()
+                        if iframes:
+                            driver.switch_to.frame(iframes[0])
+                            print(">> ✓ Switch para primeiro iframe OK (por índice)")
+                            iframe_switched = True
+                        else:
+                            print(">> Nenhum iframe encontrado")
+                    except Exception as e3:
+                        print(f">> Tentativa por índice falhou: {type(e3).__name__}")
+        
+        except Exception as e:
+            print(f">> Erro ao processar iframes: {e}")
+        
+        if not iframe_switched:
+            print(">> ⚠️ AVISO: Não foi possível trocar para iframe! Elementos podem não ser encontrados.")
+        
+        # Aguardar um pouco mais após switch
+        time.sleep(2)
 
         # Perguntar filtros ao usuário
-        print("\n=== Filtros opcionais (pressione Enter para pular) ===")
-        server_val = input("Server (ex.: PSUNX, AJNODE4B…): ").strip()
-        run_status_val = input(
-            "Run Status (vazio/1 Cancel, 3 Error, 9 Success, 10 No Success, 7 Processing, 17 Warning… informe o valor numérico): "
-        ).strip()
-        type_val = input("Type (ex.: Application Engine, PSJob, SQR Report…): ").strip()
-        dist_status_val = input(
-            "Distribution Status (vazio/5 Posted/3 Generated/4 Not Posted/2 Processing… informe o valor numérico): "
-        ).strip()
-        time_value = input("Time Filter valor (número, ex.: 1): ").strip()
-        time_unit = input("Time Filter unidade (0 All / 1 Days / 2 Hours / 3 Minutes / 4 Years): ").strip()
+        print("\n" + "="*60)
+        print("FILTROS DISPONÍVEIS (pressione Enter para pular)")
+        print("="*60)
+        
+        # User ID (com busca em modal)
+        user_id_val = input("\n1. User ID (ex.: MBENITEZ, AJPEOPLE...): ").strip()
+        
+        # Server
+        server_val = input("\n2. Server (ex.: PSUNX, AJNODE4B, AJNODE4C...): ").strip()
+        
+        # Run Status
+        print("\n3. Run Status:")
+        print("   1=Cancel, 3=Error, 7=Processing, 8=Cancelled")
+        print("   9=Success, 10=No Success, 17=Warning, 18=Blocked")
+        run_status_val = input("   Valor: ").strip()
+        
+        # Type
+        print("\n4. Type:")
+        print("   Application Engine, PSJob, SQR Report, Crystal...")
+        type_val = input("   Valor: ").strip()
+        
+        # Distribution Status
+        print("\n5. Distribution Status:")
+        print("   2=Processing, 3=Generated, 4=Not Posted, 5=Posted, 9=Pending")
+        dist_status_val = input("   Valor: ").strip()
+        
+        # Instance Range
+        instance_from = input("\n6. Instance From (número, ex.: 7997100): ").strip()
+        instance_to = input("   Instance To (número, ex.: 7997200): ").strip()
+        
+        # Time Filter
+        print("\n7. Time Filter:")
+        print("   Type: 0=Last (padrão), 1=Date Range")
+        time_filter_type = input("   Type: ").strip()
+        time_value = input("   Value (número, ex.: 70): ").strip()
+        print("   Unit: 0=All, 1=Days, 2=Hours, 3=Minutes, 4=Years")
+        time_unit = input("   Unit: ").strip()
+        
+        print("\n" + "="*60)
 
         # Aplicar filtros se fornecidos
         def set_select_by_id(select_id: str, value_or_text: str):
             try:
+                print(f"   Procurando elemento: {select_id}")
                 elem = WebDriverWait(driver, 5).until(
                     EC.presence_of_element_located((By.ID, select_id))
                 )
+                print(f"   ✓ Elemento {select_id} encontrado")
                 sel = Select(elem)
+                
+                # Listar opções disponíveis para debug
+                options = [opt.get_attribute('value') for opt in sel.options]
+                print(f"   Opções disponíveis: {options[:5]}...")  # Mostrar primeiras 5
+                
                 # Primeiro tenta por value; se falhar, tenta por texto visível
                 try:
                     sel.select_by_value(value_or_text)
-                except Exception:
-                    sel.select_by_visible_text(value_or_text)
+                    print(f"   ✓ {select_id} ajustado para '{value_or_text}' (por value)")
+                    return True
+                except Exception as e1:
+                    print(f"   Tentativa por value falhou: {type(e1).__name__}")
+                    try:
+                        sel.select_by_visible_text(value_or_text)
+                        print(f"   ✓ {select_id} ajustado para '{value_or_text}' (por texto)")
+                        return True
+                    except Exception as e2:
+                        print(f"   Tentativa por texto falhou: {type(e2).__name__}")
+                        return False
+            except Exception as e:
+                print(f"   ❌ ERRO ao ajustar {select_id}: {type(e).__name__}")
+                print(f"      Detalhes: {str(e)[:100]}")
+                return False
+        
+        def set_text_field(field_id: str, value: str, field_name: str):
+            """Define valor em campo de texto"""
+            try:
+                print(f"   Procurando campo de texto: {field_id}")
+                field = WebDriverWait(driver, 5).until(
+                    EC.presence_of_element_located((By.ID, field_id))
+                )
+                field.clear()
+                field.send_keys(value)
+                print(f"   ✓ {field_name} ajustado para '{value}'")
                 return True
             except Exception as e:
-                print(f"[Aviso] Não foi possível ajustar {select_id}: {e}")
+                print(f"   ❌ ERRO ao ajustar {field_name}: {type(e).__name__}")
                 return False
-
-        if server_val:
-            set_select_by_id("PMN_FILTER_WRK_SERVERNAME", server_val)
-
-        if run_status_val:
-            set_select_by_id("PMN_FILTER_WRK_RUNSTATUS", run_status_val)
-
-        if type_val:
-            set_select_by_id("PMN_FILTER_WRK_PRCSTYPE", type_val)
-
-        if dist_status_val:
-            set_select_by_id("PMN_FILTER_WRK_DISTSTATUS", dist_status_val)
-
-        if time_value:
+        
+        def search_user_id_modal(user_id: str):
+            """Busca User ID usando o modal de lookup"""
             try:
-                tv = WebDriverWait(driver, 5).until(
-                    EC.presence_of_element_located((By.ID, "PMN_FILTER_WRK_PT_FILTERVALUE"))
+                print(f"\n>> Buscando User ID '{user_id}' via modal...")
+                
+                # 1. Clicar na lupa para abrir modal
+                print("   1. Clicando na lupa de User ID...")
+                lupa = WebDriverWait(driver, 5).until(
+                    EC.element_to_be_clickable((By.ID, "PMN_FILTER_WRK_WS_OPRID$prompt"))
                 )
-                tv.clear()
-                tv.send_keys(time_value)
+                driver.execute_script("arguments[0].click();", lupa)
+                time.sleep(2)
+                
+                # 2. Preencher campo de busca no modal
+                print("   2. Preenchendo campo de busca...")
+                search_field = WebDriverWait(driver, 5).until(
+                    EC.presence_of_element_located((By.ID, "PMN_OPRID_VW_OPRID"))
+                )
+                search_field.clear()
+                search_field.send_keys(user_id)
+                
+                # 3. Clicar no botão Look Up
+                print("   3. Clicando em Look Up...")
+                lookup_btn = WebDriverWait(driver, 5).until(
+                    EC.element_to_be_clickable((By.ID, "#ICSearch"))
+                )
+                driver.execute_script("arguments[0].click();", lookup_btn)
+                time.sleep(2)
+                
+                # 4. Tentar clicar no resultado (se existir)
+                print("   4. Procurando resultado...")
+                try:
+                    # Procurar link com o User ID na tabela de resultados
+                    result_link = WebDriverWait(driver, 5).until(
+                        EC.element_to_be_clickable((By.XPATH, f"//a[contains(@class, 'PSSRCHRESULTS') and contains(text(), '{user_id.upper()}')]"))
+                    )
+                    driver.execute_script("arguments[0].click();", result_link)
+                    print(f"   ✓ User ID '{user_id}' selecionado!")
+                    time.sleep(1)
+                    return True
+                except Exception:
+                    print(f"   ⚠️ User ID '{user_id}' não encontrado nos resultados")
+                    # Tentar fechar modal clicando em Cancel
+                    try:
+                        cancel_btn = driver.find_element(By.XPATH, "//input[@value='Cancel']")
+                        driver.execute_script("arguments[0].click();", cancel_btn)
+                        time.sleep(1)
+                    except:
+                        pass
+                    return False
+                    
             except Exception as e:
-                print(f"[Aviso] Não foi possível ajustar PMN_FILTER_WRK_PT_FILTERVALUE: {e}")
-
+                print(f"   ❌ ERRO ao buscar User ID: {type(e).__name__}")
+                print(f"      Detalhes: {str(e)[:100]}")
+                return False
+        
+        # APLICAR FILTROS
+        print("\n" + "="*60)
+        print("APLICANDO FILTROS...")
+        print("="*60)
+        
+        # 1. User ID (via modal)
+        if user_id_val:
+            search_user_id_modal(user_id_val)
+        
+        # 2. Server
+        if server_val:
+            print("\n>> Aplicando filtro Server...")
+            set_select_by_id("PMN_FILTER_WRK_SERVERNAME", server_val)
+        
+        # 3. Run Status
+        if run_status_val:
+            print("\n>> Aplicando filtro Run Status...")
+            set_select_by_id("PMN_FILTER_WRK_RUNSTATUS", run_status_val)
+        
+        # 4. Type
+        if type_val:
+            print("\n>> Aplicando filtro Type...")
+            set_select_by_id("PMN_FILTER_WRK_PRCSTYPE", type_val)
+        
+        # 5. Distribution Status
+        if dist_status_val:
+            print("\n>> Aplicando filtro Distribution Status...")
+            set_select_by_id("PMN_FILTER_WRK_DISTSTATUS", dist_status_val)
+        
+        # 6. Instance From/To
+        if instance_from:
+            print("\n>> Aplicando filtro Instance From...")
+            set_text_field("PMN_DERIVED_PRCSINSTANCE", instance_from, "Instance From")
+        
+        if instance_to:
+            print("\n>> Aplicando filtro Instance To...")
+            set_text_field("PMN_DERIVED_TO_PRCSINSTANCE", instance_to, "Instance To")
+        
+        # 7. Time Filter Type
+        if time_filter_type:
+            print("\n>> Aplicando Time Filter Type...")
+            set_select_by_id("PMN_FILTER_WRK_PT_FILTERTYPE", time_filter_type)
+        
+        # 8. Time Filter Value
+        if time_value:
+            print("\n>> Aplicando Time Filter Value...")
+            set_text_field("PMN_FILTER_WRK_PT_FILTERVALUE", time_value, "Time Filter Value")
+        
+        # 9. Time Filter Unit
         if time_unit:
+            print("\n>> Aplicando Time Filter Unit...")
             set_select_by_id("PMN_FILTER_WRK_PT_FILTERUNIT", time_unit)
 
         # Clicar Refresh
+        print("\n>> Tentando clicar no botão Refresh...")
+        refresh_clicked = False
         try:
-            refresh_btn = WebDriverWait(driver, 5).until(
-                EC.element_to_be_clickable((By.ID, "REFRESH_BTN"))
-            )
-            driver.execute_script("arguments[0].click();", refresh_btn)
-            print(">> Filtros aplicados; clicado Refresh")
-            time.sleep(4)
+            # Tentativa 1: Por ID
+            try:
+                refresh_btn = WebDriverWait(driver, 5).until(
+                    EC.element_to_be_clickable((By.ID, "REFRESH_BTN"))
+                )
+                driver.execute_script("arguments[0].click();", refresh_btn)
+                print("   ✓ Refresh clicado (por ID)")
+                refresh_clicked = True
+            except Exception as e1:
+                print(f"   Tentativa por ID falhou: {type(e1).__name__}")
+                
+                # Tentativa 2: Por texto do botão
+                try:
+                    refresh_btn = driver.find_element(By.XPATH, "//input[@value='Refresh' or @value='Atualizar']")
+                    driver.execute_script("arguments[0].click();", refresh_btn)
+                    print("   ✓ Refresh clicado (por XPath texto)")
+                    refresh_clicked = True
+                except Exception as e2:
+                    print(f"   Tentativa por XPath falhou: {type(e2).__name__}")
+                    
+                    # Tentativa 3: Procurar qualquer botão com "refresh" no ID
+                    try:
+                        refresh_btn = driver.find_element(By.XPATH, "//*[contains(@id, 'REFRESH') or contains(@id, 'refresh')]")
+                        driver.execute_script("arguments[0].click();", refresh_btn)
+                        print("   ✓ Refresh clicado (por contains)")
+                        refresh_clicked = True
+                    except Exception as e3:
+                        print(f"   Tentativa por contains falhou: {type(e3).__name__}")
+            
+            if refresh_clicked:
+                print(">> Aguardando atualização da grid...")
+                time.sleep(4)
+            else:
+                print(">> ⚠️ Não foi possível clicar em Refresh - continuando mesmo assim")
+                
         except Exception as e:
-            print(f"[Aviso] Não foi possível clicar em Refresh: {e}")
+            print(f">> Erro ao processar botão Refresh: {e}")
 
         print(">> Título após navegação:", driver.title)
         print(">> URL após navegação:", driver.current_url)
