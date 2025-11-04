@@ -31,29 +31,25 @@ class PeopleSoftCollector(BaseCollector):
         self.credentials = config.get('credentials', {})
         self.driver = None
         self.timeout = config.get('timeout', 30)
+        
+        # ✅ NOVO: Carregar filtros do config
+        self.filters = config.get('filters', {})
+        
+        # DEBUG: Logar filtros carregados
+        logger.info(f"🔍 DEBUG __init__: Filtros carregados do config:")
+        logger.info(f"   - Total de chaves: {len(self.filters)}")
+        logger.info(f"   - Conteúdo: {self.filters}")
     
     def collect(self) -> Dict:
-        """Coleta dados do PeopleSoft"""
+        """Coleta dados do PeopleSoft - Login direto toda vez"""
         try:
             logger.info(f"📸 Coletando dados: {self.system_name}")
             
-            # Verificar se cookies existem
-            if not os.path.exists(self.cookies_file):
-                logger.warning("⚠ Cookies não encontrados. Tentando fazer login...")
-                if not self.login_and_save_cookies():
-                    return self._mark_error("Falha no login inicial")
-            
-            # Capturar screenshot e extrair dados
+            # Capturar screenshot e extrair dados (faz login internamente)
             screenshot_path, metrics = self._capture_and_extract()
             
             if not screenshot_path:
-                # Tentar relogin se falhou
-                logger.warning("⚠ Falha na captura. Tentando relogin...")
-                if self.login_and_save_cookies():
-                    screenshot_path, metrics = self._capture_and_extract()
-                
-                if not screenshot_path:
-                    return self._mark_error("Falha ao capturar screenshot após relogin")
+                return self._mark_error("Falha ao capturar dados")
             
             data = {
                 'screenshot_path': screenshot_path,
@@ -135,164 +131,112 @@ class PeopleSoftCollector(BaseCollector):
             return False
     
     def _capture_and_extract(self) -> tuple[Optional[str], Dict]:
-        """Captura screenshot e extrai métricas"""
+        """Captura screenshot e extrai métricas - Faz login direto toda vez"""
         try:
             self._init_driver()
             
-            # Carregar cookies
-            if not self._load_cookies():
+            # Fazer login direto (sem cookies)
+            logger.info("🔐 Fazendo login...")
+            self.driver.get(self.base_url)
+            time.sleep(3)
+            
+            # Preencher credenciais
+            try:
+                username = self.credentials.get('username')
+                password = self.credentials.get('password')
+                
+                if not username or not password:
+                    logger.error("❌ Credenciais não configuradas")
+                    return None, {}
+                
+                user_field = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.ID, "userid"))
+                )
+                user_field.clear()
+                user_field.send_keys(username)
+                
+                pwd_field = self.driver.find_element(By.ID, "pwd")
+                pwd_field.clear()
+                pwd_field.send_keys(password)
+                
+                # Selecionar idioma (opcional)
+                try:
+                    select = Select(self.driver.find_element(By.ID, "ptlangsel"))
+                    select.select_by_value("POR")
+                except:
+                    pass
+                
+                # Submeter login
+                submit_btn = self.driver.find_element(By.CSS_SELECTOR, "input[type='submit']")
+                submit_btn.click()
+                time.sleep(5)
+                
+                # Verificar se login funcionou
+                if "signon" in self.driver.current_url.lower():
+                    logger.error("❌ Falha no login - ainda na página de login")
+                    self.driver.save_screenshot("storage/logs/login_error.png")
+                    return None, {}
+                
+                logger.info("✓ Login bem-sucedido")
+                
+            except Exception as e:
+                logger.error(f"❌ Erro no login: {e}")
                 return None, {}
             
             # Navegar para página de processos
             logger.info(f"Navegando para: {self.process_url}")
             self.driver.get(self.process_url)
-            time.sleep(3)
+            time.sleep(4)
             
-            # Log útil para debugging
+            # Switch para iframe principal (seguindo padrão do teste)
+            iframe_switched = False
             try:
-                current_url = self.driver.current_url
-                logger.info(f"URL atual após navegação: {current_url}")
-                # ... código anterior ...
-
-                logger.info(f"🛠 Após tentativa de navegação, URL atual: {self.driver.current_url}")
-
-                # Sanity check: Verificar se está no host esperado e no path do Monitor
-                url_ok = True
-                expected_host = urllib.parse.urlparse(self.process_url).hostname
-                current_host = urllib.parse.urlparse(self.driver.current_url).hostname
-                expected_path = urllib.parse.urlparse(self.process_url).path
-                current_path = urllib.parse.urlparse(self.driver.current_url).path
-
-                if current_host != expected_host:
-                    logger.error(f"❌ HOST INCORRETO: esperado={expected_host} obtido={current_host} | Abandonando coleta!")
-                    url_ok = False
-
-                # PeopleSoft pode redirecionar para login em caminho totalmente diferente (ex. "/psp/pa91test/EMPLOYEE/EMPL/h/")
-                if not current_path.lower().endswith(expected_path.lower()):
-                    logger.error(f"❌ PATH inesperado: esperado termina com={expected_path} obtido={current_path}")
-                    url_ok = False
-
-                # Opcional: Verifica se está na tela de login usando trechos típicos do title ou da página
-                page_title = self.driver.title.lower()
-                if any(sub in page_title for sub in ["login", "sign on", "autenticação"]):
-                    logger.error("❌ Navegação levou para tela de login! O cookie ou sessão foi perdida!")
-                    url_ok = False
-
-                if not url_ok:
-                    logger.error(f"""
-                    [SANITY CHECK FALHOU]
-                    - Esperado: {self.process_url}
-                    - Obtido  : {self.driver.current_url}
-                    - Host ok?: {current_host == expected_host}
-                    - Path ok?: {current_path.lower().endswith(expected_path.lower())}
-                    - Título  : {page_title}
-                    - Abandonando extração e salvando screenshot/html para debug.
-                    """)
-                    # Printar o HTML inteiro para depuração futura
-                    html_path = os.path.join("storage", "logs", "page_structure_wrong_url.html")
-                    with open(html_path, "w", encoding="utf-8") as f:
-                        f.write(self.driver.page_source)
-                    self.driver.save_screenshot("storage/logs/screenshot_wrong_url.png")
-                    return None, {}
-
-                logger.info("✓ URL ok - prosseguindo para extrair métricas!")
-
-            except Exception:
-                logger.debug("Não foi possível ler current_url")
-
-            # Detectar redirecionamento para login/host diferente e tentar relogin+retry
-            def _is_login_like(url: str) -> bool:
-                if not url:
-                    return False
-                lu = url.lower()
-                login_indicators = ('cmd=login', '/h/?cmd=login', 'signon', 'errorcode=', '/psp/pa')
-                if any(tok in lu for tok in login_indicators):
-                    return True
-                try:
-                    base_host = urllib.parse.urlparse(self.base_url).hostname or ''
-                    cur_host = urllib.parse.urlparse(lu).hostname or ''
-                    if base_host and cur_host and base_host != cur_host:
-                        return True
-                except Exception:
-                    pass
-                return False
-
-            try:
-                if _is_login_like(self.driver.current_url):
-                    logger.warning("⚠ Detectado redirecionamento para login/host diferente: %s", self.driver.current_url)
-                    try:
-                        os.makedirs("storage/logs", exist_ok=True)
-                        html_path = os.path.join("storage", "logs", "page_structure.html")
-                        with open(html_path, "w", encoding="utf-8") as f:
-                            f.write(self.driver.page_source)
-                        logger.warning("✓ page_source salvo em %s", html_path)
-                    except Exception as e:
-                        logger.debug("Falha salvando page_source: %s", e)
-
-                    logger.info("↻ Tentando relogin automático e nova navegação...")
-                    if self.login_and_save_cookies():
-                        # login_and_save_cookies finaliza o driver atual; reinicia e carrega cookies
-                        if self.driver:
-                            try:
-                                self.driver.quit()
-                            except Exception:
-                                pass
-                            self.driver = None
-                        self._init_driver()
-                        if self._load_cookies():
-                            logger.info("✓ Cookies recarregados após relogin, tentando navegar novamente")
-                            self.driver.get(self.process_url)
-                            time.sleep(4)
-                            try:
-                                logger.info("URL atual após retry: %s", self.driver.current_url)
-                            except Exception:
-                                pass
-                        else:
-                            logger.error("❌ Falha ao recarregar cookies após relogin")
-                            return None, {}
-                    else:
-                        logger.error("❌ Relogin automático falhou; abortando extração")
-                        return None, {}
-            except Exception:
-                logger.exception("Erro durante verificação de redirecionamento/login")
-            
-            # Tentar switch para iframe principal do PeopleSoft
-            try:
-                # Primeiro volta para contexto padrão
                 self.driver.switch_to.default_content()
                 
-                # Lista frames disponíveis para debug
+                # Listar frames para debug
                 frames = self.driver.find_elements(By.TAG_NAME, "iframe") + self.driver.find_elements(By.TAG_NAME, "frame")
-                frame_info = []
-                for f in frames:
-                    try:
-                        frame_info.append({
-                            'id': f.get_attribute('id'),
-                            'name': f.get_attribute('name'),
-                            'src': f.get_attribute('src')
-                        })
-                    except Exception:
-                        continue
-                logger.info(f"Frames encontrados: {frame_info}")
+                logger.debug(f"{len(frames)} frames encontrados")
                 
-                # Tenta fazer switch para o iframe principal (ptifrmtgtframe)
+                # Tentativa 1: Por NAME
                 try:
                     WebDriverWait(self.driver, 5).until(
-                        EC.frame_to_be_available_and_switch_to_it((By.NAME, 'ptifrmtgtframe'))
+                        EC.frame_to_be_available_and_switch_to_it((By.NAME, "ptifrmtgtframe"))
                     )
-                    logger.info("✓ Switch para iframe 'ptifrmtgtframe' realizado com sucesso")
-                except Exception as e:
-                    logger.warning(f"⚠ Não foi possível trocar para iframe ptifrmtgtframe: {type(e).__name__}")
-                    logger.info("Continuando no contexto atual (pode estar correto)")
+                    logger.info("✓ Switch para iframe ptifrmtgtframe (por NAME)")
+                    iframe_switched = True
+                except Exception:
+                    # Tentativa 2: Por ID
+                    try:
+                        self.driver.switch_to.default_content()
+                        WebDriverWait(self.driver, 5).until(
+                            EC.frame_to_be_available_and_switch_to_it((By.ID, "ptifrmtgtframe"))
+                        )
+                        logger.info("✓ Switch para iframe ptifrmtgtframe (por ID)")
+                        iframe_switched = True
+                    except Exception:
+                        # Tentativa 3: Primeiro frame disponível
+                        try:
+                            self.driver.switch_to.default_content()
+                            if frames:
+                                self.driver.switch_to.frame(frames[0])
+                                logger.info("✓ Switch para primeiro frame (por índice)")
+                                iframe_switched = True
+                        except Exception:
+                            pass
+                
+                if not iframe_switched:
+                    logger.warning("⚠ Não foi possível trocar para iframe, continuando sem switch")
                     
             except Exception as e:
                 logger.debug(f"Erro ao processar frames: {e}")
+            
+            time.sleep(2)
 
-            # --- ADICIONADO: continuar fluxo de extração (limpar filtros, extrair métricas e salvar screenshot)
+            # --- ADICIONADO: continuar fluxo de extração (aplicar filtros, extrair métricas e salvar screenshot)
             try:
-                # Limpar possíveis filtros e forçar refresh da grid
-                self._clear_name_filter()
-                time.sleep(4)
+                # Aplicar filtros configurados (ou nenhum se não tiver)
+                self._apply_filters()
+                time.sleep(2)
 
                 # Extrair métricas da página (irá salvar page_source se a tabela não for encontrada)
                 metrics = self._extract_metrics_from_page()
@@ -323,44 +267,337 @@ class PeopleSoftCollector(BaseCollector):
                 self.driver.quit()
                 self.driver = None
 
-    def _clear_name_filter(self):
-        """Limpa filtro de nome e clica refresh"""
+    def _apply_filters(self):
+        """Aplica filtros configurados antes de extrair métricas"""
         try:
-            logger.info("🧹 Limpando filtros e atualizando grid...")
+            if not self.filters:
+                logger.info("📋 Nenhum filtro configurado - processando todos os dados")
+                return
             
-            # Lista de campos de filtro para limpar
-            filter_fields = [
-                "PMN_FILTER_WRK_PRCSNAME",  # Nome do processo
-                # Adicione outros campos se necessário
-            ]
+            # Log detalhado dos filtros configurados
+            logger.info("=" * 60)
+            logger.info("📋 FILTROS CONFIGURADOS:")
+            logger.info("=" * 60)
             
-            # Tentar limpar campos de filtro
-            for field_id in filter_fields:
-                try:
-                    campo = WebDriverWait(self.driver, 3).until(
-                        EC.presence_of_element_located((By.ID, field_id))
-                    )
-                    campo.clear()
-                    campo.send_keys(Keys.CONTROL, "a")
-                    campo.send_keys(Keys.BACKSPACE)
-                    logger.debug(f"✓ Campo {field_id} limpo")
-                except Exception as e:
-                    logger.debug(f"Campo {field_id} não encontrado: {type(e).__name__}")
+            if self.filters.get('user_id'):
+                logger.info(f"  • User ID: {self.filters['user_id']}")
+            if self.filters.get('process_name'):
+                logger.info(f"  • Process Name: {self.filters['process_name']}")
+            if self.filters.get('server'):
+                logger.info(f"  • Server: {self.filters['server']}")
+            if self.filters.get('run_status'):
+                logger.info(f"  • Run Status: {self.filters['run_status']}")
+            if self.filters.get('type'):
+                logger.info(f"  • Type: {self.filters['type']}")
+            if self.filters.get('dist_status'):
+                logger.info(f"  • Distribution Status: {self.filters['dist_status']}")
+            if self.filters.get('instance_from'):
+                logger.info(f"  • Instance From: {self.filters['instance_from']}")
+            if self.filters.get('instance_to'):
+                logger.info(f"  • Instance To: {self.filters['instance_to']}")
             
-            # Clicar refresh
-            try:
-                botao_refresh = WebDriverWait(self.driver, 5).until(
-                    EC.element_to_be_clickable((By.ID, "REFRESH_BTN"))
+            time_filter = self.filters.get('time_filter', {})
+            if time_filter:
+                logger.info(f"  • Time Filter:")
+                if time_filter.get('type'):
+                    type_name = "Last" if time_filter['type'] == "0" else "Date Range"
+                    logger.info(f"    - Type: {type_name}")
+                if time_filter.get('value'):
+                    logger.info(f"    - Value: {time_filter['value']}")
+                if time_filter.get('unit'):
+                    unit_names = {"0": "All", "1": "Days", "2": "Hours", "3": "Minutes", "4": "Years"}
+                    unit_name = unit_names.get(time_filter['unit'], time_filter['unit'])
+                    logger.info(f"    - Unit: {unit_name}")
+            
+            logger.info("=" * 60)
+            logger.info("🔍 Aplicando filtros...")
+            
+            # 1. User ID (via modal)
+            if self.filters.get('user_id'):
+                self._search_in_modal(
+                    search_value=self.filters['user_id'],
+                    modal_type="User ID",
+                    prompt_id="PMN_FILTER_WRK_WS_OPRID$prompt",
+                    search_field_id="PMN_OPRID_VW_OPRID"
                 )
-                # Usar JavaScript click para evitar problemas de sobreposição
-                self.driver.execute_script("arguments[0].click();", botao_refresh)
-                logger.info("✓ Botão Refresh clicado - aguardando atualização...")
-                time.sleep(3)  # Aguardar grid atualizar
-            except Exception as e:
-                logger.warning(f"⚠ Botão refresh não encontrado: {type(e).__name__}")
+            
+            # 2. Process Name (via modal)
+            if self.filters.get('process_name'):
+                self._search_in_modal(
+                    search_value=self.filters['process_name'],
+                    modal_type="Process Name",
+                    prompt_id="PMN_FILTER_WRK_PRCSNAME$prompt",
+                    search_field_id="PMN_PRCSNAME_VW_PRCSNAME"
+                )
+            
+            # 3. Server
+            if 'server' in self.filters:
+                self._set_select_field("PMN_FILTER_WRK_SERVERNAME", self.filters['server'], "Server")
+            
+            # 4. Run Status
+            if 'run_status' in self.filters:
+                self._set_select_field("PMN_FILTER_WRK_RUNSTATUS", self.filters['run_status'], "Run Status")
+            
+            # 5. Type
+            if 'type' in self.filters:
+                self._set_select_field("PMN_FILTER_WRK_PRCSTYPE", self.filters['type'], "Type")
+            
+            # 6. Distribution Status
+            if 'dist_status' in self.filters:
+                self._set_select_field("PMN_FILTER_WRK_DISTSTATUS", self.filters['dist_status'], "Distribution Status")
+            
+            # 7. Instance Range
+            if 'instance_from' in self.filters:
+                self._set_text_field("PMN_DERIVED_PRCSINSTANCE", self.filters['instance_from'], "Instance From")
+            if 'instance_to' in self.filters:
+                self._set_text_field("PMN_DERIVED_TO_PRCSINSTANCE", self.filters['instance_to'], "Instance To")
+            
+            # 8. Time Filter
+            time_filter = self.filters.get('time_filter', {})
+            if time_filter:
+                if 'type' in time_filter:
+                    self._set_select_field("PMN_FILTER_WRK_PT_FILTERTYPE", time_filter['type'], "Time Filter Type")
+                if 'value' in time_filter:
+                    self._set_text_field("PMN_FILTER_WRK_PT_FILTERVALUE", time_filter['value'], "Time Filter Value")
+                if 'unit' in time_filter:
+                    self._set_select_field("PMN_FILTER_WRK_PT_FILTERUNIT", time_filter['unit'], "Time Filter Unit")
+            
+            # Clicar Refresh
+            self._click_refresh()
+            
+            logger.info("✓ Filtros aplicados com sucesso")
             
         except Exception as e:
-            logger.warning(f"⚠ Erro ao limpar filtros: {type(e).__name__} - {e}")
+            logger.warning(f"⚠ Erro ao aplicar filtros: {e}")
+    
+    def _search_in_modal(self, search_value: str, modal_type: str, prompt_id: str, search_field_id: str):
+        """Busca valor usando modal de lookup com detecção automática de iframe"""
+        try:
+            logger.info(f"Buscando {modal_type}: '{search_value}'")
+            
+            # 1. Clicar na lupa
+            lupa = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable((By.ID, prompt_id))
+            )
+            self.driver.execute_script("arguments[0].click();", lupa)
+            time.sleep(4)
+            
+            # 2. Detectar iframe do modal automaticamente
+            self.driver.switch_to.default_content()
+            modal_found = False
+            
+            # Tentar ptModFrame_0 até ptModFrame_9
+            for i in range(10):
+                try:
+                    self.driver.switch_to.default_content()
+                    WebDriverWait(self.driver, 1).until(
+                        EC.frame_to_be_available_and_switch_to_it((By.ID, f"ptModFrame_{i}"))
+                    )
+                    logger.debug(f"Modal encontrado em ptModFrame_{i}")
+                    modal_found = True
+                    break
+                except:
+                    continue
+            
+            if not modal_found:
+                logger.error("Iframe do modal não encontrado")
+                return False
+            
+            time.sleep(1)
+            
+            # 3. Preencher campo de busca
+            search_field = WebDriverWait(self.driver, 5).until(
+                EC.presence_of_element_located((By.ID, search_field_id))
+            )
+            search_field.clear()
+            time.sleep(0.5)
+            search_field.send_keys(search_value)
+            time.sleep(2)
+            
+            # 4. Verificar se resultados apareceram
+            try:
+                self.driver.find_element(By.ID, "PTSRCHRESULTS")
+                logger.debug("Resultados carregados automaticamente")
+            except:
+                # Tentar clicar Look Up
+                try:
+                    lookup_btn = WebDriverWait(self.driver, 3).until(
+                        EC.element_to_be_clickable((By.NAME, "#ICSearch"))
+                    )
+                    self.driver.execute_script("arguments[0].click();", lookup_btn)
+                    time.sleep(3)
+                except:
+                    logger.debug("Botão Look Up não encontrado, continuando...")
+            
+            # 5. Selecionar resultado
+            result_selectors = [
+                (By.XPATH, f"//a[contains(text(), '{search_value.upper()}')]"),
+                (By.LINK_TEXT, search_value.upper()),
+                (By.ID, "SEARCH_RESULT1")
+            ]
+            
+            result_found = False
+            for by, selector in result_selectors:
+                try:
+                    result_link = WebDriverWait(self.driver, 5).until(
+                        EC.element_to_be_clickable((by, selector))
+                    )
+                    self.driver.execute_script("arguments[0].click();", result_link)
+                    logger.info(f"✓ {modal_type} '{search_value}' selecionado")
+                    result_found = True
+                    break
+                except:
+                    continue
+            
+            if not result_found:
+                logger.warning(f"⚠ {modal_type} '{search_value}' não encontrado nos resultados")
+            
+            time.sleep(2)
+            
+            # 6. Voltar ao iframe principal
+            self.driver.switch_to.default_content()
+            WebDriverWait(self.driver, 5).until(
+                EC.frame_to_be_available_and_switch_to_it((By.ID, "ptifrmtgtframe"))
+            )
+            time.sleep(1)
+            
+            return result_found
+            
+        except Exception as e:
+            logger.error(f"Erro ao buscar {modal_type}: {e}")
+            try:
+                self.driver.save_screenshot(f"storage/logs/erro_{modal_type.lower().replace(' ', '_')}_modal.png")
+            except:
+                pass
+            return False
+    
+    def _set_select_field(self, field_id: str, value: Optional[str], field_name: str):
+        """Define valor em dropdown ou limpa se None"""
+        try:
+            elem = WebDriverWait(self.driver, 5).until(
+                EC.presence_of_element_located((By.ID, field_id))
+            )
+            sel = Select(elem)
+            
+            if value is None:
+                # Limpar selecionando primeira opção
+                sel.select_by_index(0)
+                logger.debug(f"{field_name} limpo")
+            else:
+                # Tentar selecionar por value
+                try:
+                    sel.select_by_value(value)
+                    logger.debug(f"{field_name} = '{value}'")
+                except:
+                    # Fallback: tentar por texto visível
+                    sel.select_by_visible_text(value)
+                    logger.debug(f"{field_name} = '{value}' (por texto)")
+            return True
+        except Exception as e:
+            logger.warning(f"Erro ao ajustar {field_name}: {e}")
+            return False
+    
+    def _set_text_field(self, field_id: str, value: Optional[str], field_name: str):
+        """Define valor em campo de texto ou limpa se None"""
+        try:
+            field = WebDriverWait(self.driver, 5).until(
+                EC.presence_of_element_located((By.ID, field_id))
+            )
+            field.clear()
+            
+            if value is not None:
+                field.send_keys(value)
+                logger.debug(f"{field_name} = '{value}'")
+            else:
+                logger.debug(f"{field_name} limpo")
+            return True
+        except Exception as e:
+            logger.warning(f"Erro ao ajustar {field_name}: {e}")
+            return False
+    
+    def _click_refresh(self):
+        """Clica no botão Refresh com highlight visual"""
+        try:
+            logger.info("=" * 60)
+            logger.info("🔄 INICIANDO CLIQUE NO REFRESH...")
+            logger.info("=" * 60)
+            
+            # Screenshot ANTES do clique
+            try:
+                os.makedirs("storage/logs", exist_ok=True)
+                self.driver.save_screenshot("storage/logs/antes_refresh.png")
+                logger.info("📸 Screenshot ANTES do Refresh salvo")
+            except:
+                pass
+            
+            # Tentar múltiplos seletores
+            selectors = [
+                (By.ID, "REFRESH_BTN"),
+                (By.XPATH, "//input[@value='Refresh']"),
+                (By.XPATH, "//input[@type='button' and contains(@value, 'Refresh')]"),
+                (By.XPATH, "//a[contains(@id, 'REFRESH')]"),
+                (By.XPATH, "//button[contains(text(), 'Refresh')]")
+            ]
+            
+            for idx, (by, selector) in enumerate(selectors, 1):
+                try:
+                    logger.info(f"   Tentativa {idx}: {by} = '{selector}'")
+                    btn = WebDriverWait(self.driver, 3).until(
+                        EC.element_to_be_clickable((by, selector))
+                    )
+                    
+                    # HIGHLIGHT VISUAL - Borda vermelha piscante
+                    logger.info("   ✨ Aplicando highlight no botão...")
+                    original_style = btn.get_attribute('style')
+                    self.driver.execute_script(
+                        "arguments[0].setAttribute('style', 'border: 5px solid red; background: yellow;');",
+                        btn
+                    )
+                    time.sleep(1)  # Pausa para ver o highlight
+                    
+                    # Screenshot COM HIGHLIGHT
+                    try:
+                        self.driver.save_screenshot("storage/logs/highlight_refresh.png")
+                        logger.info("   📸 Screenshot COM HIGHLIGHT salvo")
+                    except:
+                        pass
+                    
+                    # Restaurar estilo e clicar
+                    self.driver.execute_script(
+                        f"arguments[0].setAttribute('style', '{original_style}');",
+                        btn
+                    )
+                    
+                    logger.info("   🖱️  CLICANDO no botão...")
+                    self.driver.execute_script("arguments[0].click();", btn)
+                    
+                    logger.info("=" * 60)
+                    logger.info("✅ REFRESH CLICADO COM SUCESSO!")
+                    logger.info("⏳ Aguardando 5 segundos para página atualizar...")
+                    logger.info("=" * 60)
+                    time.sleep(5)
+                    
+                    # Screenshot DEPOIS do clique
+                    try:
+                        self.driver.save_screenshot("storage/logs/depois_refresh.png")
+                        logger.info("📸 Screenshot DEPOIS do Refresh salvo")
+                    except:
+                        pass
+                    
+                    return True
+                    
+                except Exception as e:
+                    logger.debug(f"   ❌ Falhou: {type(e).__name__}")
+                    continue
+            
+            logger.warning("=" * 60)
+            logger.warning("⚠️  BOTÃO REFRESH NÃO ENCONTRADO COM NENHUM SELETOR!")
+            logger.warning("=" * 60)
+            return False
+            
+        except Exception as e:
+            logger.error(f"Erro ao clicar Refresh: {e}")
+            return False
 
     def _extract_metrics_from_page(self) -> Dict:
         """

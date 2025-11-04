@@ -1,0 +1,27 @@
+systems:
+  - name: "PeopleSoft - Production"
+    type: "peoplesoft"
+    base_url: "http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/"
+    process_monitor_url: "http://pswebt1.ajover.com:8080/psc/erptest/EMPLOYEE/ERP/c/PROCESSMONITOR.PROCESSMONITOR.GBL"
+    
+    # ⏱️ INTERVALO DE COLETA (em segundos)
+    collection_interval: 180  # 3 minutos (180 segundos)
+    
+    # ✅ FILTROS (NOVO!)
+    filters:
+      user_id: "MBENITEZ"          # Modal automático
+      process_name: "AJ_BU_PS_CLI"           # null = não filtrar
+      server: null              # Dropdown
+      run_status: null              # 9 = Success
+      type: null
+      dist_status: null
+      instance_from: null
+      instance_to: null
+      time_filter:
+        type: "0"                  # 0 = Last
+        value: "70"                # 70 unidades
+        unit: "1"                  # 1 = Days
+    
+    credentials:
+      username: "MBENITEZ"
+      password: "Ajover#2017"
