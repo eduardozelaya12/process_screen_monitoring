@@ -254,3 +254,1154 @@ Stacktrace:
 2025-11-05 10:30:27,500 - apscheduler.executors.default - INFO - Job "Coleta peoplesoft (trigger: interval[0:03:00], next run at: 2025-11-05 10:32:39 -03)" executed successfully
 2025-11-05 10:30:35,360 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:30:35] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
 2025-11-05 10:30:35,641 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:30:35] "GET /storage/logs/google_home.png?t=1762349435361 HTTP/1.1" 200 -
+2025-11-05 10:30:50,774 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:30:50] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:30:51,036 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:30:51] "GET /storage/logs/google_home.png?t=1762349450778 HTTP/1.1" 200 -
+2025-11-05 10:31:05,786 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:31:05] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:31:06,032 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:31:06] "GET /storage/logs/google_home.png?t=1762349465788 HTTP/1.1" 200 -
+2025-11-05 10:31:20,781 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:31:20] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:31:21,045 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:31:21] "GET /storage/logs/google_home.png?t=1762349480783 HTTP/1.1" 200 -
+2025-11-05 10:31:35,777 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:31:35] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:31:36,121 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:31:36] "GET /storage/logs/google_home.png?t=1762349495790 HTTP/1.1" 200 -
+2025-11-05 10:32:02,775 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:32:02] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:32:03,043 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:32:03] "GET /storage/logs/google_home.png?t=1762349522778 HTTP/1.1" 200 -
+2025-11-05 10:32:39,418 - apscheduler.executors.default - INFO - Running job "Coleta peoplesoft (trigger: interval[0:03:00], next run at: 2025-11-05 10:35:39 -03)" (scheduled at 2025-11-05 10:32:39.398188-03:00)
+2025-11-05 10:32:39,422 - orchestrator.orchestrator - INFO - 🔄 Coletando: peoplesoft
+2025-11-05 10:32:39,424 - collectors.peoplesoft_collector - INFO - 📸 Coletando dados: PeopleSoft
+2025-11-05 10:32:39,426 - collectors.peoplesoft_collector - INFO - 👀 Modo VISUAL ativado (com interface)
+2025-11-05 10:32:43,996 - collectors.peoplesoft_collector - INFO - ✓ WebDriver inicializado
+2025-11-05 10:32:43,997 - collectors.peoplesoft_collector - INFO - 🔐 Fazendo login...
+2025-11-05 10:32:55,108 - collectors.peoplesoft_collector - ERROR - ❌ Erro ao capturar: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=141.0.7390.125)
+Stacktrace:
+	GetHandleVerifier [0x0x7ff6d012e8e5+80021]
+	GetHandleVerifier [0x0x7ff6d012e940+80112]
+	(No symbol) [0x0x7ff6cfeb060f]
+	(No symbol) [0x0x7ff6cfead0bf]
+	(No symbol) [0x0x7ff6cfe9dae9]
+	(No symbol) [0x0x7ff6cfe9f94e]
+	(No symbol) [0x0x7ff6cfe9e0d2]
+	(No symbol) [0x0x7ff6cfe9d859]
+	(No symbol) [0x0x7ff6cfe9d51d]
+	(No symbol) [0x0x7ff6cfe9b08c]
+	(No symbol) [0x0x7ff6cfe9b91c]
+	(No symbol) [0x0x7ff6cfeb46da]
+	(No symbol) [0x0x7ff6cff5a47e]
+	(No symbol) [0x0x7ff6cff3122a]
+	(No symbol) [0x0x7ff6cff5968a]
+	(No symbol) [0x0x7ff6cff31003]
+	(No symbol) [0x0x7ff6cfef95d1]
+	(No symbol) [0x0x7ff6cfefa3f3]
+	GetHandleVerifier [0x0x7ff6d03edc7d+2960429]
+	GetHandleVerifier [0x0x7ff6d03e7f3a+2936554]
+	GetHandleVerifier [0x0x7ff6d0408977+3070247]
+	GetHandleVerifier [0x0x7ff6d01483ce+185214]
+	GetHandleVerifier [0x0x7ff6d014fe1f+216527]
+	GetHandleVerifier [0x0x7ff6d0137b24+117460]
+	GetHandleVerifier [0x0x7ff6d0137cdf+117903]
+	GetHandleVerifier [0x0x7ff6d011dbb8+11112]
+	BaseThreadInitThunk [0x0x7fff592de8d7+23]
+	RtlUserThreadStart [0x0x7fff5a568d9c+44]
+
+Traceback (most recent call last):
+  File "C:\Users\lymte\Documents\monitor_scheduler\collectors\peoplesoft_collector.py", line 150, in _capture_and_extract
+    self.driver.get(self.base_url)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lymte\AppData\Roaming\Python\Python313\site-packages\selenium\webdriver\remote\webdriver.py", line 356, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lymte\AppData\Roaming\Python\Python313\site-packages\selenium\webdriver\remote\webdriver.py", line 347, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\lymte\AppData\Roaming\Python\Python313\site-packages\selenium\webdriver\remote\errorhandler.py", line 229, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=141.0.7390.125)
+Stacktrace:
+	GetHandleVerifier [0x0x7ff6d012e8e5+80021]
+	GetHandleVerifier [0x0x7ff6d012e940+80112]
+	(No symbol) [0x0x7ff6cfeb060f]
+	(No symbol) [0x0x7ff6cfead0bf]
+	(No symbol) [0x0x7ff6cfe9dae9]
+	(No symbol) [0x0x7ff6cfe9f94e]
+	(No symbol) [0x0x7ff6cfe9e0d2]
+	(No symbol) [0x0x7ff6cfe9d859]
+	(No symbol) [0x0x7ff6cfe9d51d]
+	(No symbol) [0x0x7ff6cfe9b08c]
+	(No symbol) [0x0x7ff6cfe9b91c]
+	(No symbol) [0x0x7ff6cfeb46da]
+	(No symbol) [0x0x7ff6cff5a47e]
+	(No symbol) [0x0x7ff6cff3122a]
+	(No symbol) [0x0x7ff6cff5968a]
+	(No symbol) [0x0x7ff6cff31003]
+	(No symbol) [0x0x7ff6cfef95d1]
+	(No symbol) [0x0x7ff6cfefa3f3]
+	GetHandleVerifier [0x0x7ff6d03edc7d+2960429]
+	GetHandleVerifier [0x0x7ff6d03e7f3a+2936554]
+	GetHandleVerifier [0x0x7ff6d0408977+3070247]
+	GetHandleVerifier [0x0x7ff6d01483ce+185214]
+	GetHandleVerifier [0x0x7ff6d014fe1f+216527]
+	GetHandleVerifier [0x0x7ff6d0137b24+117460]
+	GetHandleVerifier [0x0x7ff6d0137cdf+117903]
+	GetHandleVerifier [0x0x7ff6d011dbb8+11112]
+	BaseThreadInitThunk [0x0x7fff592de8d7+23]
+	RtlUserThreadStart [0x0x7fff5a568d9c+44]
+
+
+2025-11-05 10:33:02,784 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:33:02] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:33:03,044 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:33:03] "GET /storage/logs/google_home.png?t=1762349582786 HTTP/1.1" 200 -
+2025-11-05 10:33:03,563 - collectors.base_collector - ERROR - ❌ Erro em PeopleSoft: Falha ao capturar dados
+2025-11-05 10:33:03,564 - processors.data_processors - INFO - ✓ Dados de peoplesoft processados
+2025-11-05 10:33:03,591 - backend.websocket_handlers - INFO - 📡 Broadcasting update: peoplesoft
+2025-11-05 10:33:03,591 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: peoplesoft
+2025-11-05 10:33:03,593 - apscheduler.executors.default - INFO - Job "Coleta peoplesoft (trigger: interval[0:03:00], next run at: 2025-11-05 10:35:39 -03)" executed successfully
+2025-11-05 10:34:02,781 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:34:02] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:34:03,040 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:34:03] "GET /storage/logs/google_home.png?t=1762349642800 HTTP/1.1" 200 -
+2025-11-05 10:35:02,772 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:35:02] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:35:03,033 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:35:03] "GET /storage/logs/google_home.png?t=1762349702774 HTTP/1.1" 200 -
+2025-11-05 10:35:39,413 - apscheduler.executors.default - INFO - Running job "Coleta peoplesoft (trigger: interval[0:03:00], next run at: 2025-11-05 10:38:39 -03)" (scheduled at 2025-11-05 10:35:39.398188-03:00)
+2025-11-05 10:35:39,416 - orchestrator.orchestrator - INFO - 🔄 Coletando: peoplesoft
+2025-11-05 10:35:39,417 - collectors.peoplesoft_collector - INFO - 📸 Coletando dados: PeopleSoft
+2025-11-05 10:35:39,419 - collectors.peoplesoft_collector - INFO - 👀 Modo VISUAL ativado (com interface)
+2025-11-05 10:35:43,901 - collectors.peoplesoft_collector - INFO - ✓ WebDriver inicializado
+2025-11-05 10:35:43,905 - collectors.peoplesoft_collector - INFO - 🔐 Fazendo login...
+2025-11-05 10:35:50,604 - collectors.peoplesoft_collector - ERROR - ❌ Erro ao capturar: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=141.0.7390.125)
+Stacktrace:
+	GetHandleVerifier [0x0x7ff62c25e8e5+80021]
+	GetHandleVerifier [0x0x7ff62c25e940+80112]
+	(No symbol) [0x0x7ff62bfe060f]
+	(No symbol) [0x0x7ff62bfdd0bf]
+	(No symbol) [0x0x7ff62bfcdae9]
+	(No symbol) [0x0x7ff62bfcf94e]
+	(No symbol) [0x0x7ff62bfce0d2]
+	(No symbol) [0x0x7ff62bfcd859]
+	(No symbol) [0x0x7ff62bfcd51d]
+	(No symbol) [0x0x7ff62bfcb08c]
+	(No symbol) [0x0x7ff62bfcb91c]
+	(No symbol) [0x0x7ff62bfe46da]
+	(No symbol) [0x0x7ff62c08a47e]
+	(No symbol) [0x0x7ff62c06122a]
+	(No symbol) [0x0x7ff62c08968a]
+	(No symbol) [0x0x7ff62c061003]
+	(No symbol) [0x0x7ff62c0295d1]
+	(No symbol) [0x0x7ff62c02a3f3]
+	GetHandleVerifier [0x0x7ff62c51dc7d+2960429]
+	GetHandleVerifier [0x0x7ff62c517f3a+2936554]
+	GetHandleVerifier [0x0x7ff62c538977+3070247]
+	GetHandleVerifier [0x0x7ff62c2783ce+185214]
+	GetHandleVerifier [0x0x7ff62c27fe1f+216527]
+	GetHandleVerifier [0x0x7ff62c267b24+117460]
+	GetHandleVerifier [0x0x7ff62c267cdf+117903]
+	GetHandleVerifier [0x0x7ff62c24dbb8+11112]
+	BaseThreadInitThunk [0x0x7fff592de8d7+23]
+	RtlUserThreadStart [0x0x7fff5a568d9c+44]
+
+Traceback (most recent call last):
+  File "C:\Users\lymte\Documents\monitor_scheduler\collectors\peoplesoft_collector.py", line 150, in _capture_and_extract
+    self.driver.get(self.base_url)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lymte\AppData\Roaming\Python\Python313\site-packages\selenium\webdriver\remote\webdriver.py", line 356, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lymte\AppData\Roaming\Python\Python313\site-packages\selenium\webdriver\remote\webdriver.py", line 347, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\lymte\AppData\Roaming\Python\Python313\site-packages\selenium\webdriver\remote\errorhandler.py", line 229, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=141.0.7390.125)
+Stacktrace:
+	GetHandleVerifier [0x0x7ff62c25e8e5+80021]
+	GetHandleVerifier [0x0x7ff62c25e940+80112]
+	(No symbol) [0x0x7ff62bfe060f]
+	(No symbol) [0x0x7ff62bfdd0bf]
+	(No symbol) [0x0x7ff62bfcdae9]
+	(No symbol) [0x0x7ff62bfcf94e]
+	(No symbol) [0x0x7ff62bfce0d2]
+	(No symbol) [0x0x7ff62bfcd859]
+	(No symbol) [0x0x7ff62bfcd51d]
+	(No symbol) [0x0x7ff62bfcb08c]
+	(No symbol) [0x0x7ff62bfcb91c]
+	(No symbol) [0x0x7ff62bfe46da]
+	(No symbol) [0x0x7ff62c08a47e]
+	(No symbol) [0x0x7ff62c06122a]
+	(No symbol) [0x0x7ff62c08968a]
+	(No symbol) [0x0x7ff62c061003]
+	(No symbol) [0x0x7ff62c0295d1]
+	(No symbol) [0x0x7ff62c02a3f3]
+	GetHandleVerifier [0x0x7ff62c51dc7d+2960429]
+	GetHandleVerifier [0x0x7ff62c517f3a+2936554]
+	GetHandleVerifier [0x0x7ff62c538977+3070247]
+	GetHandleVerifier [0x0x7ff62c2783ce+185214]
+	GetHandleVerifier [0x0x7ff62c27fe1f+216527]
+	GetHandleVerifier [0x0x7ff62c267b24+117460]
+	GetHandleVerifier [0x0x7ff62c267cdf+117903]
+	GetHandleVerifier [0x0x7ff62c24dbb8+11112]
+	BaseThreadInitThunk [0x0x7fff592de8d7+23]
+	RtlUserThreadStart [0x0x7fff5a568d9c+44]
+
+
+2025-11-05 10:35:57,071 - collectors.base_collector - ERROR - ❌ Erro em PeopleSoft: Falha ao capturar dados
+2025-11-05 10:35:57,078 - processors.data_processors - INFO - ✓ Dados de peoplesoft processados
+2025-11-05 10:35:57,115 - backend.websocket_handlers - INFO - 📡 Broadcasting update: peoplesoft
+2025-11-05 10:35:57,157 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: peoplesoft
+2025-11-05 10:35:57,195 - apscheduler.executors.default - INFO - Job "Coleta peoplesoft (trigger: interval[0:03:00], next run at: 2025-11-05 10:38:39 -03)" executed successfully
+2025-11-05 10:36:04,745 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:36:04] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:36:04,961 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:36:04] "GET /storage/logs/google_home.png?t=1762349764780 HTTP/1.1" 200 -
+2025-11-05 10:37:03,091 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:37:03] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:37:03,282 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:37:03] "GET /storage/logs/google_home.png?t=1762349823141 HTTP/1.1" 200 -
+2025-11-05 10:37:23,215 - __main__ - INFO - 
+
+🛑 Recebido sinal de interrupção...
+2025-11-05 10:37:23,223 - orchestrator.orchestrator - INFO - 🛑 Parando orquestrador...
+2025-11-05 10:37:23,247 - apscheduler.scheduler - INFO - Scheduler has been shut down
+2025-11-05 10:37:23,259 - orchestrator.orchestrator - INFO - ✓ Orquestrador parado
+2025-11-05 10:37:23,291 - __main__ - INFO - 
+
+🛑 Recebido sinal de interrupção...
+2025-11-05 10:37:23,458 - __main__ - INFO - 
+
+🛑 Recebido sinal de interrupção...
+2025-11-05 10:37:24,085 - orchestrator.orchestrator - INFO - 🛑 Parando orquestrador...
+2025-11-05 10:37:24,252 - __main__ - INFO - 👋 Encerrando aplicação...
+2025-11-05 12:36:14,483 - storage.local_storage - INFO - ✓ Banco de dados inicializado
+2025-11-05 12:36:14,496 - backend.routes - INFO - ✓ Rotas registradas
+2025-11-05 12:36:14,497 - backend.websocket_handlers - INFO - ✓ Handlers WebSocket registrados
+2025-11-05 12:36:14,497 - backend.app - INFO - ✓ Backend Flask inicializado
+2025-11-05 12:36:14,497 - __main__ - INFO - 
+============================================================
+2025-11-05 12:36:14,498 - __main__ - INFO -     PROCESS MONITOR DASHBOARD
+2025-11-05 12:36:14,498 - __main__ - INFO -     Versão 1.0.0
+2025-11-05 12:36:14,499 - __main__ - INFO - ============================================================
+
+2025-11-05 12:36:14,501 - __main__ - INFO - ✓ Estrutura de diretórios verificada
+2025-11-05 12:36:14,501 - __main__ - INFO - 🔧 Iniciando componentes...
+2025-11-05 12:36:14,504 - storage.local_storage - INFO - ✓ Banco de dados inicializado
+2025-11-05 12:36:14,505 - orchestrator.orchestrator - INFO - 📋 Orquestrador criado
+2025-11-05 12:36:14,505 - orchestrator.orchestrator - INFO - ✓ SocketIO configurado no orquestrador
+2025-11-05 12:36:14,506 - orchestrator.orchestrator - INFO - ============================================================
+2025-11-05 12:36:14,506 - orchestrator.orchestrator - INFO - 🚀 INICIANDO ORQUESTRADOR
+2025-11-05 12:36:14,506 - orchestrator.orchestrator - INFO - ============================================================
+2025-11-05 12:36:14,506 - orchestrator.orchestrator - INFO - 🔧 Inicializando coletores...
+2025-11-05 12:36:14,507 - orchestrator.orchestrator - INFO - ⏭ Sistema peoplesoft desabilitado, pulando...
+2025-11-05 12:36:14,507 - orchestrator.orchestrator - INFO - ⏭ Sistema google desabilitado, pulando...
+2025-11-05 12:36:14,507 - orchestrator.orchestrator - INFO - ⏭ Sistema oracle_fusion desabilitado, pulando...
+2025-11-05 12:36:14,507 - orchestrator.orchestrator - INFO - ⏭ Sistema bonita desabilitado, pulando...
+2025-11-05 12:36:14,508 - orchestrator.orchestrator - INFO - ⏭ Sistema n8n desabilitado, pulando...
+2025-11-05 12:36:14,508 - orchestrator.orchestrator - INFO - ✓ 0 coletores inicializados
+2025-11-05 12:36:14,508 - orchestrator.orchestrator - INFO - 📅 Agendando jobs de coleta...
+2025-11-05 12:36:14,861 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-05 12:36:14,861 - orchestrator.orchestrator - INFO - ✓ Jobs agendados
+2025-11-05 12:36:14,868 - apscheduler.scheduler - INFO - Added job "Limpeza diária" to job store "default"
+2025-11-05 12:36:14,868 - apscheduler.scheduler - INFO - Scheduler started
+2025-11-05 12:36:14,869 - orchestrator.orchestrator - INFO - ✓ Orquestrador ativo!
+2025-11-05 12:36:14,872 - orchestrator.orchestrator - INFO - 
+📋 Jobs agendados (1):
+2025-11-05 12:36:14,873 - orchestrator.orchestrator - INFO -   • Limpeza diária | próxima execução: 2025-11-06 02:00:00-03:00
+2025-11-05 12:36:17,503 - __main__ - INFO - 
+============================================================
+2025-11-05 12:36:17,504 - __main__ - INFO - ✓ Dashboard disponível em: http://localhost:5000
+2025-11-05 12:36:17,505 - __main__ - INFO - ✓ Versão TV disponível em: http://localhost:5000/tv
+2025-11-05 12:36:17,506 - __main__ - INFO - ============================================================
+
+2025-11-05 12:36:17,506 - __main__ - INFO - 🌐 Iniciando servidor web...
+2025-11-05 12:36:17,573 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.39:5000
+2025-11-05 12:36:17,574 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-05 12:36:22,647 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:36:22] "[33mGET /storage/screenshots/peoplesoft/screenshot_20251104_152434.png?t=1762356982541 HTTP/1.1[0m" 404 -
+2025-11-05 12:36:24,607 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:36:24] "GET / HTTP/1.1" 200 -
+2025-11-05 12:36:24,753 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:36:24] "GET /storage/logs/google_home.png HTTP/1.1" 200 -
+2025-11-05 12:36:24,947 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:36:24] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:36:25,087 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:36:25] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-11-05 12:36:39,947 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:36:39] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:36:48,673 - orchestrator.orchestrator - ERROR - ❌ Erro ao iniciar sistema google: Can't instantiate abstract class GoogleCollector without an implementation for abstract method 'test_connection'
+2025-11-05 12:36:48,675 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:36:48] "[31m[1mPOST /api/systems/google/start HTTP/1.1[0m" 400 -
+2025-11-05 12:36:54,633 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:36:54] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:36:59,512 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:36:59] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:36:59,774 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:36:59] "GET /storage/logs/google_home.png?t=1762357019513 HTTP/1.1" 200 -
+2025-11-05 12:37:03,526 - orchestrator.orchestrator - ERROR - ❌ Erro ao iniciar sistema google: Can't instantiate abstract class GoogleCollector without an implementation for abstract method 'test_connection'
+2025-11-05 12:37:03,528 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:37:03] "[31m[1mPOST /api/systems/google/start HTTP/1.1[0m" 400 -
+2025-11-05 12:37:47,555 - __main__ - INFO - 
+
+🛑 Recebido sinal de interrupção...
+2025-11-05 12:37:47,556 - orchestrator.orchestrator - INFO - 🛑 Parando orquestrador...
+2025-11-05 12:37:47,556 - apscheduler.scheduler - INFO - Scheduler has been shut down
+2025-11-05 12:37:47,557 - orchestrator.orchestrator - INFO - ✓ Orquestrador parado
+2025-11-05 12:37:47,557 - __main__ - INFO - 👋 Encerrando aplicação...
+2025-11-05 12:42:50,274 - storage.local_storage - INFO - ✓ Banco de dados inicializado
+2025-11-05 12:42:50,284 - backend.routes - INFO - ✓ Rotas registradas
+2025-11-05 12:42:50,284 - backend.websocket_handlers - INFO - ✓ Handlers WebSocket registrados
+2025-11-05 12:42:50,285 - backend.app - INFO - ✓ Backend Flask inicializado
+2025-11-05 12:42:50,286 - __main__ - INFO - 
+============================================================
+2025-11-05 12:42:50,286 - __main__ - INFO -     PROCESS MONITOR DASHBOARD
+2025-11-05 12:42:50,286 - __main__ - INFO -     Versão 1.0.0
+2025-11-05 12:42:50,287 - __main__ - INFO - ============================================================
+
+2025-11-05 12:42:50,288 - __main__ - INFO - ✓ Estrutura de diretórios verificada
+2025-11-05 12:42:50,289 - __main__ - INFO - 🔧 Iniciando componentes...
+2025-11-05 12:42:50,292 - storage.local_storage - INFO - ✓ Banco de dados inicializado
+2025-11-05 12:42:50,293 - orchestrator.orchestrator - INFO - 📋 Orquestrador criado
+2025-11-05 12:42:50,293 - orchestrator.orchestrator - INFO - ✓ SocketIO configurado no orquestrador
+2025-11-05 12:42:50,294 - orchestrator.orchestrator - INFO - ============================================================
+2025-11-05 12:42:50,294 - orchestrator.orchestrator - INFO - 🚀 INICIANDO ORQUESTRADOR
+2025-11-05 12:42:50,294 - orchestrator.orchestrator - INFO - ============================================================
+2025-11-05 12:42:50,295 - orchestrator.orchestrator - INFO - 🔧 Inicializando coletores...
+2025-11-05 12:42:50,295 - collectors.base_collector - INFO - ✓ Coletor PeopleSoft inicializado
+2025-11-05 12:42:50,296 - collectors.peoplesoft_collector - INFO - 🔍 DEBUG __init__: Filtros carregados do config:
+2025-11-05 12:42:50,296 - collectors.peoplesoft_collector - INFO -    - Total de chaves: 9
+2025-11-05 12:42:50,297 - collectors.peoplesoft_collector - INFO -    - Conteúdo: {'user_id': 'MBENITEZ', 'process_name': 'AJ_BU_PS_CLI', 'server': None, 'run_status': None, 'type': None, 'dist_status': None, 'instance_from': None, 'instance_to': None, 'time_filter': {'type': '0', 'value': '70', 'unit': '1'}}
+2025-11-05 12:42:50,297 - orchestrator.orchestrator - INFO - ✓ Coletor peoplesoft inicializado
+2025-11-05 12:42:50,298 - collectors.base_collector - INFO - ✓ Coletor Google inicializado
+2025-11-05 12:42:50,298 - collectors.google_collector - INFO - 🔍 GoogleCollector inicializado: Google
+2025-11-05 12:42:50,299 - orchestrator.orchestrator - INFO - ✓ Coletor google inicializado
+2025-11-05 12:42:50,299 - orchestrator.orchestrator - INFO - ⏭ Sistema oracle_fusion desabilitado, pulando...
+2025-11-05 12:42:50,300 - orchestrator.orchestrator - INFO - ⏭ Sistema bonita desabilitado, pulando...
+2025-11-05 12:42:50,300 - orchestrator.orchestrator - INFO - ⏭ Sistema n8n desabilitado, pulando...
+2025-11-05 12:42:50,301 - orchestrator.orchestrator - INFO - ✓ 2 coletores inicializados
+2025-11-05 12:42:50,302 - orchestrator.orchestrator - INFO - 📅 Agendando jobs de coleta...
+2025-11-05 12:42:50,617 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-05 12:42:50,617 - orchestrator.orchestrator - INFO - ✓ Job agendado: peoplesoft a cada 180s
+2025-11-05 12:42:50,619 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-05 12:42:50,619 - orchestrator.orchestrator - INFO - ✓ Job agendado: google a cada 60s
+2025-11-05 12:42:50,629 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-05 12:42:50,629 - orchestrator.orchestrator - INFO - ✓ Jobs agendados
+2025-11-05 12:42:50,636 - apscheduler.scheduler - INFO - Added job "Coleta peoplesoft" to job store "default"
+2025-11-05 12:42:50,636 - apscheduler.scheduler - INFO - Added job "Coleta google" to job store "default"
+2025-11-05 12:42:50,637 - apscheduler.scheduler - INFO - Added job "Limpeza diária" to job store "default"
+2025-11-05 12:42:50,638 - apscheduler.scheduler - INFO - Scheduler started
+2025-11-05 12:42:50,639 - orchestrator.orchestrator - INFO - ✓ Orquestrador ativo!
+2025-11-05 12:42:50,640 - apscheduler.executors.default - INFO - Running job "Coleta peoplesoft (trigger: interval[0:03:00], next run at: 2025-11-05 12:45:50 -03)" (scheduled at 2025-11-05 12:42:50.616636-03:00)
+2025-11-05 12:42:50,640 - apscheduler.executors.default - INFO - Running job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:43:50 -03)" (scheduled at 2025-11-05 12:42:50.619278-03:00)
+2025-11-05 12:42:50,641 - orchestrator.orchestrator - INFO - 🔄 Coletando: peoplesoft
+2025-11-05 12:42:50,641 - orchestrator.orchestrator - INFO - 
+📋 Jobs agendados (3):
+2025-11-05 12:42:50,641 - orchestrator.orchestrator - INFO - 🔄 Coletando: google
+2025-11-05 12:42:50,642 - collectors.peoplesoft_collector - INFO - 📸 Coletando dados: PeopleSoft
+2025-11-05 12:42:50,642 - orchestrator.orchestrator - INFO -   • Coleta google | próxima execução: 2025-11-05 12:43:50.619278-03:00
+2025-11-05 12:42:50,642 - collectors.google_collector - INFO - 📸 Coletando dados: Google
+2025-11-05 12:42:50,643 - collectors.peoplesoft_collector - INFO - 🎭 Modo HEADLESS ativado (sem interface visual)
+2025-11-05 12:42:50,643 - orchestrator.orchestrator - INFO -   • Coleta peoplesoft | próxima execução: 2025-11-05 12:45:50.616636-03:00
+2025-11-05 12:42:50,643 - collectors.google_collector - INFO - 🎭 Modo HEADLESS ativado
+2025-11-05 12:42:50,644 - orchestrator.orchestrator - INFO -   • Limpeza diária | próxima execução: 2025-11-06 02:00:00-03:00
+2025-11-05 12:42:53,290 - __main__ - INFO - 
+============================================================
+2025-11-05 12:42:53,291 - __main__ - INFO - ✓ Dashboard disponível em: http://localhost:5000
+2025-11-05 12:42:53,291 - __main__ - INFO - ✓ Versão TV disponível em: http://localhost:5000/tv
+2025-11-05 12:42:53,292 - __main__ - INFO - ============================================================
+
+2025-11-05 12:42:53,292 - __main__ - INFO - 🌐 Iniciando servidor web...
+2025-11-05 12:42:53,527 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.39:5000
+2025-11-05 12:42:53,528 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-05 12:42:54,965 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:42:54] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:42:54,966 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:42:54] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:42:55,314 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:42:55] "GET /storage/logs/google_home.png?t=1762357374968 HTTP/1.1" 200 -
+2025-11-05 12:42:59,664 - collectors.peoplesoft_collector - INFO - ✓ WebDriver inicializado
+2025-11-05 12:42:59,665 - collectors.google_collector - INFO - ✓ WebDriver inicializado
+2025-11-05 12:42:59,665 - collectors.peoplesoft_collector - INFO - 🔐 Fazendo login...
+2025-11-05 12:42:59,665 - collectors.google_collector - INFO - Navegando para: https://www.google.com
+2025-11-05 12:43:00,414 - collectors.peoplesoft_collector - ERROR - ❌ Erro ao capturar: Message: unknown error: net::ERR_NAME_NOT_RESOLVED
+  (Session info: chrome=141.0.7390.125)
+Stacktrace:
+	GetHandleVerifier [0x0x7ff617c4e8e5+80021]
+	GetHandleVerifier [0x0x7ff617c4e940+80112]
+	(No symbol) [0x0x7ff6179d060f]
+	(No symbol) [0x0x7ff6179cd0bf]
+	(No symbol) [0x0x7ff6179bdae9]
+	(No symbol) [0x0x7ff6179bf94e]
+	(No symbol) [0x0x7ff6179be0d2]
+	(No symbol) [0x0x7ff6179bd859]
+	(No symbol) [0x0x7ff6179bd51d]
+	(No symbol) [0x0x7ff6179bb08c]
+	(No symbol) [0x0x7ff6179bb91c]
+	(No symbol) [0x0x7ff6179d46da]
+	(No symbol) [0x0x7ff617a7a47e]
+	(No symbol) [0x0x7ff617a5122a]
+	(No symbol) [0x0x7ff617a7968a]
+	(No symbol) [0x0x7ff617a51003]
+	(No symbol) [0x0x7ff617a195d1]
+	(No symbol) [0x0x7ff617a1a3f3]
+	GetHandleVerifier [0x0x7ff617f0dc7d+2960429]
+	GetHandleVerifier [0x0x7ff617f07f3a+2936554]
+	GetHandleVerifier [0x0x7ff617f28977+3070247]
+	GetHandleVerifier [0x0x7ff617c683ce+185214]
+	GetHandleVerifier [0x0x7ff617c6fe1f+216527]
+	GetHandleVerifier [0x0x7ff617c57b24+117460]
+	GetHandleVerifier [0x0x7ff617c57cdf+117903]
+	GetHandleVerifier [0x0x7ff617c3dbb8+11112]
+	BaseThreadInitThunk [0x0x7fff592de8d7+23]
+	RtlUserThreadStart [0x0x7fff5a568d9c+44]
+
+Traceback (most recent call last):
+  File "C:\Users\lymte\Documents\monitor_scheduler\collectors\peoplesoft_collector.py", line 150, in _capture_and_extract
+    self.driver.get(self.base_url)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lymte\AppData\Roaming\Python\Python313\site-packages\selenium\webdriver\remote\webdriver.py", line 356, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lymte\AppData\Roaming\Python\Python313\site-packages\selenium\webdriver\remote\webdriver.py", line 347, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\lymte\AppData\Roaming\Python\Python313\site-packages\selenium\webdriver\remote\errorhandler.py", line 229, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_NAME_NOT_RESOLVED
+  (Session info: chrome=141.0.7390.125)
+Stacktrace:
+	GetHandleVerifier [0x0x7ff617c4e8e5+80021]
+	GetHandleVerifier [0x0x7ff617c4e940+80112]
+	(No symbol) [0x0x7ff6179d060f]
+	(No symbol) [0x0x7ff6179cd0bf]
+	(No symbol) [0x0x7ff6179bdae9]
+	(No symbol) [0x0x7ff6179bf94e]
+	(No symbol) [0x0x7ff6179be0d2]
+	(No symbol) [0x0x7ff6179bd859]
+	(No symbol) [0x0x7ff6179bd51d]
+	(No symbol) [0x0x7ff6179bb08c]
+	(No symbol) [0x0x7ff6179bb91c]
+	(No symbol) [0x0x7ff6179d46da]
+	(No symbol) [0x0x7ff617a7a47e]
+	(No symbol) [0x0x7ff617a5122a]
+	(No symbol) [0x0x7ff617a7968a]
+	(No symbol) [0x0x7ff617a51003]
+	(No symbol) [0x0x7ff617a195d1]
+	(No symbol) [0x0x7ff617a1a3f3]
+	GetHandleVerifier [0x0x7ff617f0dc7d+2960429]
+	GetHandleVerifier [0x0x7ff617f07f3a+2936554]
+	GetHandleVerifier [0x0x7ff617f28977+3070247]
+	GetHandleVerifier [0x0x7ff617c683ce+185214]
+	GetHandleVerifier [0x0x7ff617c6fe1f+216527]
+	GetHandleVerifier [0x0x7ff617c57b24+117460]
+	GetHandleVerifier [0x0x7ff617c57cdf+117903]
+	GetHandleVerifier [0x0x7ff617c3dbb8+11112]
+	BaseThreadInitThunk [0x0x7fff592de8d7+23]
+	RtlUserThreadStart [0x0x7fff5a568d9c+44]
+
+
+2025-11-05 12:43:06,953 - collectors.base_collector - ERROR - ❌ Erro em PeopleSoft: Falha ao capturar dados
+2025-11-05 12:43:06,954 - processors.data_processors - INFO - ✓ Dados de peoplesoft processados
+2025-11-05 12:43:06,965 - backend.websocket_handlers - INFO - 📡 Broadcasting update: peoplesoft
+2025-11-05 12:43:06,965 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: peoplesoft
+2025-11-05 12:43:06,966 - apscheduler.executors.default - INFO - Job "Coleta peoplesoft (trigger: interval[0:03:00], next run at: 2025-11-05 12:45:50 -03)" executed successfully
+2025-11-05 12:43:09,939 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:09] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:43:09,943 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:09] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:43:10,206 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:10] "GET /storage/logs/google_home.png?t=1762357389941 HTTP/1.1" 200 -
+2025-11-05 12:43:12,303 - collectors.google_collector - WARNING - ⚠ Logo do Google não encontrado
+2025-11-05 12:43:12,468 - collectors.google_collector - INFO - ✓ Screenshot salvo: storage/screenshots/selenium/screenshot_20251105_124312.png
+2025-11-05 12:43:18,763 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:18] "GET /tv HTTP/1.1" 200 -
+2025-11-05 12:43:18,942 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:18] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:43:19,016 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:19] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:43:19,265 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:19] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:43:20,501 - processors.data_processors - INFO - ✓ Dados de google processados
+2025-11-05 12:43:20,507 - storage.local_storage - ERROR - Erro ao salvar métricas: Object of type datetime is not JSON serializable
+2025-11-05 12:43:20,507 - backend.websocket_handlers - INFO - 📡 Broadcasting update: google
+2025-11-05 12:43:20,508 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: google
+2025-11-05 12:43:20,508 - apscheduler.executors.default - INFO - Job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:43:50 -03)" executed successfully
+2025-11-05 12:43:29,158 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:29] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:43:29,421 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:29] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:43:29,491 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:29] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:43:34,157 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:34] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:43:34,159 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:34] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:43:39,159 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:39] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:43:39,421 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:39] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:43:39,482 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:39] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:43:49,160 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:49] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:43:49,161 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:49] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:43:49,163 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:49] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:43:49,416 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:49] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:43:49,478 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:49] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:43:50,624 - apscheduler.executors.default - INFO - Running job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:44:50 -03)" (scheduled at 2025-11-05 12:43:50.619278-03:00)
+2025-11-05 12:43:50,624 - orchestrator.orchestrator - INFO - 🔄 Coletando: google
+2025-11-05 12:43:50,624 - collectors.google_collector - INFO - 📸 Coletando dados: Google
+2025-11-05 12:43:50,625 - collectors.google_collector - INFO - 🎭 Modo HEADLESS ativado
+2025-11-05 12:43:53,366 - collectors.google_collector - INFO - ✓ WebDriver inicializado
+2025-11-05 12:43:53,366 - collectors.google_collector - INFO - Navegando para: https://www.google.com
+2025-11-05 12:43:59,149 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:59] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:43:59,416 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:59] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:43:59,463 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:43:59] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:44:04,157 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:04] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:44:04,159 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:04] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:44:07,907 - collectors.google_collector - WARNING - ⚠ Logo do Google não encontrado
+2025-11-05 12:44:07,947 - collectors.google_collector - INFO - ✓ Screenshot salvo: storage/screenshots/selenium/screenshot_20251105_124407.png
+2025-11-05 12:44:09,152 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:09] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:44:09,413 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:09] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:44:09,474 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:09] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:44:14,317 - processors.data_processors - INFO - ✓ Dados de google processados
+2025-11-05 12:44:14,318 - storage.local_storage - ERROR - Erro ao salvar métricas: Object of type datetime is not JSON serializable
+2025-11-05 12:44:14,318 - backend.websocket_handlers - INFO - 📡 Broadcasting update: google
+2025-11-05 12:44:14,319 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: google
+2025-11-05 12:44:14,319 - apscheduler.executors.default - INFO - Job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:44:50 -03)" executed successfully
+2025-11-05 12:44:19,154 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:19] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:44:19,155 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:19] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:44:19,157 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:19] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:44:19,414 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:19] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:44:19,480 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:19] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:44:29,159 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:29] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:44:29,421 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:29] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:44:29,469 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:29] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:44:34,162 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:34] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:44:34,163 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:34] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:44:38,853 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:38] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:44:39,175 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:39] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:44:39,175 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:39] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:44:49,148 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:49] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:44:49,149 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:49] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:44:49,150 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:49] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:44:49,406 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:49] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:44:49,469 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:49] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:44:50,624 - apscheduler.executors.default - INFO - Running job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:45:50 -03)" (scheduled at 2025-11-05 12:44:50.619278-03:00)
+2025-11-05 12:44:50,624 - orchestrator.orchestrator - INFO - 🔄 Coletando: google
+2025-11-05 12:44:50,625 - collectors.google_collector - INFO - 📸 Coletando dados: Google
+2025-11-05 12:44:50,625 - collectors.google_collector - INFO - 🎭 Modo HEADLESS ativado
+2025-11-05 12:44:52,988 - collectors.google_collector - INFO - ✓ WebDriver inicializado
+2025-11-05 12:44:52,989 - collectors.google_collector - INFO - Navegando para: https://www.google.com
+2025-11-05 12:44:59,150 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:59] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:44:59,411 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:59] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:44:59,458 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:44:59] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:45:04,170 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:45:04] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:45:04,172 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:45:04] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:45:06,968 - collectors.google_collector - WARNING - ⚠ Logo do Google não encontrado
+2025-11-05 12:45:07,037 - collectors.google_collector - INFO - ✓ Screenshot salvo: storage/screenshots/selenium/screenshot_20251105_124506.png
+2025-11-05 12:45:09,149 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:45:09] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:45:09,405 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:45:09] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:45:09,468 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:45:09] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:45:13,424 - processors.data_processors - INFO - ✓ Dados de google processados
+2025-11-05 12:45:13,426 - storage.local_storage - ERROR - Erro ao salvar métricas: Object of type datetime is not JSON serializable
+2025-11-05 12:45:13,427 - backend.websocket_handlers - INFO - 📡 Broadcasting update: google
+2025-11-05 12:45:13,428 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: google
+2025-11-05 12:45:13,430 - apscheduler.executors.default - INFO - Job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:45:50 -03)" executed successfully
+2025-11-05 12:45:19,151 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:45:19] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:45:19,153 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:45:19] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:45:19,158 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:45:19] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:45:19,410 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:45:19] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:45:19,473 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:45:19] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:45:29,803 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:45:29] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:45:30,049 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:45:30] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:45:30,178 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:45:30] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:45:34,232 - __main__ - INFO - 
+
+🛑 Recebido sinal de interrupção...
+2025-11-05 12:45:34,234 - orchestrator.orchestrator - INFO - 🛑 Parando orquestrador...
+2025-11-05 12:45:34,237 - apscheduler.scheduler - INFO - Scheduler has been shut down
+2025-11-05 12:45:34,240 - orchestrator.orchestrator - INFO - ✓ Orquestrador parado
+2025-11-05 12:45:34,241 - __main__ - INFO - 👋 Encerrando aplicação...
+2025-11-05 12:48:58,878 - storage.local_storage - INFO - ✓ Banco de dados inicializado
+2025-11-05 12:48:58,896 - backend.routes - INFO - ✓ Rotas registradas
+2025-11-05 12:48:58,897 - backend.websocket_handlers - INFO - ✓ Handlers WebSocket registrados
+2025-11-05 12:48:58,897 - backend.app - INFO - ✓ Backend Flask inicializado
+2025-11-05 12:48:58,899 - __main__ - INFO - 
+============================================================
+2025-11-05 12:48:58,899 - __main__ - INFO -     PROCESS MONITOR DASHBOARD
+2025-11-05 12:48:58,899 - __main__ - INFO -     Versão 1.0.0
+2025-11-05 12:48:58,900 - __main__ - INFO - ============================================================
+
+2025-11-05 12:48:58,902 - __main__ - INFO - ✓ Estrutura de diretórios verificada
+2025-11-05 12:48:58,903 - __main__ - INFO - 🔧 Iniciando componentes...
+2025-11-05 12:48:58,907 - storage.local_storage - INFO - ✓ Banco de dados inicializado
+2025-11-05 12:48:58,908 - orchestrator.orchestrator - INFO - 📋 Orquestrador criado
+2025-11-05 12:48:58,908 - orchestrator.orchestrator - INFO - ✓ SocketIO configurado no orquestrador
+2025-11-05 12:48:58,909 - orchestrator.orchestrator - INFO - ============================================================
+2025-11-05 12:48:58,909 - orchestrator.orchestrator - INFO - 🚀 INICIANDO ORQUESTRADOR
+2025-11-05 12:48:58,910 - orchestrator.orchestrator - INFO - ============================================================
+2025-11-05 12:48:58,910 - orchestrator.orchestrator - INFO - 🔧 Inicializando coletores...
+2025-11-05 12:48:58,911 - orchestrator.orchestrator - INFO - ⏭ Sistema peoplesoft desabilitado, pulando...
+2025-11-05 12:48:58,911 - collectors.base_collector - INFO - ✓ Coletor Google inicializado
+2025-11-05 12:48:58,912 - collectors.google_collector - INFO - 🔍 GoogleCollector inicializado: Google
+2025-11-05 12:48:58,912 - orchestrator.orchestrator - INFO - ✓ Coletor google inicializado
+2025-11-05 12:48:58,913 - orchestrator.orchestrator - INFO - ⏭ Sistema oracle_fusion desabilitado, pulando...
+2025-11-05 12:48:58,914 - orchestrator.orchestrator - INFO - ⏭ Sistema bonita desabilitado, pulando...
+2025-11-05 12:48:58,915 - orchestrator.orchestrator - INFO - ⏭ Sistema n8n desabilitado, pulando...
+2025-11-05 12:48:58,916 - orchestrator.orchestrator - INFO - ✓ 1 coletores inicializados
+2025-11-05 12:48:58,917 - orchestrator.orchestrator - INFO - 📅 Agendando jobs de coleta...
+2025-11-05 12:48:59,114 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-05 12:48:59,114 - orchestrator.orchestrator - INFO - ✓ Job agendado: google a cada 60s
+2025-11-05 12:48:59,124 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-05 12:48:59,124 - orchestrator.orchestrator - INFO - ✓ Jobs agendados
+2025-11-05 12:48:59,131 - apscheduler.scheduler - INFO - Added job "Coleta google" to job store "default"
+2025-11-05 12:48:59,132 - apscheduler.scheduler - INFO - Added job "Limpeza diária" to job store "default"
+2025-11-05 12:48:59,134 - apscheduler.scheduler - INFO - Scheduler started
+2025-11-05 12:48:59,135 - orchestrator.orchestrator - INFO - ✓ Orquestrador ativo!
+2025-11-05 12:48:59,135 - apscheduler.executors.default - INFO - Running job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:49:59 -03)" (scheduled at 2025-11-05 12:48:59.114208-03:00)
+2025-11-05 12:48:59,136 - orchestrator.orchestrator - INFO - 
+📋 Jobs agendados (2):
+2025-11-05 12:48:59,136 - orchestrator.orchestrator - INFO - 🔄 Coletando: google
+2025-11-05 12:48:59,137 - orchestrator.orchestrator - INFO -   • Coleta google | próxima execução: 2025-11-05 12:49:59.114208-03:00
+2025-11-05 12:48:59,137 - collectors.google_collector - INFO - 📸 Coletando dados: Google
+2025-11-05 12:48:59,137 - orchestrator.orchestrator - INFO -   • Limpeza diária | próxima execução: 2025-11-06 02:00:00-03:00
+2025-11-05 12:48:59,138 - collectors.google_collector - INFO - 🎭 Modo HEADLESS ativado
+2025-11-05 12:49:01,906 - __main__ - INFO - 
+============================================================
+2025-11-05 12:49:01,907 - __main__ - INFO - ✓ Dashboard disponível em: http://localhost:5000
+2025-11-05 12:49:01,910 - __main__ - INFO - ✓ Versão TV disponível em: http://localhost:5000/tv
+2025-11-05 12:49:01,911 - __main__ - INFO - ============================================================
+
+2025-11-05 12:49:01,911 - __main__ - INFO - 🌐 Iniciando servidor web...
+2025-11-05 12:49:01,961 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.39:5000
+2025-11-05 12:49:01,964 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-05 12:49:02,049 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:02] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:49:02,052 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:02] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:49:02,056 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:02] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:49:02,288 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:02] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:49:03,848 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:03] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:49:04,024 - collectors.google_collector - INFO - ✓ WebDriver inicializado
+2025-11-05 12:49:04,024 - collectors.google_collector - INFO - Navegando para: https://www.google.com
+2025-11-05 12:49:09,165 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:09] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:49:09,411 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:09] "[33mGET /api/screenshot/google HTTP/1.1[0m" 404 -
+2025-11-05 12:49:17,531 - collectors.google_collector - WARNING - ⚠ Logo do Google não encontrado
+2025-11-05 12:49:17,614 - collectors.google_collector - INFO - ✓ Screenshot salvo: storage/screenshots/google/screenshot_20251105_124917.png
+2025-11-05 12:49:19,147 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:19] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:49:19,149 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:19] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:49:19,406 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:19] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:49:19,632 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:19] "GET /storage/screenshots/google/screenshot_20251105_124917.png?t=1762357759155 HTTP/1.1" 200 -
+2025-11-05 12:49:19,632 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:19] "GET /storage/screenshots/google/screenshot_20251105_124917.png?t=1762357759408 HTTP/1.1" 200 -
+2025-11-05 12:49:23,994 - processors.data_processors - INFO - ✓ Dados de google processados
+2025-11-05 12:49:24,007 - backend.websocket_handlers - INFO - 📡 Broadcasting update: google
+2025-11-05 12:49:24,007 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: google
+2025-11-05 12:49:24,008 - apscheduler.executors.default - INFO - Job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:49:59 -03)" executed successfully
+2025-11-05 12:49:29,155 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:29] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:49:29,399 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:29] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:49:29,476 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:29] "GET /storage/screenshots/google/screenshot_20251105_124917.png?t=1762357769403 HTTP/1.1" 200 -
+2025-11-05 12:49:34,149 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:34] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:49:34,412 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:34] "GET /storage/screenshots/google/screenshot_20251105_124917.png?t=1762357774151 HTTP/1.1" 200 -
+2025-11-05 12:49:39,153 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:39] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:49:39,412 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:39] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:49:39,474 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:39] "GET /storage/screenshots/google/screenshot_20251105_124917.png?t=1762357779414 HTTP/1.1" 200 -
+2025-11-05 12:49:49,154 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:49] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:49:49,155 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:49] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:49:49,414 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:49] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:49:49,477 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:49] "GET /storage/screenshots/google/screenshot_20251105_124917.png?t=1762357789417 HTTP/1.1" 200 -
+2025-11-05 12:49:49,478 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:49] "GET /storage/screenshots/google/screenshot_20251105_124917.png?t=1762357789161 HTTP/1.1" 200 -
+2025-11-05 12:49:59,120 - apscheduler.executors.default - INFO - Running job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:50:59 -03)" (scheduled at 2025-11-05 12:49:59.114208-03:00)
+2025-11-05 12:49:59,121 - orchestrator.orchestrator - INFO - 🔄 Coletando: google
+2025-11-05 12:49:59,121 - collectors.google_collector - INFO - 📸 Coletando dados: Google
+2025-11-05 12:49:59,121 - collectors.google_collector - INFO - 🎭 Modo HEADLESS ativado
+2025-11-05 12:49:59,169 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:59] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:49:59,427 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:59] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:49:59,489 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:49:59] "GET /storage/screenshots/google/screenshot_20251105_124917.png?t=1762357799429 HTTP/1.1" 200 -
+2025-11-05 12:50:03,045 - collectors.google_collector - INFO - ✓ WebDriver inicializado
+2025-11-05 12:50:03,047 - collectors.google_collector - INFO - Navegando para: https://www.google.com
+2025-11-05 12:50:04,149 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:50:04] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:50:04,415 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:50:04] "GET /storage/screenshots/google/screenshot_20251105_124917.png?t=1762357804152 HTTP/1.1" 200 -
+2025-11-05 12:50:09,159 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:50:09] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:50:09,415 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:50:09] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:50:09,478 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:50:09] "GET /storage/screenshots/google/screenshot_20251105_124917.png?t=1762357809417 HTTP/1.1" 200 -
+2025-11-05 12:50:11,761 - __main__ - INFO - 
+
+🛑 Recebido sinal de interrupção...
+2025-11-05 12:50:11,762 - orchestrator.orchestrator - INFO - 🛑 Parando orquestrador...
+2025-11-05 12:50:16,008 - urllib3.connectionpool - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000023187AEC550>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente')': /session/b1bcf361cef223e2d74496a2cfc719ed/element
+2025-11-05 12:50:20,090 - urllib3.connectionpool - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000023187AEC910>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente')': /session/b1bcf361cef223e2d74496a2cfc719ed/element
+2025-11-05 12:50:24,184 - urllib3.connectionpool - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000023187A56060>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente')': /session/b1bcf361cef223e2d74496a2cfc719ed/element
+2025-11-05 12:50:28,277 - collectors.google_collector - WARNING - ⚠ Logo do Google não encontrado
+2025-11-05 12:50:32,349 - urllib3.connectionpool - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000023187A2D250>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente')': /session/b1bcf361cef223e2d74496a2cfc719ed/screenshot
+2025-11-05 12:50:36,424 - urllib3.connectionpool - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000023187A1F460>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente')': /session/b1bcf361cef223e2d74496a2cfc719ed/screenshot
+2025-11-05 12:50:40,503 - urllib3.connectionpool - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000023187A1F8A0>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente')': /session/b1bcf361cef223e2d74496a2cfc719ed/screenshot
+2025-11-05 12:50:44,584 - collectors.google_collector - ERROR - ❌ Erro ao capturar screenshot: HTTPConnectionPool(host='localhost', port=59749): Max retries exceeded with url: /session/b1bcf361cef223e2d74496a2cfc719ed/screenshot (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000023187A1FCE0>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente'))
+2025-11-05 12:50:48,669 - urllib3.connectionpool - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000023187B04160>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente')': /session/b1bcf361cef223e2d74496a2cfc719ed
+2025-11-05 12:50:52,723 - urllib3.connectionpool - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000023187B04490>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente')': /session/b1bcf361cef223e2d74496a2cfc719ed
+2025-11-05 12:50:56,781 - urllib3.connectionpool - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000023187B047C0>: Failed to establish a new connection: [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente')': /session/b1bcf361cef223e2d74496a2cfc719ed
+2025-11-05 12:51:04,912 - collectors.base_collector - ERROR - ❌ Erro em Google: Falha ao capturar screenshot
+2025-11-05 12:51:04,912 - processors.data_processors - INFO - ✓ Dados de google processados
+2025-11-05 12:51:04,925 - backend.websocket_handlers - INFO - 📡 Broadcasting update: google
+2025-11-05 12:51:04,926 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: google
+2025-11-05 12:51:04,926 - apscheduler.executors.default - INFO - Job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:50:59 -03)" executed successfully
+2025-11-05 12:51:04,928 - __main__ - INFO - 
+
+🛑 Recebido sinal de interrupção...
+2025-11-05 12:51:04,928 - orchestrator.orchestrator - INFO - 🛑 Parando orquestrador...
+2025-11-05 12:51:04,931 - apscheduler.scheduler - ERROR - Error submitting job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:50:59 -03)" to executor "default"
+Traceback (most recent call last):
+  File "C:\Users\lymte\AppData\Roaming\Python\Python313\site-packages\apscheduler\schedulers\base.py", line 988, in _process_jobs
+    executor.submit_job(job, run_times)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\lymte\AppData\Roaming\Python\Python313\site-packages\apscheduler\executors\base.py", line 71, in submit_job
+    self._do_submit_job(job, run_times)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\lymte\AppData\Roaming\Python\Python313\site-packages\apscheduler\executors\pool.py", line 28, in _do_submit_job
+    f = self._pool.submit(run_job, job, job._jobstore_alias, run_times, self._logger.name)
+  File "C:\Python313\Lib\concurrent\futures\thread.py", line 171, in submit
+    raise RuntimeError('cannot schedule new futures after shutdown')
+RuntimeError: cannot schedule new futures after shutdown
+2025-11-05 12:51:04,931 - __main__ - ERROR - Erro no servidor web: Scheduler is not running
+2025-11-05 12:54:58,799 - storage.local_storage - INFO - ✓ Banco de dados inicializado
+2025-11-05 12:54:58,817 - backend.routes - INFO - ✓ Rotas registradas
+2025-11-05 12:54:58,818 - backend.websocket_handlers - INFO - ✓ Handlers WebSocket registrados
+2025-11-05 12:54:58,819 - backend.app - INFO - ✓ Backend Flask inicializado
+2025-11-05 12:54:58,821 - __main__ - INFO - 
+============================================================
+2025-11-05 12:54:58,822 - __main__ - INFO -     PROCESS MONITOR DASHBOARD
+2025-11-05 12:54:58,823 - __main__ - INFO -     Versão 1.0.0
+2025-11-05 12:54:58,824 - __main__ - INFO - ============================================================
+
+2025-11-05 12:54:58,827 - __main__ - INFO - ✓ Estrutura de diretórios verificada
+2025-11-05 12:54:58,828 - __main__ - INFO - 🔧 Iniciando componentes...
+2025-11-05 12:54:58,835 - storage.local_storage - INFO - ✓ Banco de dados inicializado
+2025-11-05 12:54:58,835 - orchestrator.orchestrator - INFO - 📋 Orquestrador criado
+2025-11-05 12:54:58,836 - orchestrator.orchestrator - INFO - ✓ SocketIO configurado no orquestrador
+2025-11-05 12:54:58,836 - orchestrator.orchestrator - INFO - ============================================================
+2025-11-05 12:54:58,837 - orchestrator.orchestrator - INFO - 🚀 INICIANDO ORQUESTRADOR
+2025-11-05 12:54:58,837 - orchestrator.orchestrator - INFO - ============================================================
+2025-11-05 12:54:58,838 - orchestrator.orchestrator - INFO - 🔧 Inicializando coletores...
+2025-11-05 12:54:58,839 - collectors.base_collector - INFO - ✓ Coletor PeopleSoft inicializado
+2025-11-05 12:54:58,839 - collectors.peoplesoft_collector - INFO - 🔍 DEBUG __init__: Filtros carregados do config:
+2025-11-05 12:54:58,840 - collectors.peoplesoft_collector - INFO -    - Total de chaves: 9
+2025-11-05 12:54:58,840 - collectors.peoplesoft_collector - INFO -    - Conteúdo: {'user_id': 'MBENITEZ', 'process_name': 'AJ_BU_PS_CLI', 'server': None, 'run_status': None, 'type': None, 'dist_status': None, 'instance_from': None, 'instance_to': None, 'time_filter': {'type': '0', 'value': '70', 'unit': '1'}}
+2025-11-05 12:54:58,841 - orchestrator.orchestrator - INFO - ✓ Coletor peoplesoft inicializado
+2025-11-05 12:54:58,842 - collectors.base_collector - INFO - ✓ Coletor Google inicializado
+2025-11-05 12:54:58,843 - collectors.google_collector - INFO - 🔍 GoogleCollector inicializado: Google
+2025-11-05 12:54:58,843 - orchestrator.orchestrator - INFO - ✓ Coletor google inicializado
+2025-11-05 12:54:58,844 - orchestrator.orchestrator - INFO - ⏭ Sistema oracle_fusion desabilitado, pulando...
+2025-11-05 12:54:58,845 - orchestrator.orchestrator - INFO - ⏭ Sistema bonita desabilitado, pulando...
+2025-11-05 12:54:58,846 - orchestrator.orchestrator - INFO - ⏭ Sistema n8n desabilitado, pulando...
+2025-11-05 12:54:58,846 - orchestrator.orchestrator - INFO - ✓ 2 coletores inicializados
+2025-11-05 12:54:58,847 - orchestrator.orchestrator - INFO - 📅 Agendando jobs de coleta...
+2025-11-05 12:54:59,130 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-05 12:54:59,131 - orchestrator.orchestrator - INFO - ✓ Job agendado: peoplesoft a cada 180s
+2025-11-05 12:54:59,133 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-05 12:54:59,134 - orchestrator.orchestrator - INFO - ✓ Job agendado: google a cada 60s
+2025-11-05 12:54:59,149 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-05 12:54:59,150 - orchestrator.orchestrator - INFO - ✓ Jobs agendados
+2025-11-05 12:54:59,161 - apscheduler.scheduler - INFO - Added job "Coleta peoplesoft" to job store "default"
+2025-11-05 12:54:59,162 - apscheduler.scheduler - INFO - Added job "Coleta google" to job store "default"
+2025-11-05 12:54:59,163 - apscheduler.scheduler - INFO - Added job "Limpeza diária" to job store "default"
+2025-11-05 12:54:59,164 - apscheduler.scheduler - INFO - Scheduler started
+2025-11-05 12:54:59,168 - orchestrator.orchestrator - INFO - ✓ Orquestrador ativo!
+2025-11-05 12:54:59,169 - apscheduler.executors.default - INFO - Running job "Coleta peoplesoft (trigger: interval[0:03:00], next run at: 2025-11-05 12:57:59 -03)" (scheduled at 2025-11-05 12:54:59.130409-03:00)
+2025-11-05 12:54:59,170 - apscheduler.executors.default - INFO - Running job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:54:59 -03)" (scheduled at 2025-11-05 12:54:59.133253-03:00)
+2025-11-05 12:54:59,171 - orchestrator.orchestrator - INFO - 🔄 Coletando: peoplesoft
+2025-11-05 12:54:59,171 - orchestrator.orchestrator - INFO - 
+📋 Jobs agendados (3):
+2025-11-05 12:54:59,171 - orchestrator.orchestrator - INFO - 🔄 Coletando: google
+2025-11-05 12:54:59,172 - collectors.peoplesoft_collector - INFO - 📸 Coletando dados: PeopleSoft
+2025-11-05 12:54:59,173 - orchestrator.orchestrator - INFO -   • Coleta google | próxima execução: 2025-11-05 12:55:59.133253-03:00
+2025-11-05 12:54:59,173 - collectors.google_collector - INFO - 📸 Coletando dados: Google
+2025-11-05 12:54:59,174 - collectors.peoplesoft_collector - INFO - 🎭 Modo HEADLESS ativado (sem interface visual)
+2025-11-05 12:54:59,175 - orchestrator.orchestrator - INFO -   • Coleta peoplesoft | próxima execução: 2025-11-05 12:57:59.130409-03:00
+2025-11-05 12:54:59,175 - collectors.google_collector - INFO - 🎭 Modo HEADLESS ativado
+2025-11-05 12:54:59,179 - orchestrator.orchestrator - INFO -   • Limpeza diária | próxima execução: 2025-11-06 02:00:00-03:00
+2025-11-05 12:55:01,833 - __main__ - INFO - 
+============================================================
+2025-11-05 12:55:01,834 - __main__ - INFO - ✓ Dashboard disponível em: http://localhost:5000
+2025-11-05 12:55:01,834 - __main__ - INFO - ✓ Versão TV disponível em: http://localhost:5000/tv
+2025-11-05 12:55:01,835 - __main__ - INFO - ============================================================
+
+2025-11-05 12:55:01,836 - __main__ - INFO - 🌐 Iniciando servidor web...
+2025-11-05 12:55:03,376 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.39:5000
+2025-11-05 12:55:03,389 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-05 12:55:03,518 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:03] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:55:03,757 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:03] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:55:03,922 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:03] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:55:03,945 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:03] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:55:04,107 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:04] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:55:04,128 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:04] "GET /storage/screenshots/google/screenshot_20251105_124917.png?t=1762358103776 HTTP/1.1" 200 -
+2025-11-05 12:55:04,400 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:04] "GET /storage/screenshots/google/screenshot_20251105_124917.png?t=1762358104013 HTTP/1.1" 200 -
+2025-11-05 12:55:04,404 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:04] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:55:04,409 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:04] "GET /storage/screenshots/google/screenshot_20251105_124917.png?t=1762358104144 HTTP/1.1" 200 -
+2025-11-05 12:55:05,669 - collectors.google_collector - INFO - ✓ WebDriver inicializado
+2025-11-05 12:55:05,670 - collectors.google_collector - INFO - Navegando para: https://www.google.com
+2025-11-05 12:55:05,824 - collectors.peoplesoft_collector - INFO - ✓ WebDriver inicializado
+2025-11-05 12:55:05,825 - collectors.peoplesoft_collector - INFO - 🔐 Fazendo login...
+2025-11-05 12:55:09,161 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:09] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:55:09,436 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:09] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:55:09,489 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:09] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:55:09,492 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:09] "GET /storage/screenshots/google/screenshot_20251105_124917.png?t=1762358109441 HTTP/1.1" 200 -
+2025-11-05 12:55:18,365 - collectors.google_collector - WARNING - ⚠ Logo do Google não encontrado
+2025-11-05 12:55:18,426 - collectors.google_collector - INFO - ✓ Screenshot salvo: storage/screenshots/google/screenshot_20251105_125518.png
+2025-11-05 12:55:19,154 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:19] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:55:19,156 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:19] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:55:19,157 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:19] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:55:19,411 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:19] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:55:19,491 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:19] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:55:19,534 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:19] "GET /storage/screenshots/google/screenshot_20251105_125518.png?t=1762358119158 HTTP/1.1" 200 -
+2025-11-05 12:55:19,544 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:19] "GET /storage/screenshots/google/screenshot_20251105_125518.png?t=1762358119414 HTTP/1.1" 200 -
+2025-11-05 12:55:24,923 - processors.data_processors - INFO - ✓ Dados de google processados
+2025-11-05 12:55:24,938 - backend.websocket_handlers - INFO - 📡 Broadcasting update: google
+2025-11-05 12:55:24,939 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: google
+2025-11-05 12:55:24,939 - apscheduler.executors.default - INFO - Job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:55:59 -03)" executed successfully
+2025-11-05 12:55:26,922 - collectors.peoplesoft_collector - INFO - ✓ Login bem-sucedido
+2025-11-05 12:55:26,922 - collectors.peoplesoft_collector - INFO - Navegando para: http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/c/PROCESSMONITOR.PROCESSMONITOR.GBL?FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS.PT_PROCESS_SCHEDULER.PT_PROCESSMONITOR_GBL&IsFolder=false&IgnoreParamTempl=FolderPath%2cIsFolder
+2025-11-05 12:55:29,153 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:29] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:55:29,412 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:29] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:55:29,475 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:29] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:55:29,479 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:29] "GET /storage/screenshots/google/screenshot_20251105_125518.png?t=1762358129414 HTTP/1.1" 200 -
+2025-11-05 12:55:34,153 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:34] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:55:34,158 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:34] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:55:34,414 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:34] "GET /storage/screenshots/google/screenshot_20251105_125518.png?t=1762358134155 HTTP/1.1" 200 -
+2025-11-05 12:55:39,150 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:39] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:55:39,410 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:39] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:55:39,473 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:39] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:55:39,476 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:39] "GET /storage/screenshots/google/screenshot_20251105_125518.png?t=1762358139412 HTTP/1.1" 200 -
+2025-11-05 12:55:42,101 - collectors.peoplesoft_collector - INFO - ✓ Switch para iframe ptifrmtgtframe (por ID)
+2025-11-05 12:55:44,101 - collectors.peoplesoft_collector - INFO - ============================================================
+2025-11-05 12:55:44,102 - collectors.peoplesoft_collector - INFO - 📋 FILTROS CONFIGURADOS:
+2025-11-05 12:55:44,102 - collectors.peoplesoft_collector - INFO - ============================================================
+2025-11-05 12:55:44,102 - collectors.peoplesoft_collector - INFO -   • User ID: MBENITEZ
+2025-11-05 12:55:44,103 - collectors.peoplesoft_collector - INFO -   • Process Name: AJ_BU_PS_CLI
+2025-11-05 12:55:44,103 - collectors.peoplesoft_collector - INFO -   • Time Filter:
+2025-11-05 12:55:44,104 - collectors.peoplesoft_collector - INFO -     - Type: Last
+2025-11-05 12:55:44,104 - collectors.peoplesoft_collector - INFO -     - Value: 70
+2025-11-05 12:55:44,104 - collectors.peoplesoft_collector - INFO -     - Unit: Days
+2025-11-05 12:55:44,105 - collectors.peoplesoft_collector - INFO - ============================================================
+2025-11-05 12:55:44,105 - collectors.peoplesoft_collector - INFO - 🔍 Aplicando filtros...
+2025-11-05 12:55:44,105 - collectors.peoplesoft_collector - INFO - Buscando User ID: 'MBENITEZ'
+2025-11-05 12:55:49,156 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:49] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:55:49,169 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:49] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:55:49,172 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:49] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:55:49,416 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:49] "GET /storage/screenshots/google/screenshot_20251105_125518.png?t=1762358149159 HTTP/1.1" 200 -
+2025-11-05 12:55:49,493 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:49] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:55:49,514 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:49] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:55:49,520 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:49] "GET /storage/screenshots/google/screenshot_20251105_125518.png?t=1762358149498 HTTP/1.1" 200 -
+2025-11-05 12:55:52,560 - collectors.peoplesoft_collector - INFO - ✓ User ID 'MBENITEZ' selecionado
+2025-11-05 12:55:55,645 - collectors.peoplesoft_collector - INFO - Buscando Process Name: 'AJ_BU_PS_CLI'
+2025-11-05 12:55:59,138 - apscheduler.executors.default - INFO - Running job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:56:59 -03)" (scheduled at 2025-11-05 12:55:59.133253-03:00)
+2025-11-05 12:55:59,138 - orchestrator.orchestrator - INFO - 🔄 Coletando: google
+2025-11-05 12:55:59,138 - collectors.google_collector - INFO - 📸 Coletando dados: Google
+2025-11-05 12:55:59,139 - collectors.google_collector - INFO - 🎭 Modo HEADLESS ativado
+2025-11-05 12:55:59,171 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:59] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:55:59,414 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:59] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:55:59,492 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:59] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:55:59,496 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:55:59] "GET /storage/screenshots/google/screenshot_20251105_125518.png?t=1762358159417 HTTP/1.1" 200 -
+2025-11-05 12:56:01,908 - collectors.google_collector - INFO - ✓ WebDriver inicializado
+2025-11-05 12:56:01,909 - collectors.google_collector - INFO - Navegando para: https://www.google.com
+2025-11-05 12:56:04,146 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:04] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:56:04,148 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:04] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:56:04,407 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:04] "GET /storage/screenshots/google/screenshot_20251105_125518.png?t=1762358164149 HTTP/1.1" 200 -
+2025-11-05 12:56:09,161 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:09] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:56:09,422 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:09] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:56:09,484 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:09] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:56:09,486 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:09] "GET /storage/screenshots/google/screenshot_20251105_125518.png?t=1762358169424 HTTP/1.1" 200 -
+2025-11-05 12:56:15,573 - collectors.google_collector - WARNING - ⚠ Logo do Google não encontrado
+2025-11-05 12:56:15,621 - collectors.google_collector - INFO - ✓ Screenshot salvo: storage/screenshots/google/screenshot_20251105_125615.png
+2025-11-05 12:56:19,154 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:19] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:56:19,154 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:19] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:56:19,155 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:19] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:56:19,414 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:19] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:56:19,479 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:19] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:56:19,501 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:19] "GET /storage/screenshots/google/screenshot_20251105_125615.png?t=1762358179163 HTTP/1.1" 200 -
+2025-11-05 12:56:19,502 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:19] "GET /storage/screenshots/google/screenshot_20251105_125615.png?t=1762358179416 HTTP/1.1" 200 -
+2025-11-05 12:56:23,026 - collectors.peoplesoft_collector - WARNING - ⚠ Process Name 'AJ_BU_PS_CLI' não encontrado nos resultados
+2025-11-05 12:56:23,039 - processors.data_processors - INFO - ✓ Dados de google processados
+2025-11-05 12:56:23,053 - backend.websocket_handlers - INFO - 📡 Broadcasting update: google
+2025-11-05 12:56:23,054 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: google
+2025-11-05 12:56:23,054 - apscheduler.executors.default - INFO - Job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:56:59 -03)" executed successfully
+2025-11-05 12:56:26,854 - collectors.peoplesoft_collector - INFO - ============================================================
+2025-11-05 12:56:26,854 - collectors.peoplesoft_collector - INFO - 🔄 INICIANDO CLIQUE NO REFRESH...
+2025-11-05 12:56:26,855 - collectors.peoplesoft_collector - INFO - ============================================================
+2025-11-05 12:56:26,907 - collectors.peoplesoft_collector - INFO - 📸 Screenshot ANTES do Refresh salvo
+2025-11-05 12:56:26,908 - collectors.peoplesoft_collector - INFO -    Tentativa 1: id = 'REFRESH_BTN'
+2025-11-05 12:56:26,945 - collectors.peoplesoft_collector - INFO -    ✨ Aplicando highlight no botão...
+2025-11-05 12:56:28,015 - collectors.peoplesoft_collector - INFO -    📸 Screenshot COM HIGHLIGHT salvo
+2025-11-05 12:56:28,033 - collectors.peoplesoft_collector - INFO -    🖱️  CLICANDO no botão...
+2025-11-05 12:56:28,059 - collectors.peoplesoft_collector - INFO - ============================================================
+2025-11-05 12:56:28,060 - collectors.peoplesoft_collector - INFO - ✅ REFRESH CLICADO COM SUCESSO!
+2025-11-05 12:56:28,060 - collectors.peoplesoft_collector - INFO - ⏳ Aguardando 5 segundos para página atualizar...
+2025-11-05 12:56:28,061 - collectors.peoplesoft_collector - INFO - ============================================================
+2025-11-05 12:56:29,158 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:29] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:56:29,417 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:29] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:56:29,479 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:29] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:56:29,479 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:29] "GET /storage/screenshots/google/screenshot_20251105_125615.png?t=1762358189420 HTTP/1.1" 200 -
+2025-11-05 12:56:33,110 - collectors.peoplesoft_collector - INFO - 📸 Screenshot DEPOIS do Refresh salvo
+2025-11-05 12:56:33,110 - collectors.peoplesoft_collector - INFO - ✓ Filtros aplicados com sucesso
+2025-11-05 12:56:34,162 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:34] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:56:34,163 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:34] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 12:56:34,420 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:34] "GET /storage/screenshots/google/screenshot_20251105_125615.png?t=1762358194167 HTTP/1.1" 200 -
+2025-11-05 12:56:37,157 - collectors.peoplesoft_collector - INFO - ✓ Tabela encontrada com selector: table.PSLEVEL1GRID
+2025-11-05 12:56:37,171 - collectors.peoplesoft_collector - INFO - Encontradas 17 linhas na tabela
+2025-11-05 12:56:37,824 - collectors.peoplesoft_collector - INFO - ✓ Métricas extraídas: 16 processos, 0 erros, 100.0% sucesso
+2025-11-05 12:56:37,887 - collectors.peoplesoft_collector - INFO - ✓ Screenshot salvo: storage/screenshots/peoplesoft/screenshot_20251105_125637.png
+2025-11-05 12:56:39,150 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:39] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:56:39,409 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:39] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:56:39,474 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:39] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:56:39,476 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:39] "GET /storage/screenshots/google/screenshot_20251105_125615.png?t=1762358199412 HTTP/1.1" 200 -
+2025-11-05 12:56:39,798 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:39] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358199479 HTTP/1.1" 200 -
+2025-11-05 12:56:44,271 - processors.data_processors - INFO - ✓ Dados de peoplesoft processados
+2025-11-05 12:56:44,285 - backend.websocket_handlers - INFO - 📡 Broadcasting update: peoplesoft
+2025-11-05 12:56:44,286 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: peoplesoft
+2025-11-05 12:56:44,287 - apscheduler.executors.default - INFO - Job "Coleta peoplesoft (trigger: interval[0:03:00], next run at: 2025-11-05 12:57:59 -03)" executed successfully
+2025-11-05 12:56:49,153 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:49] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:56:49,154 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:49] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:56:49,155 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:49] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:56:49,411 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:49] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:56:49,475 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:49] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:56:49,476 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:49] "GET /storage/screenshots/google/screenshot_20251105_125615.png?t=1762358209413 HTTP/1.1" 200 -
+2025-11-05 12:56:49,476 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:49] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358209166 HTTP/1.1" 200 -
+2025-11-05 12:56:49,478 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:49] "GET /storage/screenshots/google/screenshot_20251105_125615.png?t=1762358209160 HTTP/1.1" 200 -
+2025-11-05 12:56:49,735 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:49] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358209478 HTTP/1.1" 200 -
+2025-11-05 12:56:57,515 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:57] "[36mGET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358209478 HTTP/1.1[0m" 304 -
+2025-11-05 12:56:59,147 - apscheduler.executors.default - INFO - Running job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:57:59 -03)" (scheduled at 2025-11-05 12:56:59.133253-03:00)
+2025-11-05 12:56:59,148 - orchestrator.orchestrator - INFO - 🔄 Coletando: google
+2025-11-05 12:56:59,148 - collectors.google_collector - INFO - 📸 Coletando dados: Google
+2025-11-05 12:56:59,149 - collectors.google_collector - INFO - 🎭 Modo HEADLESS ativado
+2025-11-05 12:56:59,479 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:59] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:56:59,498 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:59] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:56:59,817 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:59] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:56:59,821 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:56:59] "GET /storage/screenshots/google/screenshot_20251105_125615.png?t=1762358219508 HTTP/1.1" 200 -
+2025-11-05 12:57:00,076 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:00] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358219839 HTTP/1.1" 200 -
+2025-11-05 12:57:03,229 - collectors.google_collector - INFO - ✓ WebDriver inicializado
+2025-11-05 12:57:03,229 - collectors.google_collector - INFO - Navegando para: https://www.google.com
+2025-11-05 12:57:04,861 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:04] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:57:04,862 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:04] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:57:05,107 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:05] "GET /storage/screenshots/google/screenshot_20251105_125615.png?t=1762358224875 HTTP/1.1" 200 -
+2025-11-05 12:57:05,184 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:05] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358224877 HTTP/1.1" 200 -
+2025-11-05 12:57:09,839 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:09] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:57:10,071 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:10] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:57:10,241 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:10] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:57:10,254 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:10] "GET /storage/screenshots/google/screenshot_20251105_125615.png?t=1762358230206 HTTP/1.1" 200 -
+2025-11-05 12:57:10,536 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:10] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358230266 HTTP/1.1" 200 -
+2025-11-05 12:57:19,153 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:19] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:57:19,159 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:19] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:57:19,170 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:19] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:57:19,226 - collectors.google_collector - WARNING - ⚠ Logo do Google não encontrado
+2025-11-05 12:57:19,301 - collectors.google_collector - INFO - ✓ Screenshot salvo: storage/screenshots/google/screenshot_20251105_125719.png
+2025-11-05 12:57:19,670 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:19] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:57:19,676 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:19] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:57:19,708 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:19] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358239168 HTTP/1.1" 200 -
+2025-11-05 12:57:19,715 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:19] "GET /storage/screenshots/google/screenshot_20251105_125615.png?t=1762358239178 HTTP/1.1" 200 -
+2025-11-05 12:57:19,994 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:19] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358239681 HTTP/1.1" 200 -
+2025-11-05 12:57:20,018 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:20] "GET /storage/screenshots/google/screenshot_20251105_125719.png?t=1762358239674 HTTP/1.1" 200 -
+2025-11-05 12:57:26,359 - processors.data_processors - INFO - ✓ Dados de google processados
+2025-11-05 12:57:26,376 - backend.websocket_handlers - INFO - 📡 Broadcasting update: google
+2025-11-05 12:57:26,377 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: google
+2025-11-05 12:57:26,379 - apscheduler.executors.default - INFO - Job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:57:59 -03)" executed successfully
+2025-11-05 12:57:29,150 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:29] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:57:29,410 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:29] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:57:29,473 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:29] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:57:29,475 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:29] "GET /storage/screenshots/google/screenshot_20251105_125719.png?t=1762358249411 HTTP/1.1" 200 -
+2025-11-05 12:57:29,731 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:29] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358249477 HTTP/1.1" 200 -
+2025-11-05 12:57:34,159 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:34] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:57:34,170 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:34] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:57:34,406 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:34] "GET /storage/screenshots/google/screenshot_20251105_125719.png?t=1762358254163 HTTP/1.1" 200 -
+2025-11-05 12:57:34,482 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:34] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358254175 HTTP/1.1" 200 -
+2025-11-05 12:57:38,848 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:38] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:57:39,171 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:39] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:57:39,172 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:39] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:57:39,415 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:39] "GET /storage/screenshots/google/screenshot_20251105_125719.png?t=1762358259176 HTTP/1.1" 200 -
+2025-11-05 12:57:39,494 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:39] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358259176 HTTP/1.1" 200 -
+2025-11-05 12:57:49,160 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:49] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:57:49,161 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:49] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:57:49,163 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:49] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:57:49,413 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:49] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:57:49,494 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:49] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:57:49,497 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:49] "GET /storage/screenshots/google/screenshot_20251105_125719.png?t=1762358269415 HTTP/1.1" 200 -
+2025-11-05 12:57:49,499 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:49] "GET /storage/screenshots/google/screenshot_20251105_125719.png?t=1762358269175 HTTP/1.1" 200 -
+2025-11-05 12:57:49,503 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:49] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358269177 HTTP/1.1" 200 -
+2025-11-05 12:57:49,737 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:49] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358269501 HTTP/1.1" 200 -
+2025-11-05 12:57:59,138 - apscheduler.executors.default - INFO - Running job "Coleta peoplesoft (trigger: interval[0:03:00], next run at: 2025-11-05 13:00:59 -03)" (scheduled at 2025-11-05 12:57:59.130409-03:00)
+2025-11-05 12:57:59,139 - apscheduler.executors.default - INFO - Running job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:58:59 -03)" (scheduled at 2025-11-05 12:57:59.133253-03:00)
+2025-11-05 12:57:59,140 - orchestrator.orchestrator - INFO - 🔄 Coletando: peoplesoft
+2025-11-05 12:57:59,140 - orchestrator.orchestrator - INFO - 🔄 Coletando: google
+2025-11-05 12:57:59,141 - collectors.peoplesoft_collector - INFO - 📸 Coletando dados: PeopleSoft
+2025-11-05 12:57:59,142 - collectors.google_collector - INFO - 📸 Coletando dados: Google
+2025-11-05 12:57:59,143 - collectors.peoplesoft_collector - INFO - 🎭 Modo HEADLESS ativado (sem interface visual)
+2025-11-05 12:57:59,144 - collectors.google_collector - INFO - 🎭 Modo HEADLESS ativado
+2025-11-05 12:57:59,179 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:59] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:57:59,423 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:59] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:57:59,505 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:59] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:57:59,518 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:59] "GET /storage/screenshots/google/screenshot_20251105_125719.png?t=1762358279457 HTTP/1.1" 200 -
+2025-11-05 12:57:59,772 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:57:59] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358279513 HTTP/1.1" 200 -
+2025-11-05 12:58:04,161 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:04] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:58:04,161 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:04] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:58:04,424 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:04] "GET /storage/screenshots/google/screenshot_20251105_125719.png?t=1762358284170 HTTP/1.1" 200 -
+2025-11-05 12:58:04,535 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:04] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358284173 HTTP/1.1" 200 -
+2025-11-05 12:58:05,284 - collectors.peoplesoft_collector - INFO - ✓ WebDriver inicializado
+2025-11-05 12:58:05,285 - collectors.google_collector - INFO - ✓ WebDriver inicializado
+2025-11-05 12:58:05,285 - collectors.peoplesoft_collector - INFO - 🔐 Fazendo login...
+2025-11-05 12:58:05,286 - collectors.google_collector - INFO - Navegando para: https://www.google.com
+2025-11-05 12:58:09,156 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:09] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:58:09,419 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:09] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:58:09,508 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:09] "GET /storage/screenshots/google/screenshot_20251105_125719.png?t=1762358289422 HTTP/1.1" 200 -
+2025-11-05 12:58:09,514 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:09] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:58:10,048 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:10] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358289524 HTTP/1.1" 200 -
+2025-11-05 12:58:17,842 - collectors.google_collector - WARNING - ⚠ Logo do Google não encontrado
+2025-11-05 12:58:17,943 - collectors.google_collector - INFO - ✓ Screenshot salvo: storage/screenshots/google/screenshot_20251105_125817.png
+2025-11-05 12:58:19,152 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:19] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:58:19,153 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:19] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:58:19,154 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:19] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:58:19,436 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:19] "GET /storage/screenshots/google/screenshot_20251105_125817.png?t=1762358299159 HTTP/1.1" 200 -
+2025-11-05 12:58:19,478 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:19] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:58:19,480 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:19] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:58:19,480 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:19] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358299163 HTTP/1.1" 200 -
+2025-11-05 12:58:19,493 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:19] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358299486 HTTP/1.1" 200 -
+2025-11-05 12:58:19,806 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:19] "GET /storage/screenshots/google/screenshot_20251105_125817.png?t=1762358299489 HTTP/1.1" 200 -
+2025-11-05 12:58:21,463 - collectors.peoplesoft_collector - INFO - ✓ Login bem-sucedido
+2025-11-05 12:58:21,464 - collectors.peoplesoft_collector - INFO - Navegando para: http://pswebt1.ajover.com:8080/psp/erptest/EMPLOYEE/ERP/c/PROCESSMONITOR.PROCESSMONITOR.GBL?FolderPath=PORTAL_ROOT_OBJECT.PT_PEOPLETOOLS.PT_PROCESS_SCHEDULER.PT_PROCESSMONITOR_GBL&IsFolder=false&IgnoreParamTempl=FolderPath%2cIsFolder
+2025-11-05 12:58:24,509 - processors.data_processors - INFO - ✓ Dados de google processados
+2025-11-05 12:58:24,540 - backend.websocket_handlers - INFO - 📡 Broadcasting update: google
+2025-11-05 12:58:24,542 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: google
+2025-11-05 12:58:24,545 - apscheduler.executors.default - INFO - Job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:58:59 -03)" executed successfully
+2025-11-05 12:58:29,154 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:29] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:58:29,415 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:29] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:58:29,464 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:29] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:58:29,465 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:29] "GET /storage/screenshots/google/screenshot_20251105_125817.png?t=1762358309417 HTTP/1.1" 200 -
+2025-11-05 12:58:29,739 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:29] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358309467 HTTP/1.1" 200 -
+2025-11-05 12:58:34,146 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:34] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:58:34,147 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:34] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:58:34,407 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:34] "GET /storage/screenshots/google/screenshot_20251105_125817.png?t=1762358314152 HTTP/1.1" 200 -
+2025-11-05 12:58:34,469 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:34] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358314153 HTTP/1.1" 200 -
+2025-11-05 12:58:34,953 - collectors.peoplesoft_collector - INFO - ✓ Switch para iframe ptifrmtgtframe (por ID)
+2025-11-05 12:58:36,954 - collectors.peoplesoft_collector - INFO - ============================================================
+2025-11-05 12:58:36,955 - collectors.peoplesoft_collector - INFO - 📋 FILTROS CONFIGURADOS:
+2025-11-05 12:58:36,955 - collectors.peoplesoft_collector - INFO - ============================================================
+2025-11-05 12:58:36,955 - collectors.peoplesoft_collector - INFO -   • User ID: MBENITEZ
+2025-11-05 12:58:36,955 - collectors.peoplesoft_collector - INFO -   • Process Name: AJ_BU_PS_CLI
+2025-11-05 12:58:36,956 - collectors.peoplesoft_collector - INFO -   • Time Filter:
+2025-11-05 12:58:36,956 - collectors.peoplesoft_collector - INFO -     - Type: Last
+2025-11-05 12:58:36,956 - collectors.peoplesoft_collector - INFO -     - Value: 70
+2025-11-05 12:58:36,956 - collectors.peoplesoft_collector - INFO -     - Unit: Days
+2025-11-05 12:58:36,956 - collectors.peoplesoft_collector - INFO - ============================================================
+2025-11-05 12:58:36,957 - collectors.peoplesoft_collector - INFO - 🔍 Aplicando filtros...
+2025-11-05 12:58:36,957 - collectors.peoplesoft_collector - INFO - Buscando User ID: 'MBENITEZ'
+2025-11-05 12:58:39,157 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:39] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:58:39,417 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:39] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:58:39,480 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:39] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:58:39,482 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:39] "GET /storage/screenshots/google/screenshot_20251105_125817.png?t=1762358319420 HTTP/1.1" 200 -
+2025-11-05 12:58:39,743 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:39] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358319483 HTTP/1.1" 200 -
+2025-11-05 12:58:45,005 - collectors.peoplesoft_collector - INFO - ✓ User ID 'MBENITEZ' selecionado
+2025-11-05 12:58:48,061 - collectors.peoplesoft_collector - INFO - Buscando Process Name: 'AJ_BU_PS_CLI'
+2025-11-05 12:58:49,159 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:49] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:58:49,161 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:49] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:58:49,162 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:49] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:58:49,417 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:49] "GET /storage/screenshots/google/screenshot_20251105_125817.png?t=1762358329168 HTTP/1.1" 200 -
+2025-11-05 12:58:49,493 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:49] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:58:49,494 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:49] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:58:49,495 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:49] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358329173 HTTP/1.1" 200 -
+2025-11-05 12:58:49,509 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:49] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358329498 HTTP/1.1" 200 -
+2025-11-05 12:58:49,812 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:49] "GET /storage/screenshots/google/screenshot_20251105_125817.png?t=1762358329501 HTTP/1.1" 200 -
+2025-11-05 12:58:59,147 - apscheduler.executors.default - INFO - Running job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:59:59 -03)" (scheduled at 2025-11-05 12:58:59.133253-03:00)
+2025-11-05 12:58:59,147 - orchestrator.orchestrator - INFO - 🔄 Coletando: google
+2025-11-05 12:58:59,148 - collectors.google_collector - INFO - 📸 Coletando dados: Google
+2025-11-05 12:58:59,149 - collectors.google_collector - INFO - 🎭 Modo HEADLESS ativado
+2025-11-05 12:58:59,150 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:59] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:58:59,411 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:59] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:58:59,476 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:59] "GET /storage/screenshots/google/screenshot_20251105_125817.png?t=1762358339416 HTTP/1.1" 200 -
+2025-11-05 12:58:59,478 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:59] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:58:59,735 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:58:59] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358339484 HTTP/1.1" 200 -
+2025-11-05 12:59:02,598 - collectors.google_collector - INFO - ✓ WebDriver inicializado
+2025-11-05 12:59:02,603 - collectors.google_collector - INFO - Navegando para: https://www.google.com
+2025-11-05 12:59:04,154 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:04] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:59:04,155 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:04] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:59:04,414 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:04] "GET /storage/screenshots/google/screenshot_20251105_125817.png?t=1762358344160 HTTP/1.1" 200 -
+2025-11-05 12:59:04,477 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:04] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358344165 HTTP/1.1" 200 -
+2025-11-05 12:59:09,149 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:09] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:59:09,410 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:09] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:59:09,472 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:09] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:59:09,474 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:09] "GET /storage/screenshots/google/screenshot_20251105_125817.png?t=1762358349414 HTTP/1.1" 200 -
+2025-11-05 12:59:09,730 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:09] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358349476 HTTP/1.1" 200 -
+2025-11-05 12:59:14,999 - collectors.google_collector - WARNING - ⚠ Logo do Google não encontrado
+2025-11-05 12:59:15,069 - collectors.google_collector - INFO - ✓ Screenshot salvo: storage/screenshots/google/screenshot_20251105_125915.png
+2025-11-05 12:59:16,064 - collectors.peoplesoft_collector - WARNING - ⚠ Process Name 'AJ_BU_PS_CLI' não encontrado nos resultados
+2025-11-05 12:59:19,152 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:19] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:59:19,154 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:19] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:59:19,160 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:19] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:59:19,421 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:19] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:59:19,472 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:19] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:59:19,481 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:19] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358359167 HTTP/1.1" 200 -
+2025-11-05 12:59:19,499 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:19] "GET /storage/screenshots/google/screenshot_20251105_125915.png?t=1762358359424 HTTP/1.1" 200 -
+2025-11-05 12:59:19,502 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:19] "GET /storage/screenshots/google/screenshot_20251105_125915.png?t=1762358359164 HTTP/1.1" 200 -
+2025-11-05 12:59:19,744 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:19] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358359478 HTTP/1.1" 200 -
+2025-11-05 12:59:20,763 - collectors.peoplesoft_collector - INFO - ============================================================
+2025-11-05 12:59:20,767 - collectors.peoplesoft_collector - INFO - 🔄 INICIANDO CLIQUE NO REFRESH...
+2025-11-05 12:59:20,767 - collectors.peoplesoft_collector - INFO - ============================================================
+2025-11-05 12:59:20,846 - collectors.peoplesoft_collector - INFO - 📸 Screenshot ANTES do Refresh salvo
+2025-11-05 12:59:20,848 - collectors.peoplesoft_collector - INFO -    Tentativa 1: id = 'REFRESH_BTN'
+2025-11-05 12:59:20,930 - collectors.peoplesoft_collector - INFO -    ✨ Aplicando highlight no botão...
+2025-11-05 12:59:21,490 - processors.data_processors - INFO - ✓ Dados de google processados
+2025-11-05 12:59:21,503 - backend.websocket_handlers - INFO - 📡 Broadcasting update: google
+2025-11-05 12:59:21,504 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: google
+2025-11-05 12:59:21,504 - apscheduler.executors.default - INFO - Job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 12:59:59 -03)" executed successfully
+2025-11-05 12:59:22,051 - collectors.peoplesoft_collector - INFO -    📸 Screenshot COM HIGHLIGHT salvo
+2025-11-05 12:59:22,080 - collectors.peoplesoft_collector - INFO -    🖱️  CLICANDO no botão...
+2025-11-05 12:59:22,117 - collectors.peoplesoft_collector - INFO - ============================================================
+2025-11-05 12:59:22,119 - collectors.peoplesoft_collector - INFO - ✅ REFRESH CLICADO COM SUCESSO!
+2025-11-05 12:59:22,120 - collectors.peoplesoft_collector - INFO - ⏳ Aguardando 5 segundos para página atualizar...
+2025-11-05 12:59:22,120 - collectors.peoplesoft_collector - INFO - ============================================================
+2025-11-05 12:59:27,186 - collectors.peoplesoft_collector - INFO - 📸 Screenshot DEPOIS do Refresh salvo
+2025-11-05 12:59:27,187 - collectors.peoplesoft_collector - INFO - ✓ Filtros aplicados com sucesso
+2025-11-05 12:59:29,147 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:29] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:59:29,405 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:29] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:59:29,467 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:29] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:59:29,468 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:29] "GET /storage/screenshots/google/screenshot_20251105_125915.png?t=1762358369407 HTTP/1.1" 200 -
+2025-11-05 12:59:29,727 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:29] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125637.png?t=1762358369471 HTTP/1.1" 200 -
+2025-11-05 12:59:31,250 - collectors.peoplesoft_collector - INFO - ✓ Tabela encontrada com selector: table.PSLEVEL1GRID
+2025-11-05 12:59:31,326 - collectors.peoplesoft_collector - INFO - Encontradas 17 linhas na tabela
+2025-11-05 12:59:32,175 - collectors.peoplesoft_collector - INFO - ✓ Métricas extraídas: 16 processos, 0 erros, 100.0% sucesso
+2025-11-05 12:59:32,246 - collectors.peoplesoft_collector - INFO - ✓ Screenshot salvo: storage/screenshots/peoplesoft/screenshot_20251105_125932.png
+2025-11-05 12:59:34,155 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:34] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:59:34,156 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:34] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:59:34,415 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:34] "GET /storage/screenshots/google/screenshot_20251105_125915.png?t=1762358374159 HTTP/1.1" 200 -
+2025-11-05 12:59:34,499 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:34] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125932.png?t=1762358374163 HTTP/1.1" 200 -
+2025-11-05 12:59:38,723 - processors.data_processors - INFO - ✓ Dados de peoplesoft processados
+2025-11-05 12:59:38,737 - backend.websocket_handlers - INFO - 📡 Broadcasting update: peoplesoft
+2025-11-05 12:59:38,738 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: peoplesoft
+2025-11-05 12:59:38,738 - apscheduler.executors.default - INFO - Job "Coleta peoplesoft (trigger: interval[0:03:00], next run at: 2025-11-05 13:00:59 -03)" executed successfully
+2025-11-05 12:59:38,849 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:38] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:59:39,176 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:39] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:59:39,178 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:39] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:59:39,419 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:39] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125932.png?t=1762358379185 HTTP/1.1" 200 -
+2025-11-05 12:59:39,496 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:39] "GET /storage/screenshots/google/screenshot_20251105_125915.png?t=1762358379189 HTTP/1.1" 200 -
+2025-11-05 12:59:49,153 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:49] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:59:49,154 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:49] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:59:49,155 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:49] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:59:49,411 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:49] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:59:49,478 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:49] "GET /storage/screenshots/google/screenshot_20251105_125915.png?t=1762358389164 HTTP/1.1" 200 -
+2025-11-05 12:59:49,479 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:49] "GET /storage/screenshots/google/screenshot_20251105_125915.png?t=1762358389413 HTTP/1.1" 200 -
+2025-11-05 12:59:49,480 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:49] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:59:49,483 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:49] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125932.png?t=1762358389164 HTTP/1.1" 200 -
+2025-11-05 12:59:49,733 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:49] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125932.png?t=1762358389489 HTTP/1.1" 200 -
+2025-11-05 12:59:59,143 - apscheduler.executors.default - INFO - Running job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 13:00:59 -03)" (scheduled at 2025-11-05 12:59:59.133253-03:00)
+2025-11-05 12:59:59,145 - orchestrator.orchestrator - INFO - 🔄 Coletando: google
+2025-11-05 12:59:59,146 - collectors.google_collector - INFO - 📸 Coletando dados: Google
+2025-11-05 12:59:59,148 - collectors.google_collector - INFO - 🎭 Modo HEADLESS ativado
+2025-11-05 12:59:59,149 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:59] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 12:59:59,406 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:59] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 12:59:59,484 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:59] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 12:59:59,493 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:59] "GET /storage/screenshots/google/screenshot_20251105_125915.png?t=1762358399408 HTTP/1.1" 200 -
+2025-11-05 12:59:59,716 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 12:59:59] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125932.png?t=1762358399487 HTTP/1.1" 200 -
+2025-11-05 13:00:02,837 - collectors.google_collector - INFO - ✓ WebDriver inicializado
+2025-11-05 13:00:02,837 - collectors.google_collector - INFO - Navegando para: https://www.google.com
+2025-11-05 13:00:04,161 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:04] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 13:00:04,163 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:04] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 13:00:04,404 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:04] "GET /storage/screenshots/google/screenshot_20251105_125915.png?t=1762358404168 HTTP/1.1" 200 -
+2025-11-05 13:00:04,481 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:04] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125932.png?t=1762358404172 HTTP/1.1" 200 -
+2025-11-05 13:00:09,153 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:09] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 13:00:09,414 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:09] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 13:00:09,476 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:09] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 13:00:09,477 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:09] "GET /storage/screenshots/google/screenshot_20251105_125915.png?t=1762358409417 HTTP/1.1" 200 -
+2025-11-05 13:00:09,738 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:09] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125932.png?t=1762358409479 HTTP/1.1" 200 -
+2025-11-05 13:00:16,371 - collectors.google_collector - WARNING - ⚠ Logo do Google não encontrado
+2025-11-05 13:00:16,574 - collectors.google_collector - INFO - ✓ Screenshot salvo: storage/screenshots/google/screenshot_20251105_130016.png
+2025-11-05 13:00:19,155 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:19] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 13:00:19,158 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:19] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 13:00:19,160 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:19] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 13:00:19,414 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:19] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 13:00:19,473 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:19] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 13:00:19,488 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:19] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125932.png?t=1762358419477 HTTP/1.1" 200 -
+2025-11-05 13:00:19,506 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:19] "GET /storage/screenshots/google/screenshot_20251105_130016.png?t=1762358419169 HTTP/1.1" 200 -
+2025-11-05 13:00:19,507 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:19] "GET /storage/screenshots/google/screenshot_20251105_130016.png?t=1762358419417 HTTP/1.1" 200 -
+2025-11-05 13:00:19,740 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:19] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125932.png?t=1762358419179 HTTP/1.1" 200 -
+2025-11-05 13:00:24,415 - processors.data_processors - INFO - ✓ Dados de google processados
+2025-11-05 13:00:24,430 - backend.websocket_handlers - INFO - 📡 Broadcasting update: google
+2025-11-05 13:00:24,430 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: google
+2025-11-05 13:00:24,431 - apscheduler.executors.default - INFO - Job "Coleta google (trigger: interval[0:01:00], next run at: 2025-11-05 13:00:59 -03)" executed successfully
+2025-11-05 13:00:29,165 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:29] "GET /api/systems/all HTTP/1.1" 200 -
+2025-11-05 13:00:29,423 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:29] "GET /api/screenshot/google HTTP/1.1" 200 -
+2025-11-05 13:00:29,478 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:29] "GET /api/screenshot/peoplesoft HTTP/1.1" 200 -
+2025-11-05 13:00:29,496 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:29] "GET /storage/screenshots/google/screenshot_20251105_130016.png?t=1762358429426 HTTP/1.1" 200 -
+2025-11-05 13:00:29,748 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 13:00:29] "GET /storage/screenshots/peoplesoft/screenshot_20251105_125932.png?t=1762358429482 HTTP/1.1" 200 -
+2025-11-05 13:00:32,333 - __main__ - INFO - 
+
+🛑 Recebido sinal de interrupção...
+2025-11-05 13:00:32,334 - orchestrator.orchestrator - INFO - 🛑 Parando orquestrador...
+2025-11-05 13:00:32,351 - apscheduler.scheduler - INFO - Scheduler has been shut down
+2025-11-05 13:00:32,354 - orchestrator.orchestrator - INFO - ✓ Orquestrador parado
+2025-11-05 13:00:32,355 - __main__ - INFO - 👋 Encerrando aplicação...

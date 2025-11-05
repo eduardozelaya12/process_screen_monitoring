@@ -19,7 +19,12 @@ def register_routes(app):
     
     @app.route('/tv')
     def tv_display():
-        """Versão otimizada para TV"""
+        """Versão otimizada para TV - Grid de todos os sistemas"""
+        return render_template('tv_display_new.html')
+    
+    @app.route('/tv/old')
+    def tv_display_old():
+        """Versão antiga da TV"""
         return render_template('tv_display.html')
     
     @app.route('/storage/<path:filename>')
@@ -153,6 +158,94 @@ def register_routes(app):
             
         except Exception as e:
             logger.error(f"Erro ao buscar screenshot: {e}")
+            return jsonify({'error': str(e)}), 500
+    
+    @app.route('/api/systems/all')
+    def get_all_systems():
+        """Lista todos os sistemas com status de execução"""
+        try:
+            with open('config/systems_config.json', 'r', encoding='utf-8') as f:
+                systems = json.load(f)
+            
+            from orchestrator.orchestrator import get_orchestrator_instance
+            orchestrator = get_orchestrator_instance()
+            
+            result = {}
+            for name, config in systems.items():
+                running = False
+                interval = config.get('collection_interval', 300)
+                
+                if orchestrator and hasattr(orchestrator, 'running_systems'):
+                    running = name in orchestrator.running_systems
+                
+                result[name] = {
+                    'name': config['name'],
+                    'type': config['type'],
+                    'enabled': config.get('enabled', False),
+                    'running': running,
+                    'interval': interval
+                }
+            
+            return jsonify(result)
+            
+        except Exception as e:
+            logger.error(f"Erro ao buscar todos os sistemas: {e}")
+            return jsonify({'error': str(e)}), 500
+    
+    @app.route('/api/systems/<system_name>/start', methods=['POST'])
+    def start_system(system_name):
+        """Inicia coleta de um sistema específico"""
+        try:
+            from orchestrator.orchestrator import get_orchestrator_instance
+            
+            orchestrator = get_orchestrator_instance()
+            if not orchestrator:
+                return jsonify({'error': 'Orquestrador não iniciado'}), 503
+            
+            success = orchestrator.start_system(system_name)
+            
+            if success:
+                return jsonify({
+                    'status': 'success',
+                    'message': f'Sistema {system_name} iniciado',
+                    'system': system_name
+                })
+            else:
+                return jsonify({
+                    'status': 'error',
+                    'message': f'Falha ao iniciar sistema {system_name}'
+                }), 400
+                
+        except Exception as e:
+            logger.error(f"Erro ao iniciar sistema: {e}")
+            return jsonify({'error': str(e)}), 500
+    
+    @app.route('/api/systems/<system_name>/stop', methods=['POST'])
+    def stop_system(system_name):
+        """Para coleta de um sistema específico"""
+        try:
+            from orchestrator.orchestrator import get_orchestrator_instance
+            
+            orchestrator = get_orchestrator_instance()
+            if not orchestrator:
+                return jsonify({'error': 'Orquestrador não iniciado'}), 503
+            
+            success = orchestrator.stop_system(system_name)
+            
+            if success:
+                return jsonify({
+                    'status': 'success',
+                    'message': f'Sistema {system_name} parado',
+                    'system': system_name
+                })
+            else:
+                return jsonify({
+                    'status': 'error',
+                    'message': f'Falha ao parar sistema {system_name}'
+                }), 400
+                
+        except Exception as e:
+            logger.error(f"Erro ao parar sistema: {e}")
             return jsonify({'error': str(e)}), 500
     
     logger.info("✓ Rotas registradas")

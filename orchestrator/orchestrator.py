@@ -7,6 +7,7 @@ from typing import Dict, Optional
 
 # Importações dos módulos do projeto
 from collectors.peoplesoft_collector import PeopleSoftCollector
+from collectors.google_collector import GoogleCollector
 from processors.data_processors import DataProcessor
 from storage.local_storage import LocalStorage
 
@@ -48,6 +49,7 @@ class DashboardOrchestrator:
         self.config = self._load_config()
         self.scheduler = None
         self.collectors = {}
+        self.running_systems = set()  # Rastreia sistemas ativos
         self.processor = DataProcessor()
         self.storage = LocalStorage()
         self.status_tracker = StatusTracker()
@@ -72,6 +74,7 @@ class DashboardOrchestrator:
         # Mapa de coletores disponíveis
         collector_map = {
             'peoplesoft': PeopleSoftCollector,
+            'google': GoogleCollector,
             # Adicione outros coletores aqui conforme implementar
             # 'oracle_fusion': OracleFusionCollector,
             # 'bonita': BonitaCollector,
@@ -123,6 +126,7 @@ class DashboardOrchestrator:
                 next_run_time=datetime.now()  # Executar imediatamente
             )
             
+            self.running_systems.add(system_name)  # Marcar como rodando
             logger.info(f"✓ Job agendado: {system_name} a cada {interval}s")
         
         # Job de limpeza diária
@@ -202,6 +206,77 @@ class DashboardOrchestrator:
         logger.info(f"\n📋 Jobs agendados ({len(jobs)}):")
         for job in jobs:
             logger.info(f"  • {job.name} | próxima execução: {job.next_run_time}")
+    
+    def start_system(self, system_name: str) -> bool:
+        """Inicia coleta de um sistema específico"""
+        try:
+            if system_name in self.running_systems:
+                logger.warning(f"⚠ Sistema {system_name} já está rodando")
+                return False
+            
+            if system_name not in self.config:
+                logger.error(f"❌ Sistema {system_name} não encontrado no config")
+                return False
+            
+            # Criar collector se não existir
+            if system_name not in self.collectors:
+                collector_map = {
+                    'peoplesoft': PeopleSoftCollector,
+                    'google': GoogleCollector,
+                }
+                
+                collector_class = collector_map.get(system_name)
+                if not collector_class:
+                    logger.error(f"❌ Collector {system_name} não implementado")
+                    return False
+                
+                self.collectors[system_name] = collector_class(self.config[system_name])
+                logger.info(f"✓ Collector {system_name} criado")
+            
+            # Agendar job
+            collector = self.collectors[system_name]
+            interval = self.config[system_name].get('collection_interval', 300)
+            
+            self.scheduler.add_job(
+                func=self._collect_system_data,
+                trigger=IntervalTrigger(seconds=interval),
+                args=[system_name, collector],
+                id=f"collect_{system_name}",
+                name=f"Coleta {system_name}",
+                replace_existing=True,
+                next_run_time=datetime.now()  # Executar imediatamente
+            )
+            
+            self.running_systems.add(system_name)
+            logger.info(f"✅ Sistema {system_name} iniciado (intervalo: {interval}s)")
+            return True
+            
+        except Exception as e:
+            logger.error(f"❌ Erro ao iniciar sistema {system_name}: {e}")
+            return False
+    
+    def stop_system(self, system_name: str) -> bool:
+        """Para coleta de um sistema específico"""
+        try:
+            if system_name not in self.running_systems:
+                logger.warning(f"⚠ Sistema {system_name} não está rodando")
+                return False
+            
+            # Remover job
+            job_id = f"collect_{system_name}"
+            try:
+                self.scheduler.remove_job(job_id)
+                logger.info(f"✓ Job {job_id} removido")
+            except Exception as e:
+                logger.warning(f"⚠ Erro ao remover job: {e}")
+            
+            self.running_systems.remove(system_name)
+            logger.info(f"⏹️  Sistema {system_name} parado")
+            return True
+            
+        except Exception as e:
+            logger.error(f"❌ Erro ao parar sistema {system_name}: {e}")
+            return False
     
     def stop(self):
         """Para o orquestrador"""

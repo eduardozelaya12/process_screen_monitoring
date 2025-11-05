@@ -7,6 +7,12 @@ from contextlib import contextmanager
 
 logger = logging.getLogger(__name__)
 
+def datetime_handler(obj):
+    """Converte datetime para string ISO format"""
+    if isinstance(obj, datetime):
+        return obj.isoformat()
+    raise TypeError(f"Object of type {type(obj)} is not JSON serializable")
+
 class LocalStorage:
     """Armazenamento local usando SQLite"""
     
@@ -108,7 +114,7 @@ class LocalStorage:
                     metrics.get('success', 0),
                     metrics.get('success_rate', 0.0),
                     metrics.get('status', 'unknown'),
-                    json.dumps(metrics)
+                    json.dumps(metrics, default=datetime_handler)
                 ))
                 
                 return cursor.lastrowid

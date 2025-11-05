@@ -9,37 +9,158 @@
 		h1 { margin:0 0 12px; }
 		img { max-width:720px; width:100%; border-radius:8px; box-shadow:0 6px 16px rgba(0,0,0,.5); background:#000; }
 		.row { display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap; }
-		.card { background:#141a2a; padding:16px; border-radius:10px; }
+		.card { background:#141a2a; padding:16px; border-radius:10px; min-width:300px; }
 		.small { opacity:.8; font-size:12px; }
+		.systems-list { display:flex; flex-direction:column; gap:12px; margin-top:12px; }
+		.system-item { background:#1a2332; padding:12px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; }
+		.system-name { font-weight:600; }
+		.system-status { font-size:12px; opacity:.7; }
+		.status-badge { padding:4px 8px; border-radius:4px; font-size:11px; font-weight:600; }
+		.status-running { background:#16a34a; color:#fff; }
+		.status-stopped { background:#6b7280; color:#fff; }
+		.btn { padding:8px 16px; border-radius:6px; border:none; cursor:pointer; font-weight:600; font-size:13px; transition:all 0.2s; }
+		.btn-start { background:#10b981; color:#fff; }
+		.btn-start:hover { background:#059669; }
+		.btn-stop { background:#ef4444; color:#fff; }
+		.btn-stop:hover { background:#dc2626; }
+		.btn:disabled { opacity:0.5; cursor:not-allowed; }
+		.screenshot-container { position:relative; }
+		.system-selector { margin-bottom:12px; }
+		.system-selector select { padding:8px; border-radius:6px; background:#1a2332; color:#e6e8ef; border:1px solid #2d3748; font-size:14px; min-width:200px; }
 	</style>
 </head>
 <body>
 	<h1>Process Monitor Dashboard</h1>
 	<div class="row">
 		<div class="card">
-			<h3>Último Screenshot (Peoplesoft ou Fallback)</h3>
-			<img id="shot" alt="Screenshot" src="" />
-			<div class="small" id="timestamp">—</div>
+			<h3>Controle de Sistemas</h3>
+			<div id="systemsList" class="systems-list">Carregando...</div>
+		</div>
+		<div class="card">
+			<h3>Screenshot</h3>
+			<div class="system-selector">
+				<label>Sistema: </label>
+				<select id="systemSelect" onchange="changeSystem()">
+					<option value="">Selecione um sistema</option>
+				</select>
+			</div>
+			<div class="screenshot-container">
+				<img id="shot" alt="Screenshot" src="/storage/logs/google_home.png" />
+				<div class="small" id="timestamp">—</div>
+			</div>
 		</div>
 	</div>
 
 	<script>
-		async function update() {
+		let currentSystem = '';
+		let systems = {};
+
+		async function loadSystems() {
+			try {
+				const r = await fetch('/api/systems/all');
+				if (!r.ok) throw new Error();
+				systems = await r.json();
+				
+				// Preencher select
+				const select = document.getElementById('systemSelect');
+				select.innerHTML = '<option value="">Selecione um sistema</option>';
+				for (const [key, sys] of Object.entries(systems)) {
+					select.innerHTML += `<option value="${key}">${sys.name}</option>`;
+				}
+				
+				renderSystemsList();
+			} catch(e) {
+				console.error('Erro ao carregar sistemas:', e);
+			}
+		}
+
+		function renderSystemsList() {
+			const list = document.getElementById('systemsList');
+			list.innerHTML = '';
+			
+			for (const [key, sys] of Object.entries(systems)) {
+				const item = document.createElement('div');
+				item.className = 'system-item';
+				
+				const info = document.createElement('div');
+				info.innerHTML = `
+					<div class="system-name">${sys.name}</div>
+					<div class="system-status">
+						<span class="status-badge ${sys.running ? 'status-running' : 'status-stopped'}">
+							${sys.running ? '● Ativo' : '○ Parado'}
+						</span>
+						${sys.running ? ` • Intervalo: ${sys.interval}s` : ''}
+					</div>
+				`;
+				
+				const controls = document.createElement('div');
+				if (sys.running) {
+					controls.innerHTML = `<button class="btn btn-stop" onclick="stopSystem('${key}')">Parar</button>`;
+				} else {
+					controls.innerHTML = `<button class="btn btn-start" onclick="startSystem('${key}')">Iniciar</button>`;
+				}
+				
+				item.appendChild(info);
+				item.appendChild(controls);
+				list.appendChild(item);
+			}
+		}
+
+		async function startSystem(systemKey) {
+			try {
+				const r = await fetch(`/api/systems/${systemKey}/start`, { method: 'POST' });
+				if (!r.ok) throw new Error();
+				const result = await r.json();
+				console.log('Sistema iniciado:', result);
+				setTimeout(loadSystems, 1000);
+			} catch(e) {
+				console.error('Erro ao iniciar sistema:', e);
+				alert('Erro ao iniciar sistema');
+			}
+		}
+
+		async function stopSystem(systemKey) {
+			try {
+				const r = await fetch(`/api/systems/${systemKey}/stop`, { method: 'POST' });
+				if (!r.ok) throw new Error();
+				const result = await r.json();
+				console.log('Sistema parado:', result);
+				setTimeout(loadSystems, 1000);
+			} catch(e) {
+				console.error('Erro ao parar sistema:', e);
+				alert('Erro ao parar sistema');
+			}
+		}
+
+		function changeSystem() {
+			currentSystem = document.getElementById('systemSelect').value;
+			if (currentSystem) {
+				updateScreenshot();
+			}
+		}
+
+		async function updateScreenshot() {
+			if (!currentSystem) return;
+			
 			const img = document.getElementById('shot');
 			const ts = document.getElementById('timestamp');
 			try {
-				const r = await fetch('/api/screenshot/peoplesoft', { cache: 'no-store' });
+				const r = await fetch(`/api/screenshot/${currentSystem}`, { cache: 'no-store' });
 				if (!r.ok) throw new Error();
 				const j = await r.json();
 				img.src = j.path + `?t=${Date.now()}`;
-				ts.textContent = new Date().toLocaleString();
+				ts.textContent = `Última atualização: ${new Date().toLocaleString()}`;
 			} catch(e) {
 				img.src = '/storage/logs/google_home.png' + `?t=${Date.now()}`;
-				ts.textContent = 'fallback: google_home.png';
+				ts.textContent = 'Screenshot não disponível';
 			}
 		}
-		update();
-		setInterval(update, 15000);
+
+		loadSystems();
+		setInterval(() => {
+			loadSystems();
+			if (currentSystem) updateScreenshot();
+		}, 15000);
 	</script>
 </body>
 </html>
