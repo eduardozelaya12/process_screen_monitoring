@@ -1,0 +1,256 @@
+2025-11-05 10:19:19,969 - storage.local_storage - INFO - ✓ Banco de dados inicializado
+2025-11-05 10:19:20,138 - backend.routes - INFO - ✓ Rotas registradas
+2025-11-05 10:19:20,173 - backend.websocket_handlers - INFO - ✓ Handlers WebSocket registrados
+2025-11-05 10:19:20,179 - backend.app - INFO - ✓ Backend Flask inicializado
+2025-11-05 10:19:20,203 - __main__ - INFO - 
+============================================================
+2025-11-05 10:19:20,203 - __main__ - INFO -     PROCESS MONITOR DASHBOARD
+2025-11-05 10:19:20,205 - __main__ - INFO -     Versão 1.0.0
+2025-11-05 10:19:20,205 - __main__ - INFO - ============================================================
+
+2025-11-05 10:19:20,211 - __main__ - INFO - ✓ Estrutura de diretórios verificada
+2025-11-05 10:19:20,217 - __main__ - INFO - 🔧 Iniciando componentes...
+2025-11-05 10:19:20,677 - __main__ - ERROR - Erro no orquestrador: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)
+2025-11-05 10:19:23,297 - __main__ - INFO - 
+============================================================
+2025-11-05 10:19:23,298 - __main__ - INFO - ✓ Dashboard disponível em: http://localhost:5000
+2025-11-05 10:19:23,300 - __main__ - INFO - ✓ Versão TV disponível em: http://localhost:5000/tv
+2025-11-05 10:19:23,301 - __main__ - INFO - ============================================================
+
+2025-11-05 10:19:23,301 - __main__ - INFO - 🌐 Iniciando servidor web...
+2025-11-05 10:19:26,078 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.39:5000
+2025-11-05 10:19:26,079 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-05 10:19:49,573 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:19:49] "[33mGET /storage/screenshots/peoplesoft/screenshot_20251104_152434.png?t=1762348789511 HTTP/1.1[0m" 404 -
+2025-11-05 10:19:51,273 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:19:51] "GET / HTTP/1.1" 200 -
+2025-11-05 10:19:51,293 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:19:51] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:19:51,542 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:19:51] "GET /storage/logs/google_home.png?t=1762348791296 HTTP/1.1" 200 -
+2025-11-05 10:20:06,611 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:20:06] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:20:06,910 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:20:06] "GET /storage/logs/google_home.png?t=1762348806613 HTTP/1.1" 200 -
+2025-11-05 10:20:21,604 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:20:21] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:20:21,867 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:20:21] "GET /storage/logs/google_home.png?t=1762348821605 HTTP/1.1" 200 -
+2025-11-05 10:20:36,606 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:20:36] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:20:36,866 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:20:36] "GET /storage/logs/google_home.png?t=1762348836608 HTTP/1.1" 200 -
+2025-11-05 10:20:51,619 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:20:51] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:20:51,880 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:20:51] "GET /storage/logs/google_home.png?t=1762348851626 HTTP/1.1" 200 -
+2025-11-05 10:21:06,611 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:21:06] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:21:06,873 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:21:06] "GET /storage/logs/google_home.png?t=1762348866613 HTTP/1.1" 200 -
+2025-11-05 10:21:21,607 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:21:21] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:21:21,862 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:21:21] "GET /storage/logs/google_home.png?t=1762348881609 HTTP/1.1" 200 -
+2025-11-05 10:21:36,600 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:21:36] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:21:36,872 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:21:36] "GET /storage/logs/google_home.png?t=1762348896602 HTTP/1.1" 200 -
+2025-11-05 10:21:50,021 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:21:50] "GET / HTTP/1.1" 200 -
+2025-11-05 10:21:50,040 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:21:50] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:21:50,286 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:21:50] "GET /storage/logs/google_home.png?t=1762348910043 HTTP/1.1" 200 -
+2025-11-05 10:22:05,352 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:22:05] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:22:05,614 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:22:05] "GET /storage/logs/google_home.png?t=1762348925354 HTTP/1.1" 200 -
+2025-11-05 10:22:20,356 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:22:20] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:22:20,597 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:22:20] "GET /storage/logs/google_home.png?t=1762348940361 HTTP/1.1" 200 -
+2025-11-05 10:22:35,352 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:22:35] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:22:35,617 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:22:35] "GET /storage/logs/google_home.png?t=1762348955354 HTTP/1.1" 200 -
+2025-11-05 10:22:39,264 - __main__ - INFO - 
+
+🛑 Recebido sinal de interrupção...
+2025-11-05 10:22:39,265 - __main__ - INFO - 👋 Encerrando aplicação...
+2025-11-05 10:22:49,823 - storage.local_storage - INFO - ✓ Banco de dados inicializado
+2025-11-05 10:22:49,833 - backend.routes - INFO - ✓ Rotas registradas
+2025-11-05 10:22:49,834 - backend.websocket_handlers - INFO - ✓ Handlers WebSocket registrados
+2025-11-05 10:22:49,834 - backend.app - INFO - ✓ Backend Flask inicializado
+2025-11-05 10:22:49,834 - __main__ - INFO - 
+============================================================
+2025-11-05 10:22:49,835 - __main__ - INFO -     PROCESS MONITOR DASHBOARD
+2025-11-05 10:22:49,835 - __main__ - INFO -     Versão 1.0.0
+2025-11-05 10:22:49,835 - __main__ - INFO - ============================================================
+
+2025-11-05 10:22:49,837 - __main__ - INFO - ✓ Estrutura de diretórios verificada
+2025-11-05 10:22:49,838 - __main__ - INFO - 🔧 Iniciando componentes...
+2025-11-05 10:22:49,840 - __main__ - ERROR - Erro no orquestrador: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)
+2025-11-05 10:22:52,840 - __main__ - INFO - 
+============================================================
+2025-11-05 10:22:52,840 - __main__ - INFO - ✓ Dashboard disponível em: http://localhost:5000
+2025-11-05 10:22:52,840 - __main__ - INFO - ✓ Versão TV disponível em: http://localhost:5000/tv
+2025-11-05 10:22:52,840 - __main__ - INFO - ============================================================
+
+2025-11-05 10:22:52,841 - __main__ - INFO - 🌐 Iniciando servidor web...
+2025-11-05 10:22:54,185 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.39:5000
+2025-11-05 10:22:54,185 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-05 10:23:05,363 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:23:05] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:23:05,707 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:23:05] "GET /storage/logs/google_home.png?t=1762348985365 HTTP/1.1" 200 -
+2025-11-05 10:23:20,360 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:23:20] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:23:20,626 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:23:20] "GET /storage/logs/google_home.png?t=1762349000364 HTTP/1.1" 200 -
+2025-11-05 10:23:35,362 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:23:35] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:23:35,621 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:23:35] "GET /storage/logs/google_home.png?t=1762349015363 HTTP/1.1" 200 -
+2025-11-05 10:23:50,356 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:23:50] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:23:50,618 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:23:50] "GET /storage/logs/google_home.png?t=1762349030357 HTTP/1.1" 200 -
+2025-11-05 10:24:05,356 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:24:05] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:24:05,618 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:24:05] "GET /storage/logs/google_home.png?t=1762349045361 HTTP/1.1" 200 -
+2025-11-05 10:24:20,356 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:24:20] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:24:20,617 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:24:20] "GET /storage/logs/google_home.png?t=1762349060359 HTTP/1.1" 200 -
+2025-11-05 10:24:35,363 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:24:35] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:24:35,623 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:24:35] "GET /storage/logs/google_home.png?t=1762349075364 HTTP/1.1" 200 -
+2025-11-05 10:24:50,357 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:24:50] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:24:50,618 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:24:50] "GET /storage/logs/google_home.png?t=1762349090359 HTTP/1.1" 200 -
+2025-11-05 10:25:05,359 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:25:05] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:25:05,622 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:25:05] "GET /storage/logs/google_home.png?t=1762349105361 HTTP/1.1" 200 -
+2025-11-05 10:25:20,375 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:25:20] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:25:20,617 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:25:20] "GET /storage/logs/google_home.png?t=1762349120377 HTTP/1.1" 200 -
+2025-11-05 10:25:34,876 - __main__ - INFO - 
+
+🛑 Recebido sinal de interrupção...
+2025-11-05 10:25:34,876 - __main__ - INFO - 👋 Encerrando aplicação...
+2025-11-05 10:29:32,408 - storage.local_storage - INFO - ✓ Banco de dados inicializado
+2025-11-05 10:29:32,425 - backend.routes - INFO - ✓ Rotas registradas
+2025-11-05 10:29:32,425 - backend.websocket_handlers - INFO - ✓ Handlers WebSocket registrados
+2025-11-05 10:29:32,426 - backend.app - INFO - ✓ Backend Flask inicializado
+2025-11-05 10:29:32,427 - __main__ - INFO - 
+============================================================
+2025-11-05 10:29:32,429 - __main__ - INFO -     PROCESS MONITOR DASHBOARD
+2025-11-05 10:29:32,429 - __main__ - INFO -     Versão 1.0.0
+2025-11-05 10:29:32,430 - __main__ - INFO - ============================================================
+
+2025-11-05 10:29:32,434 - __main__ - INFO - ✓ Estrutura de diretórios verificada
+2025-11-05 10:29:32,434 - __main__ - INFO - 🔧 Iniciando componentes...
+2025-11-05 10:29:32,465 - storage.local_storage - INFO - ✓ Banco de dados inicializado
+2025-11-05 10:29:32,479 - orchestrator.orchestrator - INFO - 📋 Orquestrador criado
+2025-11-05 10:29:32,483 - orchestrator.orchestrator - INFO - ✓ SocketIO configurado no orquestrador
+2025-11-05 10:29:32,486 - orchestrator.orchestrator - INFO - ============================================================
+2025-11-05 10:29:32,494 - orchestrator.orchestrator - INFO - 🚀 INICIANDO ORQUESTRADOR
+2025-11-05 10:29:32,497 - orchestrator.orchestrator - INFO - ============================================================
+2025-11-05 10:29:32,498 - orchestrator.orchestrator - INFO - 🔧 Inicializando coletores...
+2025-11-05 10:29:32,501 - collectors.base_collector - INFO - ✓ Coletor PeopleSoft inicializado
+2025-11-05 10:29:32,502 - collectors.peoplesoft_collector - INFO - 🔍 DEBUG __init__: Filtros carregados do config:
+2025-11-05 10:29:32,504 - collectors.peoplesoft_collector - INFO -    - Total de chaves: 9
+2025-11-05 10:29:32,505 - collectors.peoplesoft_collector - INFO -    - Conteúdo: {'user_id': 'MBENITEZ', 'process_name': 'AJ_BU_PS_CLI', 'server': None, 'run_status': None, 'type': None, 'dist_status': None, 'instance_from': None, 'instance_to': None, 'time_filter': {'type': '0', 'value': '70', 'unit': '1'}}
+2025-11-05 10:29:32,511 - orchestrator.orchestrator - INFO - ✓ Coletor peoplesoft inicializado
+2025-11-05 10:29:32,513 - orchestrator.orchestrator - INFO - ⏭ Sistema oracle_fusion desabilitado, pulando...
+2025-11-05 10:29:32,514 - orchestrator.orchestrator - INFO - ⏭ Sistema bonita desabilitado, pulando...
+2025-11-05 10:29:32,516 - orchestrator.orchestrator - INFO - ⏭ Sistema n8n desabilitado, pulando...
+2025-11-05 10:29:32,518 - orchestrator.orchestrator - INFO - ✓ 1 coletores inicializados
+2025-11-05 10:29:32,519 - orchestrator.orchestrator - INFO - 📅 Agendando jobs de coleta...
+2025-11-05 10:29:35,437 - __main__ - INFO - 
+============================================================
+2025-11-05 10:29:35,437 - __main__ - INFO - ✓ Dashboard disponível em: http://localhost:5000
+2025-11-05 10:29:35,438 - __main__ - INFO - ✓ Versão TV disponível em: http://localhost:5000/tv
+2025-11-05 10:29:35,438 - __main__ - INFO - ============================================================
+
+2025-11-05 10:29:35,438 - __main__ - INFO - 🌐 Iniciando servidor web...
+2025-11-05 10:29:37,012 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.39:5000
+2025-11-05 10:29:37,015 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-05 10:29:37,136 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:29:37] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:29:37,509 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:29:37] "GET /storage/logs/google_home.png?t=1762349377138 HTTP/1.1" 200 -
+2025-11-05 10:29:39,398 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-05 10:29:39,399 - orchestrator.orchestrator - INFO - ✓ Job agendado: peoplesoft a cada 180s
+2025-11-05 10:29:39,412 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-11-05 10:29:39,412 - orchestrator.orchestrator - INFO - ✓ Jobs agendados
+2025-11-05 10:29:39,480 - apscheduler.scheduler - INFO - Added job "Coleta peoplesoft" to job store "default"
+2025-11-05 10:29:39,482 - apscheduler.scheduler - INFO - Added job "Limpeza diária" to job store "default"
+2025-11-05 10:29:39,485 - apscheduler.scheduler - INFO - Scheduler started
+2025-11-05 10:29:39,504 - orchestrator.orchestrator - INFO - ✓ Orquestrador ativo!
+2025-11-05 10:29:39,542 - apscheduler.executors.default - INFO - Running job "Coleta peoplesoft (trigger: interval[0:03:00], next run at: 2025-11-05 10:29:39 -03)" (scheduled at 2025-11-05 10:29:39.398188-03:00)
+2025-11-05 10:29:39,543 - orchestrator.orchestrator - INFO - 
+📋 Jobs agendados (2):
+2025-11-05 10:29:39,543 - orchestrator.orchestrator - INFO - 🔄 Coletando: peoplesoft
+2025-11-05 10:29:39,544 - orchestrator.orchestrator - INFO -   • Coleta peoplesoft | próxima execução: 2025-11-05 10:32:39.398188-03:00
+2025-11-05 10:29:39,544 - collectors.peoplesoft_collector - INFO - 📸 Coletando dados: PeopleSoft
+2025-11-05 10:29:39,544 - orchestrator.orchestrator - INFO -   • Limpeza diária | próxima execução: 2025-11-06 02:00:00-03:00
+2025-11-05 10:29:39,545 - collectors.peoplesoft_collector - INFO - 👀 Modo VISUAL ativado (com interface)
+2025-11-05 10:29:50,354 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:29:50] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:29:50,614 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:29:50] "GET /storage/logs/google_home.png?t=1762349390356 HTTP/1.1" 200 -
+2025-11-05 10:30:05,362 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:30:05] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:30:05,616 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:30:05] "GET /storage/logs/google_home.png?t=1762349405364 HTTP/1.1" 200 -
+2025-11-05 10:30:10,383 - collectors.peoplesoft_collector - INFO - ✓ WebDriver inicializado
+2025-11-05 10:30:10,383 - collectors.peoplesoft_collector - INFO - 🔐 Fazendo login...
+2025-11-05 10:30:20,355 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:30:20] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:30:20,577 - collectors.peoplesoft_collector - ERROR - ❌ Erro ao capturar: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=141.0.7390.125)
+Stacktrace:
+	GetHandleVerifier [0x0x7ff621d9e8e5+80021]
+	GetHandleVerifier [0x0x7ff621d9e940+80112]
+	(No symbol) [0x0x7ff621b2060f]
+	(No symbol) [0x0x7ff621b1d0bf]
+	(No symbol) [0x0x7ff621b0dae9]
+	(No symbol) [0x0x7ff621b0f94e]
+	(No symbol) [0x0x7ff621b0e0d2]
+	(No symbol) [0x0x7ff621b0d859]
+	(No symbol) [0x0x7ff621b0d51d]
+	(No symbol) [0x0x7ff621b0b08c]
+	(No symbol) [0x0x7ff621b0b91c]
+	(No symbol) [0x0x7ff621b246da]
+	(No symbol) [0x0x7ff621bca47e]
+	(No symbol) [0x0x7ff621ba122a]
+	(No symbol) [0x0x7ff621bc968a]
+	(No symbol) [0x0x7ff621ba1003]
+	(No symbol) [0x0x7ff621b695d1]
+	(No symbol) [0x0x7ff621b6a3f3]
+	GetHandleVerifier [0x0x7ff62205dc7d+2960429]
+	GetHandleVerifier [0x0x7ff622057f3a+2936554]
+	GetHandleVerifier [0x0x7ff622078977+3070247]
+	GetHandleVerifier [0x0x7ff621db83ce+185214]
+	GetHandleVerifier [0x0x7ff621dbfe1f+216527]
+	GetHandleVerifier [0x0x7ff621da7b24+117460]
+	GetHandleVerifier [0x0x7ff621da7cdf+117903]
+	GetHandleVerifier [0x0x7ff621d8dbb8+11112]
+	BaseThreadInitThunk [0x0x7fff592de8d7+23]
+	RtlUserThreadStart [0x0x7fff5a568d9c+44]
+
+Traceback (most recent call last):
+  File "C:\Users\lymte\Documents\monitor_scheduler\collectors\peoplesoft_collector.py", line 150, in _capture_and_extract
+    self.driver.get(self.base_url)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\lymte\AppData\Roaming\Python\Python313\site-packages\selenium\webdriver\remote\webdriver.py", line 356, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lymte\AppData\Roaming\Python\Python313\site-packages\selenium\webdriver\remote\webdriver.py", line 347, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\lymte\AppData\Roaming\Python\Python313\site-packages\selenium\webdriver\remote\errorhandler.py", line 229, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=141.0.7390.125)
+Stacktrace:
+	GetHandleVerifier [0x0x7ff621d9e8e5+80021]
+	GetHandleVerifier [0x0x7ff621d9e940+80112]
+	(No symbol) [0x0x7ff621b2060f]
+	(No symbol) [0x0x7ff621b1d0bf]
+	(No symbol) [0x0x7ff621b0dae9]
+	(No symbol) [0x0x7ff621b0f94e]
+	(No symbol) [0x0x7ff621b0e0d2]
+	(No symbol) [0x0x7ff621b0d859]
+	(No symbol) [0x0x7ff621b0d51d]
+	(No symbol) [0x0x7ff621b0b08c]
+	(No symbol) [0x0x7ff621b0b91c]
+	(No symbol) [0x0x7ff621b246da]
+	(No symbol) [0x0x7ff621bca47e]
+	(No symbol) [0x0x7ff621ba122a]
+	(No symbol) [0x0x7ff621bc968a]
+	(No symbol) [0x0x7ff621ba1003]
+	(No symbol) [0x0x7ff621b695d1]
+	(No symbol) [0x0x7ff621b6a3f3]
+	GetHandleVerifier [0x0x7ff62205dc7d+2960429]
+	GetHandleVerifier [0x0x7ff622057f3a+2936554]
+	GetHandleVerifier [0x0x7ff622078977+3070247]
+	GetHandleVerifier [0x0x7ff621db83ce+185214]
+	GetHandleVerifier [0x0x7ff621dbfe1f+216527]
+	GetHandleVerifier [0x0x7ff621da7b24+117460]
+	GetHandleVerifier [0x0x7ff621da7cdf+117903]
+	GetHandleVerifier [0x0x7ff621d8dbb8+11112]
+	BaseThreadInitThunk [0x0x7fff592de8d7+23]
+	RtlUserThreadStart [0x0x7fff5a568d9c+44]
+
+
+2025-11-05 10:30:20,620 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:30:20] "GET /storage/logs/google_home.png?t=1762349420357 HTTP/1.1" 200 -
+2025-11-05 10:30:27,480 - collectors.base_collector - ERROR - ❌ Erro em PeopleSoft: Falha ao capturar dados
+2025-11-05 10:30:27,481 - processors.data_processors - INFO - ✓ Dados de peoplesoft processados
+2025-11-05 10:30:27,497 - backend.websocket_handlers - INFO - 📡 Broadcasting update: peoplesoft
+2025-11-05 10:30:27,499 - orchestrator.orchestrator - INFO - ✓ Coleta concluída: peoplesoft
+2025-11-05 10:30:27,500 - apscheduler.executors.default - INFO - Job "Coleta peoplesoft (trigger: interval[0:03:00], next run at: 2025-11-05 10:32:39 -03)" executed successfully
+2025-11-05 10:30:35,360 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:30:35] "[33mGET /api/screenshot/peoplesoft HTTP/1.1[0m" 404 -
+2025-11-05 10:30:35,641 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 10:30:35] "GET /storage/logs/google_home.png?t=1762349435361 HTTP/1.1" 200 -

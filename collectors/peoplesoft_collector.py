@@ -35,6 +35,9 @@ class PeopleSoftCollector(BaseCollector):
         # ✅ NOVO: Carregar filtros do config
         self.filters = config.get('filters', {})
         
+        # ✅ Modo headless configurável (padrão: False para ver navegação)
+        self.headless = config.get('headless', False)
+        
         # DEBUG: Logar filtros carregados
         logger.info(f"🔍 DEBUG __init__: Filtros carregados do config:")
         logger.info(f"   - Total de chaves: {len(self.filters)}")
@@ -85,9 +88,16 @@ class PeopleSoftCollector(BaseCollector):
             return
         
         options = webdriver.ChromeOptions()
-        options.add_argument('--start-maximized')
+        
+        # Modo headless configurável
+        if self.headless:
+            options.add_argument('--headless')
+            logger.info("🎭 Modo HEADLESS ativado (sem interface visual)")
+        else:
+            options.add_argument('--start-maximized')
+            logger.info("👀 Modo VISUAL ativado (com interface)")
+        
         options.add_argument('--disable-blink-features=AutomationControlled')
-        # options.add_argument('--headless')  # Rodar sem interface gráfica
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--disable-gpu')
