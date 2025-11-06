@@ -61,11 +61,22 @@
 				if (!r.ok) throw new Error();
 				systems = await r.json();
 				
-				// Preencher select
+				// Filtrar apenas sistemas ativos (running)
+				const activeSystems = Object.entries(systems).filter(([key, sys]) => sys.running === true);
+				
+				// Preencher select apenas com sistemas ativos
 				const select = document.getElementById('systemSelect');
 				select.innerHTML = '<option value="">Selecione um sistema</option>';
-				for (const [key, sys] of Object.entries(systems)) {
+				for (const [key, sys] of activeSystems) {
 					select.innerHTML += `<option value="${key}">${sys.name}</option>`;
+				}
+				
+				// Se o sistema atual não está mais ativo, limpar seleção
+				if (currentSystem && !systems[currentSystem]?.running) {
+					currentSystem = '';
+					select.value = '';
+					document.getElementById('shot').src = '/storage/logs/google_home.png';
+					document.getElementById('timestamp').textContent = 'Sistema não está mais ativo';
 				}
 				
 				renderSystemsList();
@@ -78,7 +89,15 @@
 			const list = document.getElementById('systemsList');
 			list.innerHTML = '';
 			
-			for (const [key, sys] of Object.entries(systems)) {
+			// Filtrar apenas sistemas ativos para exibição
+			const activeSystems = Object.entries(systems).filter(([key, sys]) => sys.running === true);
+			
+			if (activeSystems.length === 0) {
+				list.innerHTML = '<div style="text-align:center;color:#6b7280;padding:20px;">Nenhum sistema ativo no momento</div>';
+				return;
+			}
+			
+			for (const [key, sys] of activeSystems) {
 				const item = document.createElement('div');
 				item.className = 'system-item';
 				

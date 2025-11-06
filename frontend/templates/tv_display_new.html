@@ -171,7 +171,15 @@
 			const grid = document.getElementById('systemsGrid');
 			grid.innerHTML = '';
 
-			for (const [key, system] of Object.entries(systems)) {
+			// Filtrar apenas sistemas ativos (running)
+			const activeSystems = Object.entries(systems).filter(([key, system]) => system.running === true);
+
+			if (activeSystems.length === 0) {
+				grid.innerHTML = '<div style="text-align:center;color:#6b7280;padding:40px;"><p style="font-size:18px;margin-bottom:12px;">Nenhum sistema ativo no momento</p><p style="font-size:14px;opacity:0.7;">Aguardando sistemas serem iniciados...</p></div>';
+				return;
+			}
+
+			for (const [key, system] of activeSystems) {
 				const card = createSystemCard(key, system);
 				grid.appendChild(card);
 			}
@@ -229,10 +237,10 @@
 		}
 
 		function updateAllScreenshots() {
-			for (const [key, system] of Object.entries(systems)) {
-				if (system.running) {
-					loadScreenshot(key);
-				}
+			// Atualizar apenas sistemas ativos
+			const activeSystems = Object.entries(systems).filter(([key, system]) => system.running === true);
+			for (const [key, system] of activeSystems) {
+				loadScreenshot(key);
 			}
 		}
 
