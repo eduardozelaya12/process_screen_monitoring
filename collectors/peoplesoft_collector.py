@@ -36,12 +36,35 @@ class PeopleSoftCollector(BaseCollector):
         self.filters = config.get('filters', {})
         
         # ✅ Modo headless configurável (padrão: False para ver navegação)
-        self.headless = config.get('headless', False)
+        self.headless = config.get('headless', True)
         
         # DEBUG: Logar filtros carregados
         logger.info(f"🔍 DEBUG __init__: Filtros carregados do config:")
         logger.info(f"   - Total de chaves: {len(self.filters)}")
         logger.info(f"   - Conteúdo: {self.filters}")
+
+    def update_config(self, config: Dict):
+        """Atualiza configurações do coletor sem reiniciar aplicação"""
+        super().update_config(config)
+
+        self.base_url = config.get('base_url', self.base_url)
+        self.process_url = config.get('process_monitor_url', self.base_url)
+        self.credentials = config.get('credentials', self.credentials)
+        self.timeout = config.get('timeout', self.timeout)
+        self.headless = config.get('headless', self.headless)
+        self.filters = config.get('filters', self.filters)
+
+        # Garantir que driver será reinicializado com novas configs
+        if self.driver:
+            try:
+                self.driver.quit()
+            except Exception:
+                pass
+            finally:
+                self.driver = None
+
+        logger.info("♻️ Configuração do PeopleSoftCollector atualizada em runtime")
+        logger.debug(f"   • Filtros: {self.filters}")
     
     def collect(self) -> Dict:
         """Coleta dados do PeopleSoft - Login direto toda vez"""
@@ -332,13 +355,28 @@ class PeopleSoftCollector(BaseCollector):
                 )
             
             # 2. Process Name (via modal)
-            if self.filters.get('process_name'):
-                self._search_in_modal(
-                    search_value=self.filters['process_name'],
-                    modal_type="Process Name",
-                    prompt_id="PMN_FILTER_WRK_PRCSNAME$prompt",
-                    search_field_id="PMN_PRCSNAME_VW_PRCSNAME"
-                )
+            if 'process_name' in self.filters:
+                process_name = self.filters.get('process_name')
+
+                if process_name:
+                    found_process = self._search_in_modal(
+                        search_value=process_name,
+                        modal_type="Process Name",
+                        prompt_id="PMN_FILTER_WRK_PRCSNAME$prompt",
+                        search_field_id="PMN_PRCSNAME_VW_PRCSNAME"
+                    )
+
+                    if not found_process:
+                        self._set_prompt_field_direct(
+                            field_id="PMN_FILTER_WRK_PRCSNAME",
+                            value=process_name,
+                            field_name="Process Name"
+                        )
+                else:
+                    self._clear_prompt_field(
+                        field_id="PMN_FILTER_WRK_PRCSNAME",
+                        field_name="Process Name"
+                    )
             
             # 3. Server
             if 'server' in self.filters:
@@ -422,27 +460,21 @@ class PeopleSoftCollector(BaseCollector):
             search_field.clear()
             time.sleep(0.5)
             search_field.send_keys(search_value)
-            time.sleep(2)
+            search_field.send_keys(Keys.ENTER)
+            time.sleep(1.5)
             
             # 4. Verificar se resultados apareceram
             try:
                 self.driver.find_element(By.ID, "PTSRCHRESULTS")
                 logger.debug("Resultados carregados automaticamente")
-            except:
-                # Tentar clicar Look Up
-                try:
-                    lookup_btn = WebDriverWait(self.driver, 3).until(
-                        EC.element_to_be_clickable((By.NAME, "#ICSearch"))
-                    )
-                    self.driver.execute_script("arguments[0].click();", lookup_btn)
-                    time.sleep(3)
-                except:
-                    logger.debug("Botão Look Up não encontrado, continuando...")
+            except Exception:
+                self._click_lookup_button(search_field)
             
             # 5. Selecionar resultado
+            normalized_value = search_value.upper()
             result_selectors = [
-                (By.XPATH, f"//a[contains(text(), '{search_value.upper()}')]"),
-                (By.LINK_TEXT, search_value.upper()),
+                (By.XPATH, f"//a[contains(translate(text(),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ'), '{normalized_value}')]")
+                ,(By.LINK_TEXT, normalized_value),
                 (By.ID, "SEARCH_RESULT1")
             ]
             
@@ -481,6 +513,38 @@ class PeopleSoftCollector(BaseCollector):
                 pass
             return False
     
+    def _click_lookup_button(self, search_field):
+        """Aciona botão de busca no modal quando resultado não aparece automaticamente"""
+        lookup_selectors = [
+            (By.ID, "#ICSearch"),
+            (By.NAME, "#ICSearch"),
+            (By.CSS_SELECTOR, "input[value*='Look Up']"),
+            (By.CSS_SELECTOR, "input[value*='Buscar']"),
+            (By.CSS_SELECTOR, "input[value*='Pesquisar']"),
+            (By.XPATH, "//button[contains(translate(normalize-space(.),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'look up')]")
+        ]
+
+        for by, selector in lookup_selectors:
+            try:
+                lookup_btn = WebDriverWait(self.driver, 3).until(
+                    EC.element_to_be_clickable((by, selector))
+                )
+                self.driver.execute_script("arguments[0].click();", lookup_btn)
+                time.sleep(2)
+                logger.debug("Botão Look Up acionado no modal")
+                return True
+            except Exception:
+                continue
+
+        try:
+            search_field.send_keys(Keys.ENTER)
+            time.sleep(2)
+            logger.debug("Enter enviado como fallback para o modal")
+            return True
+        except Exception:
+            logger.debug("Não foi possível acionar busca no modal")
+            return False
+    
     def _set_select_field(self, field_id: str, value: Optional[str], field_name: str):
         """Define valor em dropdown ou limpa se None"""
         try:
@@ -505,6 +569,49 @@ class PeopleSoftCollector(BaseCollector):
             return True
         except Exception as e:
             logger.warning(f"Erro ao ajustar {field_name}: {e}")
+            return False
+    
+    def _set_prompt_field_direct(self, field_id: str, value: str, field_name: str) -> bool:
+        """Define diretamente valor em campo associado a prompt quando lookup falha"""
+        try:
+            field = WebDriverWait(self.driver, 5).until(
+                EC.presence_of_element_located((By.ID, field_id))
+            )
+
+            try:
+                self.driver.execute_script("arguments[0].removeAttribute('readonly');", field)
+            except Exception:
+                pass
+
+            field.clear()
+            field.send_keys(value)
+            field.send_keys(Keys.TAB)
+
+            logger.info(f"📝 {field_name} preenchido diretamente com '{value}'")
+            return True
+        except Exception as e:
+            logger.warning(f"⚠ Falha ao preencher {field_name} diretamente: {e}")
+            return False
+    
+    def _clear_prompt_field(self, field_id: str, field_name: str) -> bool:
+        """Limpa campo de filtro associado a prompt"""
+        try:
+            field = WebDriverWait(self.driver, 5).until(
+                EC.presence_of_element_located((By.ID, field_id))
+            )
+
+            try:
+                self.driver.execute_script("arguments[0].removeAttribute('readonly');", field)
+            except Exception:
+                pass
+
+            field.clear()
+            field.send_keys(Keys.TAB)
+
+            logger.info(f"🧹 {field_name} limpo (valor definido como NULL)")
+            return True
+        except Exception as e:
+            logger.warning(f"⚠ Falha ao limpar {field_name}: {e}")
             return False
     
     def _set_text_field(self, field_id: str, value: Optional[str], field_name: str):

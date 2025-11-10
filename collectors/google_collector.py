@@ -24,6 +24,24 @@ class GoogleCollector(BaseCollector):
         self.headless = config.get('headless', False)
         
         logger.info(f"🔍 GoogleCollector inicializado: {self.system_name}")
+
+    def update_config(self, config: Dict):
+        """Atualiza configuração do coletor do Google em runtime"""
+        super().update_config(config)
+
+        self.base_url = config.get('base_url', self.base_url)
+        self.timeout = config.get('timeout', self.timeout)
+        self.headless = config.get('headless', self.headless)
+
+        if self.driver:
+            try:
+                self.driver.quit()
+            except Exception:
+                pass
+            finally:
+                self.driver = None
+
+        logger.info("♻️ Configuração do GoogleCollector atualizada")
     
     def test_connection(self) -> bool:
         """Testa conexão com o Google"""

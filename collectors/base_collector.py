@@ -17,6 +17,16 @@ class BaseCollector(ABC):
         self.is_healthy = True
         
         logger.info(f"✓ Coletor {self.system_name} inicializado")
+
+    def update_config(self, config: Dict):
+        """Atualiza configuração base do coletor em tempo de execução"""
+        self.config = config
+        old_system_name = self.system_name
+        self.system_name = config.get('name', self.system_name)
+        self.system_type = config.get('type', self.system_type)
+
+        if old_system_name != self.system_name:
+            logger.info(f"🔄 Coletor renomeado: {old_system_name} ➜ {self.system_name}")
     
     @abstractmethod
     def collect(self) -> Dict:

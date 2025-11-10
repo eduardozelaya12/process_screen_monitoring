@@ -3,6 +3,8 @@ from apscheduler.triggers.interval import IntervalTrigger
 from datetime import datetime
 import json
 import logging
+import os
+from threading import Lock
 from typing import Dict, Optional
 
 # Importações dos módulos do projeto
@@ -54,6 +56,8 @@ class DashboardOrchestrator:
         self.storage = LocalStorage()
         self.status_tracker = StatusTracker()
         self.socketio = None  # Será definido externamente
+        self.config_lock = Lock()
+        self.config_mtime = self._get_config_mtime()
         
         logger.info("📋 Orquestrador criado")
     
@@ -61,6 +65,72 @@ class DashboardOrchestrator:
         """Carrega configuração dos sistemas"""
         with open(self.config_path, 'r', encoding='utf-8') as f:
             return json.load(f)
+
+    def _get_config_mtime(self) -> Optional[float]:
+        """Retorna timestamp de modificação do arquivo de configuração"""
+        try:
+            return os.path.getmtime(self.config_path)
+        except OSError:
+            logger.warning("⚠️ Não foi possível obter data de modificação do config")
+            return None
+
+    def _reload_config_if_needed(self):
+        """Recarrega configuração se arquivo foi alterado"""
+        try:
+            current_mtime = os.path.getmtime(self.config_path)
+        except OSError:
+            return
+
+        if self.config_mtime is not None and current_mtime <= self.config_mtime:
+            return
+
+        with self.config_lock:
+            latest_mtime = self._get_config_mtime()
+            if latest_mtime is None:
+                return
+            if self.config_mtime is not None and latest_mtime <= self.config_mtime:
+                return
+
+            logger.info("📝 Alteração detectada em systems_config.json — recarregando...")
+            self.config = self._load_config()
+            self.config_mtime = latest_mtime
+            self._apply_runtime_config()
+
+    def _apply_runtime_config(self):
+        """Aplica novas configurações aos coletores já em execução"""
+        for system_name, collector in self.collectors.items():
+            system_config = self.config.get(system_name)
+            if not system_config:
+                continue
+
+            if hasattr(collector, 'update_config'):
+                collector.update_config(system_config)
+            else:
+                collector.config = system_config
+
+            # Atualizar intervalo do job se necessário
+            if not self.scheduler:
+                continue
+
+            interval = system_config.get('collection_interval', 300)
+            job_id = f"collect_{system_name}"
+            try:
+                job = self.scheduler.get_job(job_id)
+                if not job:
+                    continue
+
+                trigger = job.trigger
+                current_seconds = None
+                if isinstance(trigger, IntervalTrigger):
+                    current_seconds = trigger.interval.total_seconds()
+
+                if current_seconds is None or int(current_seconds) == int(interval):
+                    continue
+
+                self.scheduler.reschedule_job(job_id, trigger=IntervalTrigger(seconds=interval))
+                logger.info(f"⏱️ Intervalo do job {system_name} atualizado para {interval}s")
+            except Exception as e:
+                logger.warning(f"⚠️ Falha ao atualizar intervalo de {system_name}: {e}")
     
     def set_socketio(self, socketio):
         """Define instância do SocketIO para broadcasts"""
@@ -144,6 +214,13 @@ class DashboardOrchestrator:
     def _collect_system_data(self, system_name: str, collector):
         """Executa coleta de dados de um sistema"""
         try:
+            self._reload_config_if_needed()
+
+            system_config = self.config.get(system_name, {})
+            if not system_config.get('enabled', True):
+                logger.info(f"🚫 Sistema {system_name} desabilitado via config – pulando coleta atual")
+                return
+
             logger.info(f"🔄 Coletando: {system_name}")
             
             # Coletar dados brutos
