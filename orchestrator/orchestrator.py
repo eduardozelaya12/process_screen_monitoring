@@ -6,6 +6,7 @@ import logging
 import os
 from threading import Lock
 from typing import Dict, Optional
+from copy import deepcopy
 
 # Importações dos módulos do projeto
 from collectors.peoplesoft_collector import PeopleSoftCollector
@@ -65,6 +66,29 @@ class DashboardOrchestrator:
         """Carrega configuração dos sistemas"""
         with open(self.config_path, 'r', encoding='utf-8') as f:
             return json.load(f)
+
+    def _write_config(self, config_data: Dict):
+        """Escreve configuração no disco de forma atômica"""
+        temp_path = f"{self.config_path}.tmp"
+        with open(temp_path, 'w', encoding='utf-8') as temp_file:
+            json.dump(config_data, temp_file, ensure_ascii=False, indent=2)
+        os.replace(temp_path, self.config_path)
+
+    @staticmethod
+    def _deep_merge_dicts(base: Dict, updates: Dict) -> Dict:
+        """Mescla recursivamente dicionários sem modificar o original"""
+        if not updates:
+            return deepcopy(base)
+
+        merged = deepcopy(base)
+
+        for key, value in updates.items():
+            if isinstance(value, dict) and isinstance(merged.get(key), dict):
+                merged[key] = DashboardOrchestrator._deep_merge_dicts(merged[key], value)
+            else:
+                merged[key] = value
+
+        return merged
 
     def _get_config_mtime(self) -> Optional[float]:
         """Retorna timestamp de modificação do arquivo de configuração"""
@@ -137,6 +161,84 @@ class DashboardOrchestrator:
         self.socketio = socketio
         logger.info("✓ SocketIO configurado no orquestrador")
     
+    def get_system_config(self, system_name: str) -> Optional[Dict]:
+        """Retorna configuração atual de um sistema específico"""
+        with self.config_lock:
+            config = self.config.get(system_name)
+            return deepcopy(config) if config else None
+
+    def get_all_configs(self) -> Dict:
+        """Retorna snapshot das configurações de todos os sistemas"""
+        with self.config_lock:
+            return deepcopy(self.config)
+
+    def _broadcast_config_update(self, system_name: str, config: Dict):
+        """Emite atualização de configuração para clientes WebSocket"""
+        if not self.socketio:
+            return
+        try:
+            self.socketio.emit('config_update', {
+                'system': system_name,
+                'config': config
+            })
+        except Exception as e:
+            logger.warning(f"⚠️ Falha ao emitir config_update: {e}")
+
+    def update_system_config(self, system_name: str, updates: Dict) -> Dict:
+        """
+        Atualiza configuração de um sistema, persistindo no disco
+        e aplicando mudanças em tempo de execução.
+        """
+        if not isinstance(updates, dict) or not updates:
+            raise ValueError("Atualizações inválidas ou vazias")
+
+        old_config = None
+        new_enabled_state = None
+        enable_changed = False
+
+        with self.config_lock:
+            config_data = self._load_config()
+
+            if system_name not in config_data:
+                raise KeyError(f"Sistema {system_name} não encontrado")
+
+            old_config = deepcopy(config_data.get(system_name, {}))
+
+            merged_config = self._deep_merge_dicts(config_data[system_name], updates)
+            config_data[system_name] = merged_config
+
+            self._write_config(config_data)
+
+            # Atualizar estado interno e aplicar runtime config
+            self.config = config_data
+            self.config_mtime = self._get_config_mtime()
+            self._apply_runtime_config()
+
+            new_enabled_state = merged_config.get('enabled', False)
+            enable_changed = old_config.get('enabled', False) != new_enabled_state
+
+            logger.info(f"📝 Configuração de {system_name} atualizada em runtime")
+
+        # Fora do lock para evitar deadlock com operações do scheduler
+        if enable_changed and self.scheduler:
+            try:
+                if new_enabled_state:
+                    logger.info(f"▶️  Sistema {system_name} habilitado via config - iniciando...")
+                    start_success = self.start_system(system_name)
+                    if not start_success:
+                        logger.warning(f"⚠️ Falha ao iniciar sistema {system_name} após habilitar")
+                else:
+                    logger.info(f"⏹️  Sistema {system_name} desabilitado via config - parando...")
+                    stop_success = self.stop_system(system_name)
+                    if not stop_success:
+                        logger.warning(f"⚠️ Falha ao parar sistema {system_name} após desabilitar")
+            except Exception as e:
+                logger.error(f"❌ Erro ao ajustar execução de {system_name}: {e}")
+
+        merged_copy = deepcopy(merged_config)
+        self._broadcast_config_update(system_name, merged_copy)
+        return merged_copy
+
     def initialize_collectors(self):
         """Inicializa coletores para cada sistema habilitado"""
         logger.info("🔧 Inicializando coletores...")

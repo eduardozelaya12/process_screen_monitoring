@@ -38,6 +38,9 @@ class PeopleSoftCollector(BaseCollector):
         # ✅ Modo headless configurável (padrão: False para ver navegação)
         self.headless = config.get('headless', True)
         
+        # 🎯 Preferências de screenshot (resolução/qualidade)
+        self._load_screenshot_preferences(config)
+        
         # DEBUG: Logar filtros carregados
         logger.info(f"🔍 DEBUG __init__: Filtros carregados do config:")
         logger.info(f"   - Total de chaves: {len(self.filters)}")
@@ -53,6 +56,7 @@ class PeopleSoftCollector(BaseCollector):
         self.timeout = config.get('timeout', self.timeout)
         self.headless = config.get('headless', self.headless)
         self.filters = config.get('filters', self.filters)
+        self._load_screenshot_preferences(config)
 
         # Garantir que driver será reinicializado com novas configs
         if self.driver:
@@ -66,6 +70,59 @@ class PeopleSoftCollector(BaseCollector):
         logger.info("♻️ Configuração do PeopleSoftCollector atualizada em runtime")
         logger.debug(f"   • Filtros: {self.filters}")
     
+    def _load_screenshot_preferences(self, config: Dict):
+        """Carrega preferências de captura de tela."""
+        screenshot_cfg = (config or {}).get('screenshot') or {}
+
+        def _safe_int(value, default, minimum=None):
+            try:
+                if value is None:
+                    raise ValueError()
+                parsed = int(value)
+                if minimum is not None and parsed < minimum:
+                    raise ValueError()
+                return parsed
+            except (ValueError, TypeError):
+                return default
+
+        self.screenshot_width = _safe_int(screenshot_cfg.get('width'), 1920, minimum=600)
+        self.screenshot_height = _safe_int(screenshot_cfg.get('height'), 1080, minimum=400)
+        full_page = screenshot_cfg.get('full_page', True)
+        self.full_page_screenshot = full_page if isinstance(full_page, bool) else True
+        logger.info(
+            f"🖼️ Preferências de screenshot: {self.screenshot_width}x{self.screenshot_height} | full_page={self.full_page_screenshot}"
+        )
+
+    def _configure_viewport(self):
+        """Ajusta viewport inicial para melhorar resolução do screenshot."""
+        if not self.driver:
+            return
+        try:
+            if self.screenshot_width and self.screenshot_height:
+                self.driver.set_window_size(self.screenshot_width, self.screenshot_height)
+        except Exception as e:
+            logger.debug(f"Falha ao ajustar viewport: {e}")
+
+    def _prepare_full_page_capture(self):
+        """Expande viewport para capturar página inteira quando configurado."""
+        if not self.driver or not self.full_page_screenshot:
+            return
+        try:
+            total_width = self.driver.execute_script(
+                "return Math.max(document.body.scrollWidth, document.documentElement.scrollWidth, "
+                "document.documentElement.clientWidth);"
+            )
+            total_height = self.driver.execute_script(
+                "return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, "
+                "document.documentElement.clientHeight);"
+            )
+            width = max(int(total_width or 0), self.screenshot_width)
+            height = max(int(total_height or 0), self.screenshot_height)
+            if width and height:
+                self.driver.set_window_size(width, height)
+        except Exception as e:
+            logger.debug(f"Falha ao preparar captura full-page: {e}")
+
     def collect(self) -> Dict:
         """Coleta dados do PeopleSoft - Login direto toda vez"""
         try:
@@ -120,6 +177,9 @@ class PeopleSoftCollector(BaseCollector):
             options.add_argument('--start-maximized')
             logger.info("👀 Modo VISUAL ativado (com interface)")
         
+        options.add_argument(f'--window-size={self.screenshot_width},{self.screenshot_height}')
+        options.add_argument('--force-device-scale-factor=1')
+        options.add_argument('--hide-scrollbars')
         options.add_argument('--disable-blink-features=AutomationControlled')
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
@@ -128,6 +188,7 @@ class PeopleSoftCollector(BaseCollector):
         
         self.driver = webdriver.Chrome(options=options)
         self.driver.set_page_load_timeout(self.timeout)
+        self._configure_viewport()
         logger.info("✓ WebDriver inicializado")
     
     def _load_cookies(self) -> bool:
@@ -280,7 +341,16 @@ class PeopleSoftCollector(BaseCollector):
                 os.makedirs(screenshot_dir, exist_ok=True)
                 screenshot_path = f"{screenshot_dir}/screenshot_{timestamp}.png"
                 try:
-                    self.driver.save_screenshot(screenshot_path)
+                    self._prepare_full_page_capture()
+                    captured = False
+                    if self.full_page_screenshot and hasattr(self.driver, "get_full_page_screenshot_as_file"):
+                        try:
+                            self.driver.get_full_page_screenshot_as_file(screenshot_path)
+                            captured = True
+                        except Exception as e:
+                            logger.debug(f"Falha ao usar get_full_page_screenshot_as_file: {e}")
+                    if not captured:
+                        self.driver.save_screenshot(screenshot_path)
                     logger.info(f"✓ Screenshot salvo: {screenshot_path}")
                 except Exception as e:
                     logger.warning(f"Falha ao salvar screenshot: {e}")

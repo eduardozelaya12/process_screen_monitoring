@@ -56,6 +56,11 @@ class WebSocketClient {
             this._triggerHandler('system_update', data);
         });
         
+        this.socket.on('config_update', (data) => {
+            console.log('⚙️ Configuração atualizada:', data);
+            this._triggerHandler('config_update', data);
+        });
+        
         this.socket.on('error', (data) => {
             console.error('Erro do servidor:', data);
             this._triggerHandler('error', data);

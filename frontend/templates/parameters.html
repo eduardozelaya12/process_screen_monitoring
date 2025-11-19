@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Parametrização de Sistemas</title>
+    <style>
+        :root {
+            color-scheme: dark;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 24px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #0f1320;
+            color: #e6e8ef;
+        }
+        h1 {
+            margin: 0 0 16px;
+            font-size: 28px;
+        }
+        h2 {
+            margin: 0 0 12px;
+            font-size: 18px;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .card {
+            background: #141a2a;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #1f2738;
+        }
+        .card + .card {
+            margin-top: 12px;
+        }
+        label {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="number"],
+        input[type="url"],
+        select {
+            background: #1a2332;
+            border: 1px solid #2d3748;
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: #f1f5f9;
+            font-size: 14px;
+        }
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #3b82f6;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform 0.15s ease, background 0.2s ease;
+        }
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .btn-primary {
+            background: #3b82f6;
+            color: #fff;
+        }
+        .btn-primary:hover:not(:disabled) {
+            background: #2563eb;
+        }
+        .btn-secondary {
+            background: #1e293b;
+            color: #e6e8ef;
+        }
+        .btn-secondary:hover:not(:disabled) {
+            background: #293548;
+        }
+        .message {
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-size: 14px;
+            display: none;
+        }
+        .message.success {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.45);
+            color: #6ee7b7;
+        }
+        .message.error {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>Parametrização de Sistemas</h1>
+            <p style="margin:0;color:#94a3b8;font-size:14px;">
+                Ajuste filtros, credenciais e parâmetros de coleta. As alterações são aplicadas imediatamente no orquestrador.
+            </p>
+        </header>
+
+        <section class="card">
+            <label>
+                Sistema
+                <select id="systemSelect">
+                    <option value="">Selecione um sistema</option>
+                </select>
+            </label>
+        </section>
+
+        <form id="configForm" class="hidden">
+            <section class="card">
+                <h2>Configurações Gerais</h2>
+                <div class="form-grid">
+                    <label>
+                        Intervalo de Coleta (segundos)
+                        <input type="number" id="collectionInterval" min="30" step="5" required>
+                    </label>
+                    <label>
+                        Timeout (segundos)
+                        <input type="number" id="timeout" min="5" step="5">
+                    </label>
+                    <label>
+                        Tentativas de Retry
+                        <input type="number" id="retryAttempts" min="0" step="1">
+                    </label>
+                    <label>
+                        URL Base
+                        <input type="url" id="baseUrl">
+                    </label>
+                    <label>
+                        URL Monitor de Processos
+                        <input type="url" id="processMonitorUrl">
+                    </label>
+                </div>
+                <div class="form-grid" style="margin-top:18px;">
+                    <div class="checkbox-row">
+                        <input type="checkbox" id="enabled">
+                        <label for="enabled" style="margin:0;">Sistema habilitado</label>
+                    </div>
+                    <div class="checkbox-row">
+                        <input type="checkbox" id="headless">
+                        <label for="headless" style="margin:0;">Executar em modo headless</label>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card" id="credentialsSection">
+                <h2>Credenciais</h2>
+                <div class="form-grid">
+                    <label>
+                        Usuário
+                        <input type="text" id="credentialUsername" autocomplete="off">
+                    </label>
+                    <label>
+                        Senha
+                        <input type="password" id="credentialPassword" autocomplete="new-password">
+                    </label>
+                </div>
+            </section>
+
+            <section class="card hidden" id="filtersSection">
+                <h2>Filtros PeopleSoft</h2>
+                <div class="form-grid">
+                    <label>
+                        User ID
+                        <input type="text" data-filter-key="user_id">
+                    </label>
+                    <label>
+                        Process Name
+                        <input type="text" data-filter-key="process_name">
+                    </label>
+                    <label>
+                        Server
+                        <input type="text" data-filter-key="server">
+                    </label>
+                    <label>
+                        Run Status
+                        <input type="text" data-filter-key="run_status">
+                    </label>
+                    <label>
+                        Type
+                        <input type="text" data-filter-key="type">
+                    </label>
+                    <label>
+                        Distribution Status
+                        <input type="text" data-filter-key="dist_status">
+                    </label>
+                    <label>
+                        Instance From
+                        <input type="text" data-filter-key="instance_from">
+                    </label>
+                    <label>
+                        Instance To
+                        <input type="text" data-filter-key="instance_to">
+                    </label>
+                </div>
+                <div class="form-grid" style="margin-top:18px;">
+                    <label>
+                        Time Filter - Tipo
+                        <input type="text" data-time-key="type">
+                    </label>
+                    <label>
+                        Time Filter - Valor
+                        <input type="text" data-time-key="value">
+                    </label>
+                    <label>
+                        Time Filter - Unidade
+                        <input type="text" data-time-key="unit">
+                    </label>
+                </div>
+            </section>
+
+            <div class="actions">
+                <button type="button" class="btn-secondary" id="resetButton">Reverter</button>
+                <button type="submit" class="btn-primary" id="submitButton">Salvar alterações</button>
+            </div>
+        </form>
+
+        <div id="message" class="message"></div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/parameters.js') }}"></script>
+</body>
+</html>
+
+
+
+
+

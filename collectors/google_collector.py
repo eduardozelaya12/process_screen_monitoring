@@ -22,6 +22,7 @@ class GoogleCollector(BaseCollector):
         self.driver = None
         self.timeout = config.get('timeout', 30)
         self.headless = config.get('headless', False)
+        self._load_screenshot_preferences(config)
         
         logger.info(f"🔍 GoogleCollector inicializado: {self.system_name}")
 
@@ -32,6 +33,7 @@ class GoogleCollector(BaseCollector):
         self.base_url = config.get('base_url', self.base_url)
         self.timeout = config.get('timeout', self.timeout)
         self.headless = config.get('headless', self.headless)
+        self._load_screenshot_preferences(config)
 
         if self.driver:
             try:
@@ -42,6 +44,55 @@ class GoogleCollector(BaseCollector):
                 self.driver = None
 
         logger.info("♻️ Configuração do GoogleCollector atualizada")
+    
+    def _load_screenshot_preferences(self, config: Dict):
+        screenshot_cfg = (config or {}).get('screenshot') or {}
+
+        def _safe_int(value, default, minimum=None):
+            try:
+                if value is None:
+                    raise ValueError()
+                parsed = int(value)
+                if minimum is not None and parsed < minimum:
+                    raise ValueError()
+                return parsed
+            except (ValueError, TypeError):
+                return default
+
+        self.screenshot_width = _safe_int(screenshot_cfg.get('width'), 1920, minimum=600)
+        self.screenshot_height = _safe_int(screenshot_cfg.get('height'), 1080, minimum=400)
+        full_page = screenshot_cfg.get('full_page', False)
+        self.full_page_screenshot = full_page if isinstance(full_page, bool) else False
+        logger.info(
+            f"🖼️ Preferências de screenshot (Google): {self.screenshot_width}x{self.screenshot_height} | full_page={self.full_page_screenshot}"
+        )
+
+    def _configure_viewport(self):
+        if not self.driver:
+            return
+        try:
+            self.driver.set_window_size(self.screenshot_width, self.screenshot_height)
+        except Exception as e:
+            logger.debug(f"Falha ao ajustar viewport do GoogleCollector: {e}")
+
+    def _prepare_full_page_capture(self):
+        if not self.driver or not self.full_page_screenshot:
+            return
+        try:
+            total_width = self.driver.execute_script(
+                "return Math.max(document.body.scrollWidth, document.documentElement.scrollWidth, "
+                "document.documentElement.clientWidth);"
+            )
+            total_height = self.driver.execute_script(
+                "return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, "
+                "document.documentElement.clientHeight);"
+            )
+            width = max(int(total_width or 0), self.screenshot_width)
+            height = max(int(total_height or 0), self.screenshot_height)
+            if width and height:
+                self.driver.set_window_size(width, height)
+        except Exception as e:
+            logger.debug(f"Falha ao preparar captura full-page Google: {e}")
     
     def test_connection(self) -> bool:
         """Testa conexão com o Google"""
@@ -99,7 +150,16 @@ class GoogleCollector(BaseCollector):
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             screenshot_path = f"{screenshot_dir}/screenshot_{timestamp}.png"
             
-            self.driver.save_screenshot(screenshot_path)
+            self._prepare_full_page_capture()
+            captured = False
+            if self.full_page_screenshot and hasattr(self.driver, "get_full_page_screenshot_as_file"):
+                try:
+                    self.driver.get_full_page_screenshot_as_file(screenshot_path)
+                    captured = True
+                except Exception as e:
+                    logger.debug(f"Falha ao usar full page screenshot (Google): {e}")
+            if not captured:
+                self.driver.save_screenshot(screenshot_path)
             logger.info(f"✓ Screenshot salvo: {screenshot_path}")
             
             return screenshot_path
@@ -127,6 +187,9 @@ class GoogleCollector(BaseCollector):
             options.add_argument('--start-maximized')
             logger.info("👀 Modo VISUAL ativado")
         
+        options.add_argument(f'--window-size={self.screenshot_width},{self.screenshot_height}')
+        options.add_argument('--force-device-scale-factor=1')
+        options.add_argument('--hide-scrollbars')
         options.add_argument('--disable-blink-features=AutomationControlled')
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
@@ -135,6 +198,7 @@ class GoogleCollector(BaseCollector):
         
         self.driver = webdriver.Chrome(options=options)
         self.driver.set_page_load_timeout(self.timeout)
+        self._configure_viewport()
         logger.info("✓ WebDriver inicializado")
     
     def cleanup(self):
