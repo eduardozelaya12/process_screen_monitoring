@@ -14,6 +14,10 @@ class DataProcessor:
             'bonita': self._process_bonita,
             'n8n': self._process_n8n
         }
+        # Processadores por tipo (para sistemas database)
+        self.type_processors = {
+            'database': self._process_database
+        }
     
     def standardize(self, raw_data: Dict, system_name: str) -> Dict:
         """
@@ -27,11 +31,17 @@ class DataProcessor:
             Dict padronizado
         """
         try:
-            # Obter processador específico
-            processor = self.processors.get(
-                system_name.lower(),
-                self._process_generic
-            )
+            # Verificar se há tipo de sistema no raw_data (para database)
+            system_type = raw_data.get('data', {}).get('db_type')
+            if system_type:
+                # Usar processador por tipo
+                processor = self.type_processors.get('database', self._process_generic)
+            else:
+                # Obter processador específico por nome
+                processor = self.processors.get(
+                    system_name.lower(),
+                    self._process_generic
+                )
             
             # Processar dados
             processed = processor(raw_data)
@@ -148,6 +158,63 @@ class DataProcessor:
             ],
             'status': 'critical' if len(failed) > 5 else 'healthy',
             'timestamp': datetime.now().isoformat()
+        }
+    
+    def _process_database(self, data: Dict) -> Dict:
+        """Processa dados de banco de dados (SQL Server, PostgreSQL)"""
+        if data.get('status') == 'error':
+            return self._get_error_response('Database', data.get('error'))
+        
+        db_data = data.get('data', {})
+        results = db_data.get('results', [])
+        row_count = db_data.get('row_count', len(results))
+        db_type = db_data.get('db_type', 'unknown')
+        server = db_data.get('server', 'unknown')
+        database = db_data.get('database', 'unknown')
+        
+        # Para database, os resultados da query são os dados principais
+        # Podemos tentar inferir métricas se houver colunas específicas
+        # Por padrão, apenas retornamos os dados da query
+        
+        # Tentar identificar status/erros se houver colunas relevantes
+        critical_errors = []
+        if results:
+            # Procurar por colunas que possam indicar erros
+            for row in results[:10]:  # Limitar a 10
+                error_msg = None
+                status = None
+                
+                # Verificar colunas comuns de status/erro
+                for key, value in row.items():
+                    key_lower = key.lower()
+                    if 'error' in key_lower or 'erro' in key_lower:
+                        error_msg = str(value)
+                    if 'status' in key_lower:
+                        status = str(value).upper() if value else None
+                
+                if error_msg or (status and status in ['ERROR', 'FAILED', 'FALHA', 'ERRO']):
+                    critical_errors.append({
+                        'name': row.get('name') or row.get('process_name') or 'Unknown',
+                        'message': error_msg or f"Status: {status}",
+                        'timestamp': row.get('timestamp') or row.get('data_criacao') or datetime.now().isoformat()
+                    })
+        
+        return {
+            'total_processes': row_count,
+            'running': 0,  # Não aplicável para database
+            'failed': len(critical_errors),
+            'success': max(0, row_count - len(critical_errors)),
+            'success_rate': self._calculate_success_rate(
+                max(0, row_count - len(critical_errors)),
+                row_count
+            ) if row_count > 0 else 100.0,
+            'critical_errors': critical_errors,
+            'status': 'error' if len(critical_errors) > 0 else 'healthy',
+            'db_type': db_type,
+            'server': server,
+            'database': database,
+            'query_results': results[:50],  # Limitar a 50 resultados para não sobrecarregar
+            'timestamp': data.get('timestamp', datetime.now()).isoformat()
         }
     
     def _process_generic(self, data: Dict) -> Dict:

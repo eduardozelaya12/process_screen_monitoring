@@ -113,6 +113,18 @@
 			color: #94a3b8;
 			margin-top: 6px;
 		}
+		.countdown-timer {
+			font-size: 13px;
+			font-weight: 600;
+			color: #10b981;
+			margin-top: 4px;
+		}
+		.countdown-timer.warning {
+			color: #f59e0b;
+		}
+		.countdown-timer.critical {
+			color: #ef4444;
+		}
 		.loading {
 			display: inline-block;
 			width: 12px;
@@ -153,6 +165,7 @@
 		let systems = {};
 		let updateInterval = null;
 		let wsClient = null;
+		let countdownTimers = {}; // Armazena timers de contagem regressiva por sistema
 
 		// Atualizar relógio
 		function updateClock() {
@@ -181,6 +194,16 @@
 
 		function renderSystems() {
 			const grid = document.getElementById('systemsGrid');
+			
+			// Limpar timers de sistemas que não existem mais
+			const currentSystemKeys = new Set(Object.keys(systems));
+			for (const key in countdownTimers) {
+				if (!currentSystemKeys.has(key)) {
+					clearInterval(countdownTimers[key]);
+					delete countdownTimers[key];
+				}
+			}
+
 			grid.innerHTML = '';
 
 			const entries = Object.entries(systems);
@@ -206,6 +229,7 @@
 
 			const statusClass = system.running ? 'status-active' : 'status-inactive';
 			const statusText = system.running ? '● Ativo' : '○ Parado';
+			const isDatabase = (system.type || '').toLowerCase() === 'database';
 
 			card.innerHTML = `
 				<div class="system-header">
@@ -213,46 +237,186 @@
 					<div class="status ${statusClass}">${statusText}</div>
 				</div>
 				<div class="screenshot-container" id="screenshot-${key}">
-					<div class="no-screenshot">Aguardando screenshot...</div>
+					<div class="no-screenshot">
+						${isDatabase ? 'Aguardando dados da consulta SQL...' : 'Aguardando screenshot...'}
+					</div>
 				</div>
 				<footer>
-					<span>Intervalo: ${system.interval}s</span>
+					<div style="display: flex; flex-direction: column; gap: 2px;">
+						<span>Intervalo: ${system.interval}s (${isDatabase ? 'Database' : 'Screenshot'})</span>
+						${isDatabase ? `<span class="countdown-timer" id="countdown-${key}">--</span>` : ''}
+					</div>
 					<span id="lastupdate-${key}">--</span>
 				</footer>
 			`;
 
-			// Carregar screenshot
+			// Carregar conteúdo inicial (screenshot ou dados da query)
 			if (system.running) {
-				loadScreenshot(key);
+				if (isDatabase) {
+					loadDatabaseData(key);
+				} else {
+					loadScreenshot(key);
+				}
+			} else {
+				// Se sistema parado, limpar contador se existir
+				if (isDatabase && countdownTimers[key]) {
+					clearInterval(countdownTimers[key]);
+					delete countdownTimers[key];
+					const countdownEl = document.getElementById(`countdown-${key}`);
+					if (countdownEl) {
+						countdownEl.textContent = 'Sistema parado';
+						countdownEl.className = 'countdown-timer';
+					}
+				}
 			}
 
 			return card;
 		}
 
 		async function loadScreenshot(systemKey) {
+			const container = document.getElementById(`screenshot-${systemKey}`);
+			const lastUpdate = document.getElementById(`lastupdate-${systemKey}`);
+
 			try {
 				const response = await fetch(`/api/screenshot/${systemKey}`, { cache: 'no-store' });
-				if (!response.ok) throw new Error();
+				
+				if (!response.ok) {
+					// Quando não houver screenshot (ex.: sistemas de banco de dados),
+					// mostramos uma mensagem amigável em vez de ficar "aguardando" para sempre.
+					if (container) {
+						container.innerHTML = `
+							<div class="no-screenshot">
+								Nenhum screenshot disponível para este sistema.
+							</div>
+						`;
+					}
+					if (lastUpdate) {
+						lastUpdate.textContent = `Sem screenshot (${new Date().toLocaleTimeString('pt-BR')})`;
+					}
+					return;
+				}
 				
 				const data = await response.json();
-				const container = document.getElementById(`screenshot-${systemKey}`);
 				
-				if (container) {
+				if (container && data && data.path) {
 					container.innerHTML = `<img src="${data.path}?t=${Date.now()}" alt="${systemKey}">`;
 					
-					const lastUpdate = document.getElementById(`lastupdate-${systemKey}`);
 					if (lastUpdate) {
 						lastUpdate.textContent = `Atualizado: ${new Date().toLocaleTimeString('pt-BR')}`;
 					}
 				}
 			} catch (error) {
 				console.error(`Erro ao carregar screenshot de ${systemKey}:`, error);
+				
+				if (container) {
+					container.innerHTML = `
+						<div class="no-screenshot">
+							Erro ao carregar screenshot.
+						</div>
+					`;
+				}
+				if (lastUpdate) {
+					lastUpdate.textContent = `Erro ao carregar (${new Date().toLocaleTimeString('pt-BR')})`;
+				}
+			}
+		}
+
+		async function loadDatabaseData(systemKey) {
+			const container = document.getElementById(`screenshot-${systemKey}`);
+			const lastUpdate = document.getElementById(`lastupdate-${systemKey}`);
+
+			try {
+				const response = await fetch(`/api/status/${systemKey}`, { cache: 'no-store' });
+
+				if (!response.ok) {
+					if (container) {
+						container.innerHTML = `
+							<div class="no-screenshot">
+								Não foi possível obter os dados da consulta SQL.
+							</div>
+						`;
+					}
+					if (lastUpdate) {
+						lastUpdate.textContent = `Erro na consulta (${new Date().toLocaleTimeString('pt-BR')})`;
+					}
+					return;
+				}
+
+				const data = await response.json();
+				const queryResults = data.query_results || data.data?.query_results || [];
+
+				if (!container) return;
+
+				if (!queryResults.length) {
+					container.innerHTML = `
+						<div class="no-screenshot">
+							Nenhum registro retornado para a consulta informada.
+						</div>
+					`;
+				} else {
+					// Monta uma pequena tabela com os primeiros registros/colunas
+					const firstRow = queryResults[0];
+					const allColumns = Object.keys(firstRow);
+					const columns = allColumns.slice(0, 6); // limitar colunas para caber na TV
+					const rows = queryResults.slice(0, 10); // limitar linhas
+
+					let tableHtml = '<table style="width:100%;border-collapse:collapse;font-size:11px;">';
+					tableHtml += '<thead><tr>';
+					for (const col of columns) {
+						tableHtml += `<th style="text-align:left;border-bottom:1px solid #1f2937;padding:4px 6px;color:#9ca3af;">${col}</th>`;
+					}
+					tableHtml += '</tr></thead><tbody>';
+
+					for (const row of rows) {
+						tableHtml += '<tr>';
+						for (const col of columns) {
+							const value = row[col] != null ? row[col] : '';
+							tableHtml += `<td style="padding:3px 6px;border-bottom:1px solid #111827;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px;">${value}</td>`;
+						}
+						tableHtml += '</tr>';
+					}
+
+					tableHtml += '</tbody></table>';
+
+					container.innerHTML = tableHtml;
+				}
+
+				if (lastUpdate) {
+					lastUpdate.textContent = `Atualizado: ${new Date().toLocaleTimeString('pt-BR')}`;
+				}
+
+				// Iniciar/atualizar contador regressivo se houver timestamp da última coleta
+				// Pode vir em last_collection (do backend) ou timestamp (dos dados processados)
+				const lastCollectionTime = data.last_collection || data.timestamp || data.processed_at;
+				const collectionInterval = data.collection_interval || systems[systemKey]?.interval || 300;
+				
+				if (lastCollectionTime && collectionInterval) {
+					updateCountdown(systemKey, lastCollectionTime, collectionInterval);
+				}
+			} catch (error) {
+				console.error(`Erro ao carregar dados de banco para ${systemKey}:`, error);
+
+				if (container) {
+					container.innerHTML = `
+						<div class="no-screenshot">
+							Erro ao carregar dados da consulta SQL.
+						</div>
+					`;
+				}
+				if (lastUpdate) {
+					lastUpdate.textContent = `Erro ao carregar (${new Date().toLocaleTimeString('pt-BR')})`;
+				}
 			}
 		}
 
 		function updateAllScreenshots() {
 			for (const [key, system] of Object.entries(systems)) {
-				if (system.running) {
+				if (!system.running) continue;
+
+				const isDatabase = (system.type || '').toLowerCase() === 'database';
+				if (isDatabase) {
+					loadDatabaseData(key);
+				} else {
 					loadScreenshot(key);
 				}
 			}
@@ -264,6 +428,19 @@
 				wsClient.on('connected', () => {
 					console.log('WebSocket conectado (tv display)');
 				});
+				wsClient.on('update', (data) => {
+					// Atualizar contador quando novos dados chegarem via WebSocket
+					const systemKey = data.system;
+					if (systemKey && systems[systemKey]) {
+						const system = systems[systemKey];
+						const isDatabase = (system.type || '').toLowerCase() === 'database';
+						
+						if (isDatabase && data.data) {
+							// Recarregar dados do banco (que já atualiza o contador)
+							loadDatabaseData(systemKey);
+						}
+					}
+				});
 				wsClient.on('config_update', () => {
 					loadSystems();
 				});
@@ -274,6 +451,48 @@
 			} catch (error) {
 				console.error('Falha ao inicializar WebSocket:', error);
 			}
+		}
+
+		function updateCountdown(systemKey, lastCollectionISO, intervalSeconds) {
+			const countdownEl = document.getElementById(`countdown-${systemKey}`);
+			if (!countdownEl) return;
+
+			// Limpar timer anterior se existir
+			if (countdownTimers[systemKey]) {
+				clearInterval(countdownTimers[systemKey]);
+			}
+
+			const updateTimer = () => {
+				const lastCollection = new Date(lastCollectionISO);
+				const now = new Date();
+				const elapsed = Math.floor((now - lastCollection) / 1000); // segundos desde última coleta
+				const remaining = Math.max(0, intervalSeconds - elapsed);
+
+				if (remaining <= 0) {
+					countdownEl.textContent = 'Coletando...';
+					countdownEl.className = 'countdown-timer';
+					return;
+				}
+
+				const minutes = Math.floor(remaining / 60);
+				const seconds = remaining % 60;
+				const formatted = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+				countdownEl.textContent = `Próxima coleta em: ${formatted}`;
+
+				// Mudar cor baseado no tempo restante
+				if (remaining <= 10) {
+					countdownEl.className = 'countdown-timer critical';
+				} else if (remaining <= 30) {
+					countdownEl.className = 'countdown-timer warning';
+				} else {
+					countdownEl.className = 'countdown-timer';
+				}
+			};
+
+			// Atualizar imediatamente e depois a cada segundo
+			updateTimer();
+			countdownTimers[systemKey] = setInterval(updateTimer, 1000);
 		}
 
 		// Inicialização
