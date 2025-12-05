@@ -4,6 +4,7 @@ import logging
 import json
 import os
 from copy import deepcopy
+import pyodbc
 
 logger = logging.getLogger(__name__)
 
@@ -16,6 +17,7 @@ ALLOWED_SYSTEM_FIELDS = {
     'collection_interval',
     'filters',
     'credentials',
+    'database_connection',
     'base_url',
     'process_monitor_url',
     'headless',
@@ -79,11 +81,52 @@ def _sanitize_system_updates(payload: dict) -> dict:
         if key == 'enabled' and not isinstance(value, bool):
             raise ValueError("enabled deve ser booleano")
 
-        if key in {'filters', 'credentials', 'screenshot'} and value is not None and not isinstance(value, dict):
+        if key in {'filters', 'credentials', 'database_connection', 'screenshot'} and value is not None and not isinstance(value, dict):
             raise ValueError(f"{key} deve ser um objeto")
 
         if key == 'filters' and isinstance(value, dict):
             value = _normalize_filters(value)
+
+        if key == 'database_connection' and isinstance(value, dict):
+            db_conn = {}
+            
+            # Validar db_type
+            if 'db_type' in value:
+                db_type = value['db_type']
+                if db_type not in {'sqlserver', 'postgresql'}:
+                    raise ValueError("database_connection.db_type deve ser 'sqlserver' ou 'postgresql'")
+                db_conn['db_type'] = db_type
+            
+            # Validar campos obrigatórios
+            required_fields = ['server', 'database', 'username', 'password']
+            for field in required_fields:
+                if field in value:
+                    field_value = value[field]
+                    if isinstance(field_value, str):
+                        field_value = field_value.strip()
+                    if not field_value:
+                        raise ValueError(f"database_connection.{field} é obrigatório e não pode estar vazio")
+                    db_conn[field] = field_value
+            
+            # Validar port (opcional)
+            if 'port' in value:
+                try:
+                    port = int(value['port'])
+                    if port <= 0 or port > 65535:
+                        raise ValueError("database_connection.port deve estar entre 1 e 65535")
+                    db_conn['port'] = port
+                except (TypeError, ValueError):
+                    raise ValueError("database_connection.port deve ser um número inteiro")
+            
+            # Validar query (opcional)
+            if 'query' in value:
+                query = value['query']
+                if isinstance(query, str):
+                    query = query.strip()
+                if query:
+                    db_conn['query'] = query
+            
+            value = db_conn
 
         if key == 'screenshot' and isinstance(value, dict):
             screenshot = {}
@@ -141,9 +184,102 @@ def _update_system_config(system_name: str, updates: dict) -> dict:
 
     return merged_config
 
+
+def _format_system_display_name(system_key: str, config: dict) -> str:
+    """
+    Gera um nome amigável para exibição.
+    Para sistemas de banco de dados, adiciona o tipo do banco entre parênteses,
+    por exemplo: "Banco de Dados (SQL Server)".
+    """
+    base_name = config.get('name') or system_key
+    system_type = (config.get('type') or '').lower()
+
+    if system_type == 'database':
+        db_type = (config.get('database_connection', {}) or {}).get('db_type', '').lower()
+        if db_type == 'sqlserver':
+            db_label = 'SQL Server'
+        elif db_type == 'postgresql':
+            db_label = 'PostgreSQL'
+        else:
+            db_label = db_type.capitalize() if db_type else 'Database'
+
+        # Remove qualquer trecho entre parênteses, ex: "Banco de Dados (Exemplo) #1" -> "Banco de Dados #1"
+        if '(' in base_name and ')' in base_name:
+            last_open = base_name.rfind('(')
+            last_close = base_name.rfind(')')
+            if last_close > last_open:
+                base_name = (base_name[:last_open] + base_name[last_close + 1:]).strip()
+
+        return f"{base_name} ({db_label})"
+
+    return base_name
+
 def register_routes(app):
     """Registra todas as rotas REST da aplicação"""
     
+    @app.route('/api/config/systems/<system_name>/clone-database', methods=['POST'])
+    def clone_database_system(system_name):
+        """Clona um sistema do tipo database criando um novo sistema para outro DB/query"""
+        try:
+            configs = _load_systems_config()
+            if system_name not in configs:
+                return jsonify({'error': 'Sistema não encontrado'}), 404
+
+            base_config = configs[system_name]
+            if base_config.get('type') != 'database':
+                return jsonify({'error': 'Apenas sistemas do tipo database podem ser clonados'}), 400
+
+            # Descobrir a chave raiz (sem sufixos _dbN)
+            root_key = system_name.split('_db')[0]
+            if root_key not in configs:
+                root_key = system_name
+
+            root_config = configs[root_key]
+
+            # Encontrar próximo índice disponível baseado em todas as chaves da família root_key
+            family_prefix = f"{root_key}_db"
+            indices = []
+            for key in configs.keys():
+                if key.startswith(family_prefix):
+                    suffix = key[len(family_prefix):]
+                    try:
+                        indices.append(int(suffix))
+                    except ValueError:
+                        continue
+
+            next_index = 1 if not indices else max(indices) + 1
+
+            new_key = f"{family_prefix}{next_index}"
+            new_config = deepcopy(base_config)
+
+            # Nome base sempre vindo da raiz, sem empilhar #1 #1
+            base_name = root_config.get('name', root_key)
+            # Remove qualquer sufixo " #N" existente do nome base
+            if ' #' in base_name:
+                base_name = base_name.split(' #')[0]
+            # Remove qualquer trecho entre parênteses, como "(Exemplo)"
+            if '(' in base_name and ')' in base_name:
+                last_open = base_name.rfind('(')
+                last_close = base_name.rfind(')')
+                if last_close > last_open:
+                    base_name = (base_name[:last_open] + base_name[last_close + 1:]).strip()
+            new_config['name'] = f"{base_name} #{next_index}"
+
+            # Ao clonar, deixa desabilitado por padrão até o usuário ajustar
+            new_config['enabled'] = False
+
+            configs[new_key] = new_config
+            _write_systems_config(configs)
+
+            return jsonify({
+                'status': 'success',
+                'system': new_key,
+                'config': new_config
+            }), 201
+        except Exception as e:
+            logger.error(f"Erro ao clonar sistema de banco de dados: {e}")
+            return jsonify({'error': str(e)}), 500
+
     @app.route('/')
     def index():
         """Página principal do dashboard"""
@@ -188,7 +324,7 @@ def register_routes(app):
             # Retornar apenas sistemas habilitados
             enabled_systems = {
                 name: {
-                    'name': config['name'],
+                    'name': _format_system_display_name(name, config),
                     'type': config['type'],
                     'enabled': config['enabled']
                 }
@@ -233,6 +369,16 @@ def register_routes(app):
             
             if not status:
                 return jsonify({'error': 'Sistema não encontrado'}), 404
+            
+            # Adicionar informações de timing para contador regressivo (apenas para database)
+            system_config = orchestrator.get_system_config(system_name)
+            if system_config and system_config.get('type', '').lower() == 'database':
+                last_update = orchestrator.status_tracker.last_update.get(system_name)
+                collection_interval = system_config.get('collection_interval', 300)
+                
+                if last_update:
+                    status['last_collection'] = last_update.isoformat()
+                    status['collection_interval'] = collection_interval
             
             return jsonify(status)
             
@@ -314,7 +460,7 @@ def register_routes(app):
                     running = name in orchestrator.running_systems
                 
                 result[name] = {
-                    'name': config['name'],
+                    'name': _format_system_display_name(name, config),
                     'type': config['type'],
                     'enabled': config.get('enabled', False),
                     'running': running,
@@ -426,6 +572,171 @@ def register_routes(app):
             return jsonify({'error': str(e)}), 404
         except Exception as e:
             logger.error(f"Erro ao atualizar config de sistema: {e}")
+            return jsonify({'error': str(e)}), 500
+    
+    @app.route('/api/config/systems/<system_name>', methods=['DELETE'])
+    def delete_system_config(system_name):
+        """Remove um sistema de configuração (restrições para sistemas de banco base)"""
+        try:
+            configs = _load_systems_config()
+            if system_name not in configs:
+                return jsonify({'error': 'Sistema não encontrado'}), 404
+
+            system_config = configs[system_name]
+
+            # Não permitir remover sistema de banco "raiz" (sem sufixo _db)
+            if system_config.get('type') == 'database' and '_db' not in system_name:
+                return jsonify({'error': 'Não é permitido remover o primeiro sistema de banco de dados'}), 400
+
+            # TODO: opcionalmente parar o sistema no orquestrador, se estiver rodando
+            del configs[system_name]
+            _write_systems_config(configs)
+
+            return jsonify({'status': 'success', 'system': system_name})
+        except Exception as e:
+            logger.error(f"Erro ao remover config de sistema: {e}")
+            return jsonify({'error': str(e)}), 500
+    
+    @app.route('/api/database/list-databases', methods=['POST'])
+    def list_databases():
+        """Lista databases disponíveis em um servidor SQL Server"""
+        try:
+            data = request.get_json(silent=True) or {}
+            
+            db_type = data.get('db_type', 'sqlserver').lower()
+            server = data.get('server', '').strip()
+            username = data.get('username', '').strip()
+            password = data.get('password', '').strip()
+            port = data.get('port')
+            
+            if not all([server, username, password]):
+                return jsonify({'error': 'Server, username e password são obrigatórios'}), 400
+            
+            if db_type != 'sqlserver':
+                return jsonify({'error': 'Apenas SQL Server é suportado para listagem de databases'}), 400
+            
+            # Porta padrão
+            if not port:
+                port = 1433
+            else:
+                try:
+                    port = int(port)
+                except (ValueError, TypeError):
+                    port = 1433
+            
+            # Conectar ao SQL Server
+            conn_str = (
+                f"DRIVER={{ODBC Driver 17 for SQL Server}};"
+                f"SERVER={server},{port};"
+                f"UID={username};"
+                f"PWD={password};"
+                f"TrustServerCertificate=yes;"
+                f"Connection Timeout=10;"
+            )
+            
+            databases = []
+            connection = None
+            
+            try:
+                connection = pyodbc.connect(conn_str, timeout=10)
+                cursor = connection.cursor()
+                
+                # Query para listar databases
+                cursor.execute("""
+                    SELECT name 
+                    FROM sys.databases 
+                    WHERE state_desc = 'ONLINE'
+                    ORDER BY name
+                """)
+                
+                databases = [row[0] for row in cursor.fetchall()]
+                cursor.close()
+                
+            except pyodbc.Error as e:
+                logger.error(f"Erro ao conectar ao SQL Server: {e}")
+                return jsonify({'error': f'Erro ao conectar: {str(e)}'}), 400
+            finally:
+                if connection:
+                    try:
+                        connection.close()
+                    except Exception:
+                        pass
+            
+            return jsonify({
+                'status': 'success',
+                'databases': databases
+            })
+            
+        except Exception as e:
+            logger.error(f"Erro ao listar databases: {e}")
+            return jsonify({'error': str(e)}), 500
+    
+    @app.route('/api/database/test-connection', methods=['POST'])
+    def test_database_connection():
+        """Testa conexão com banco de dados"""
+        try:
+            data = request.get_json(silent=True) or {}
+            
+            db_type = data.get('db_type', 'sqlserver').lower()
+            server = data.get('server', '').strip()
+            database = data.get('database', '').strip()
+            username = data.get('username', '').strip()
+            password = data.get('password', '').strip()
+            port = data.get('port')
+            
+            if not all([server, database, username, password]):
+                return jsonify({'error': 'Todos os campos são obrigatórios'}), 400
+            
+            if db_type != 'sqlserver':
+                return jsonify({'error': 'Apenas SQL Server é suportado para teste de conexão'}), 400
+            
+            # Porta padrão
+            if not port:
+                port = 1433
+            else:
+                try:
+                    port = int(port)
+                except (ValueError, TypeError):
+                    port = 1433
+            
+            # Conectar ao SQL Server
+            conn_str = (
+                f"DRIVER={{ODBC Driver 17 for SQL Server}};"
+                f"SERVER={server},{port};"
+                f"DATABASE={database};"
+                f"UID={username};"
+                f"PWD={password};"
+                f"TrustServerCertificate=yes;"
+                f"Connection Timeout=10;"
+            )
+            
+            connection = None
+            try:
+                connection = pyodbc.connect(conn_str, timeout=10)
+                cursor = connection.cursor()
+                cursor.execute("SELECT 1")
+                cursor.close()
+                
+                return jsonify({
+                    'status': 'success',
+                    'message': 'Conexão bem-sucedida!'
+                })
+                
+            except pyodbc.Error as e:
+                logger.error(f"Erro ao testar conexão: {e}")
+                return jsonify({
+                    'status': 'error',
+                    'error': f'Erro ao conectar: {str(e)}'
+                }), 400
+            finally:
+                if connection:
+                    try:
+                        connection.close()
+                    except Exception:
+                        pass
+            
+        except Exception as e:
+            logger.error(f"Erro ao testar conexão: {e}")
             return jsonify({'error': str(e)}), 500
     
     logger.info("✓ Rotas registradas")
