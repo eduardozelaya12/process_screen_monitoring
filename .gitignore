@@ -2,4 +2,4 @@ config/systems_config.json
 
 config/credentials/
 
-storage/logs
+storage
