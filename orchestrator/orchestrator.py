@@ -11,6 +11,7 @@ from copy import deepcopy
 # Importações dos módulos do projeto
 from collectors.peoplesoft_collector import PeopleSoftCollector
 from collectors.google_collector import GoogleCollector
+from collectors.database_collector import DatabaseCollector
 from processors.data_processors import DataProcessor
 from storage.local_storage import LocalStorage
 
@@ -243,14 +244,25 @@ class DashboardOrchestrator:
         """Inicializa coletores para cada sistema habilitado"""
         logger.info("🔧 Inicializando coletores...")
         
-        # Mapa de coletores disponíveis
-        collector_map = {
+        # Mapa de coletores por tipo de sistema
+        type_collector_map = {
+            'selenium': {
+                'peoplesoft': PeopleSoftCollector,
+                'google': GoogleCollector,
+            },
+            'database': {
+                'sqlserver': DatabaseCollector,
+                'postgresql': DatabaseCollector,
+            },
+            'api': {
+                # Adicione coletores de API aqui
+            }
+        }
+        
+        # Mapa de coletores por nome (compatibilidade com versões antigas)
+        name_collector_map = {
             'peoplesoft': PeopleSoftCollector,
             'google': GoogleCollector,
-            # Adicione outros coletores aqui conforme implementar
-            # 'oracle_fusion': OracleFusionCollector,
-            # 'bonita': BonitaCollector,
-            # 'n8n': N8nCollector
         }
         
         for system_name, system_config in self.config.items():
@@ -258,16 +270,30 @@ class DashboardOrchestrator:
                 logger.info(f"⏭ Sistema {system_name} desabilitado, pulando...")
                 continue
             
-            collector_class = collector_map.get(system_name)
+            # Tentar encontrar collector pelo tipo primeiro
+            system_type = system_config.get('type', '').lower()
+            collector_class = None
+            
+            if system_type == 'database':
+                # Para database, usar DatabaseCollector
+                collector_class = DatabaseCollector
+            elif system_type in type_collector_map:
+                # Tentar encontrar pelo nome dentro do tipo
+                type_map = type_collector_map[system_type]
+                collector_class = type_map.get(system_name)
+            
+            # Fallback: tentar pelo nome (compatibilidade)
+            if not collector_class:
+                collector_class = name_collector_map.get(system_name)
             
             if collector_class:
                 try:
                     self.collectors[system_name] = collector_class(system_config)
-                    logger.info(f"✓ Coletor {system_name} inicializado")
+                    logger.info(f"✓ Coletor {system_name} inicializado (tipo: {system_type})")
                 except Exception as e:
                     logger.error(f"❌ Erro ao inicializar {system_name}: {e}")
             else:
-                logger.warning(f"⚠ Coletor {system_name} não implementado")
+                logger.warning(f"⚠ Coletor {system_name} não implementado (tipo: {system_type})")
         
         logger.info(f"✓ {len(self.collectors)} coletores inicializados")
     
@@ -399,17 +425,31 @@ class DashboardOrchestrator:
             
             # Criar collector se não existir
             if system_name not in self.collectors:
-                collector_map = {
+                system_config = self.config[system_name]
+                system_type = system_config.get('type', '').lower()
+                
+                # Mapa de coletores por tipo
+                type_collector_map = {
+                    'database': DatabaseCollector,
+                }
+                
+                # Mapa de coletores por nome (compatibilidade)
+                name_collector_map = {
                     'peoplesoft': PeopleSoftCollector,
                     'google': GoogleCollector,
                 }
                 
-                collector_class = collector_map.get(system_name)
+                collector_class = None
+                if system_type == 'database':
+                    collector_class = DatabaseCollector
+                else:
+                    collector_class = name_collector_map.get(system_name)
+                
                 if not collector_class:
-                    logger.error(f"❌ Collector {system_name} não implementado")
+                    logger.error(f"❌ Collector {system_name} não implementado (tipo: {system_type})")
                     return False
                 
-                self.collectors[system_name] = collector_class(self.config[system_name])
+                self.collectors[system_name] = collector_class(system_config)
                 logger.info(f"✓ Collector {system_name} criado")
             
             # Agendar job

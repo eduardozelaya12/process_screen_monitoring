@@ -53,13 +53,18 @@
         input[type="password"],
         input[type="number"],
         input[type="url"],
-        select {
+        select,
+        textarea {
             background: #1a2332;
             border: 1px solid #2d3748;
             border-radius: 8px;
             padding: 10px 12px;
             color: #f1f5f9;
             font-size: 14px;
+        }
+        textarea {
+            resize: vertical;
+            font-family: 'Courier New', monospace;
         }
         input[type="checkbox"] {
             width: 18px;
@@ -197,6 +202,66 @@
                         Senha
                         <input type="password" id="credentialPassword" autocomplete="new-password">
                     </label>
+                </div>
+            </section>
+
+            <section class="card hidden" id="databaseSection">
+                <h2>Conexão com Banco de Dados</h2>
+                <div class="form-grid">
+                    <label>
+                        Tipo de Banco
+                        <select id="databaseType">
+                            <option value="sqlserver">SQL Server</option>
+                            <option value="postgresql">PostgreSQL</option>
+                        </select>
+                    </label>
+                    <label style="grid-column: span 2;">
+                        Server Name
+                        <div style="display: flex; gap: 8px; align-items: flex-end;">
+                            <input type="text" id="databaseServer" placeholder="ex: localhost ou servidor.dominio.com" style="flex: 1;">
+                            <button type="button" id="listDatabasesButton" class="btn-secondary" style="white-space: nowrap; padding: 10px 16px;">
+                                Buscar Databases
+                            </button>
+                        </div>
+                    </label>
+                    <label>
+                        Database
+                        <select id="databaseName">
+                            <option value="">Selecione uma database</option>
+                        </select>
+                    </label>
+                    <label>
+                        Username
+                        <input type="text" id="databaseUsername" autocomplete="off">
+                    </label>
+                    <label>
+                        Password
+                        <input type="password" id="databasePassword" autocomplete="new-password">
+                    </label>
+                    <label>
+                        Port
+                        <input type="number" id="databasePort" placeholder="Padrão: 1433 (SQL) ou 5432 (PG)">
+                    </label>
+                </div>
+                <div style="margin-top: 18px; display: flex; gap: 12px; align-items: center;">
+                    <button type="button" id="testConnectionButton" class="btn-secondary" style="white-space: nowrap;">
+                        Testar Conexão
+                    </button>
+                    <span id="connectionStatus" style="font-size: 13px; opacity: 0.9;"></span>
+                </div>
+                <div style="margin-top: 18px;">
+                    <label>
+                        Query SQL
+                        <textarea id="databaseQuery" rows="6" style="width: 100%; background: #1a2332; border: 1px solid #2d3748; border-radius: 8px; padding: 10px 12px; color: #f1f5f9; font-size: 14px; font-family: 'Courier New', monospace;" placeholder="SELECT * FROM tabela WHERE condicao"></textarea>
+                    </label>
+                </div>
+                <div style="margin-top: 18px; display: flex; justify-content: space-between; gap: 12px; align-items: center;">
+                    <button type="button" id="deleteDatabaseButton" class="btn-secondary" style="background:#b91c1c;border-color:#ef4444;">
+                        Remover este DB
+                    </button>
+                    <button type="button" id="addDatabaseButton" class="btn-secondary">
+                        Adicionar mais DBs
+                    </button>
                 </div>
             </section>
 
