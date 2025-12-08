@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,9 +9,11 @@
         :root {
             color-scheme: dark;
         }
+
         * {
             box-sizing: border-box;
         }
+
         body {
             margin: 0;
             padding: 24px;
@@ -18,14 +21,17 @@
             background: #0f1320;
             color: #e6e8ef;
         }
+
         h1 {
             margin: 0 0 16px;
             font-size: 28px;
         }
+
         h2 {
             margin: 0 0 12px;
             font-size: 18px;
         }
+
         .container {
             max-width: 960px;
             margin: 0 auto;
@@ -33,15 +39,18 @@
             flex-direction: column;
             gap: 20px;
         }
+
         .card {
             background: #141a2a;
             border-radius: 12px;
             padding: 20px;
             border: 1px solid #1f2738;
         }
-        .card + .card {
+
+        .card+.card {
             margin-top: 12px;
         }
+
         label {
             display: flex;
             flex-direction: column;
@@ -49,6 +58,7 @@
             font-size: 13px;
             opacity: 0.9;
         }
+
         input[type="text"],
         input[type="password"],
         input[type="number"],
@@ -62,32 +72,38 @@
             color: #f1f5f9;
             font-size: 14px;
         }
+
         textarea {
             resize: vertical;
             font-family: 'Courier New', monospace;
         }
+
         input[type="checkbox"] {
             width: 18px;
             height: 18px;
             accent-color: #3b82f6;
         }
+
         .form-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 16px;
         }
+
         .checkbox-row {
             display: flex;
             align-items: center;
             gap: 10px;
             margin-top: 8px;
         }
+
         .actions {
             display: flex;
             gap: 12px;
             justify-content: flex-end;
             margin-top: 20px;
         }
+
         button {
             border: none;
             border-radius: 8px;
@@ -97,51 +113,62 @@
             cursor: pointer;
             transition: transform 0.15s ease, background 0.2s ease;
         }
+
         button:disabled {
             opacity: 0.6;
             cursor: not-allowed;
         }
+
         .btn-primary {
             background: #3b82f6;
             color: #fff;
         }
+
         .btn-primary:hover:not(:disabled) {
             background: #2563eb;
         }
+
         .btn-secondary {
             background: #1e293b;
             color: #e6e8ef;
         }
+
         .btn-secondary:hover:not(:disabled) {
             background: #293548;
         }
+
         .message {
             border-radius: 10px;
             padding: 14px 16px;
             font-size: 14px;
             display: none;
         }
+
         .message.success {
             background: rgba(16, 185, 129, 0.15);
             border: 1px solid rgba(16, 185, 129, 0.45);
             color: #6ee7b7;
         }
+
         .message.error {
             background: rgba(239, 68, 68, 0.15);
             border: 1px solid rgba(239, 68, 68, 0.4);
             color: #fca5a5;
         }
+
         .hidden {
             display: none;
         }
     </style>
 </head>
+
 <body>
     <main class="container">
         <header>
             <h1>Parametrização de Sistemas</h1>
             <p style="margin:0;color:#94a3b8;font-size:14px;">
-                Ajuste filtros, credenciais e parâmetros de coleta. As alterações são aplicadas imediatamente no orquestrador.
+                Ajuste filtros, credenciais e parâmetros de coleta. As alterações são aplicadas imediatamente no
+                orquestrador.
             </p>
         </header>
 
@@ -218,8 +245,10 @@
                     <label style="grid-column: span 2;">
                         Server Name
                         <div style="display: flex; gap: 8px; align-items: flex-end;">
-                            <input type="text" id="databaseServer" placeholder="ex: localhost ou servidor.dominio.com" style="flex: 1;">
-                            <button type="button" id="listDatabasesButton" class="btn-secondary" style="white-space: nowrap; padding: 10px 16px;">
+                            <input type="text" id="databaseServer" placeholder="ex: localhost ou servidor.dominio.com"
+                                style="flex: 1;">
+                            <button type="button" id="listDatabasesButton" class="btn-secondary"
+                                style="white-space: nowrap; padding: 10px 16px;">
                                 Buscar Databases
                             </button>
                         </div>
@@ -252,11 +281,15 @@
                 <div style="margin-top: 18px;">
                     <label>
                         Query SQL
-                        <textarea id="databaseQuery" rows="6" style="width: 100%; background: #1a2332; border: 1px solid #2d3748; border-radius: 8px; padding: 10px 12px; color: #f1f5f9; font-size: 14px; font-family: 'Courier New', monospace;" placeholder="SELECT * FROM tabela WHERE condicao"></textarea>
+                        <textarea id="databaseQuery" rows="6"
+                            style="width: 100%; background: #1a2332; border: 1px solid #2d3748; border-radius: 8px; padding: 10px 12px; color: #f1f5f9; font-size: 14px; font-family: 'Courier New', monospace;"
+                            placeholder="SELECT * FROM tabela WHERE condicao"></textarea>
                     </label>
                 </div>
-                <div style="margin-top: 18px; display: flex; justify-content: space-between; gap: 12px; align-items: center;">
-                    <button type="button" id="deleteDatabaseButton" class="btn-secondary" style="background:#b91c1c;border-color:#ef4444;">
+                <div
+                    style="margin-top: 18px; display: flex; justify-content: space-between; gap: 12px; align-items: center;">
+                    <button type="button" id="deleteDatabaseButton" class="btn-secondary"
+                        style="background:#b91c1c;border-color:#ef4444;">
                         Remover este DB
                     </button>
                     <button type="button" id="addDatabaseButton" class="btn-secondary">
@@ -266,7 +299,7 @@
             </section>
 
             <section class="card hidden" id="filtersSection">
-                <h2>Filtros PeopleSoft</h2>
+                <h2>Filtros de Coleta (PeopleSoft)</h2>
                 <div class="form-grid">
                     <label>
                         User ID
@@ -317,6 +350,17 @@
                 </div>
             </section>
 
+            <section class="card hidden" id="bonitaFiltersSection">
+                <h2>Filtros Bonita</h2>
+                <div class="message success" style="display: block; margin-top: 10px;">
+                    Monitor de processos com falha (Automático)
+                </div>
+                <p style="font-size: 14px; opacity: 0.8; margin-top: 8px;">
+                    A URL base é fixa: <code
+                        style="background: #1e293b; padding: 2px 5px; border-radius: 4px;">https://dockertst.ajover.com:8445/bonita</code>
+                </p>
+            </section>
+
             <div class="actions">
                 <button type="button" class="btn-secondary" id="resetButton">Reverter</button>
                 <button type="submit" class="btn-primary" id="submitButton">Salvar alterações</button>
@@ -328,9 +372,5 @@
 
     <script src="{{ url_for('static', filename='js/parameters.js') }}"></script>
 </body>
+
 </html>
-
-
-
-
-
