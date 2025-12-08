@@ -43,7 +43,7 @@
         systemSelect.addEventListener('change', handleSystemChange);
         form.addEventListener('submit', handleSubmit);
         resetButton.addEventListener('click', resetForm);
-        
+
         // Database connection handlers
         if (listDatabasesButton) {
             listDatabasesButton.addEventListener('click', handleListDatabases);
@@ -162,7 +162,7 @@
             databasePasswordInput.value = databaseConnection.password || '';
             databasePortInput.value = databaseConnection.port || '';
             databaseQueryTextarea.value = databaseConnection.query || '';
-            
+
             // Preencher select de databases
             databaseNameSelect.innerHTML = '<option value="">Selecione uma database</option>';
             if (databaseConnection.database) {
@@ -172,7 +172,7 @@
                 option.selected = true;
                 databaseNameSelect.appendChild(option);
             }
-            
+
             connectionStatusSpan.textContent = '';
         } else {
             databaseSection.classList.add('hidden');
@@ -193,7 +193,7 @@
         }
 
         // Filters section
-        if (filters) {
+        if (filters && systemType !== 'bonita') {
             filtersSection.classList.remove('hidden');
 
             filterInputs.forEach(input => {
@@ -212,6 +212,22 @@
             filtersSection.classList.add('hidden');
             filterInputs.forEach(input => { input.value = ''; });
             timeFilterInputs.forEach(input => { input.value = ''; });
+        }
+
+        // Bonita section
+        const bonitaSection = document.getElementById('bonitaFiltersSection');
+        if (bonitaSection) {
+            if (systemType === 'bonita') {
+                bonitaSection.classList.remove('hidden');
+                // Esconder campos de URL para Bonita
+                baseUrlInput.closest('label').classList.add('hidden');
+                processMonitorUrlInput.closest('label').classList.add('hidden');
+            } else {
+                bonitaSection.classList.add('hidden');
+                // Restaurar campos de URL
+                baseUrlInput.closest('label').classList.remove('hidden');
+                processMonitorUrlInput.closest('label').classList.remove('hidden');
+            }
         }
     }
 

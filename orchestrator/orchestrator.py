@@ -12,6 +12,7 @@ from copy import deepcopy
 from collectors.peoplesoft_collector import PeopleSoftCollector
 from collectors.google_collector import GoogleCollector
 from collectors.database_collector import DatabaseCollector
+from collectors.bonita_collector import BonitaCollector
 from processors.data_processors import DataProcessor
 from storage.local_storage import LocalStorage
 
@@ -249,6 +250,7 @@ class DashboardOrchestrator:
             'selenium': {
                 'peoplesoft': PeopleSoftCollector,
                 'google': GoogleCollector,
+                'bonita': BonitaCollector,
             },
             'database': {
                 'sqlserver': DatabaseCollector,
@@ -263,6 +265,7 @@ class DashboardOrchestrator:
         name_collector_map = {
             'peoplesoft': PeopleSoftCollector,
             'google': GoogleCollector,
+            'bonita': BonitaCollector,
         }
         
         for system_name, system_config in self.config.items():
@@ -437,6 +440,7 @@ class DashboardOrchestrator:
                 name_collector_map = {
                     'peoplesoft': PeopleSoftCollector,
                     'google': GoogleCollector,
+                    'bonita': BonitaCollector,
                 }
                 
                 collector_class = None
