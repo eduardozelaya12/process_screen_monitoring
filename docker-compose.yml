@@ -1,0 +1,17 @@
+services:
+  dashboard:
+    build: .
+    container_name: process_monitor
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./config:/app/config
+      - ./storage:/app/storage
+    # Aumentar shared memory para o Chrome não crashar em páginas pesadas
+    shm_size: '2gb'
+    restart: unless-stopped
+    environment:
+      - TZ=America/Sao_Paulo
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "AJKDBBRA:host-gateway"

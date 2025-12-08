@@ -59,14 +59,14 @@ class DatabaseCollector(BaseCollector):
         
         logger.info("♻️ Configuração do DatabaseCollector atualizada")
     
-    def _get_sqlserver_connection_string(self) -> str:
+    def _get_sqlserver_connection_string(self, driver="ODBC Driver 17 for SQL Server") -> str:
         """Gera string de conexão para SQL Server"""
         if not all([self.server, self.database, self.username, self.password]):
             raise ValueError("Server, database, username e password são obrigatórios para SQL Server")
         
         # String de conexão ODBC para SQL Server
         conn_str = (
-            f"DRIVER={{ODBC Driver 17 for SQL Server}};"
+            f"DRIVER={{{driver}}};"
             f"SERVER={self.server},{self.port};"
             f"DATABASE={self.database};"
             f"UID={self.username};"
@@ -89,15 +89,27 @@ class DatabaseCollector(BaseCollector):
         }
     
     def _connect_sqlserver(self) -> pyodbc.Connection:
-        """Conecta ao SQL Server"""
-        try:
-            conn_str = self._get_sqlserver_connection_string()
-            connection = pyodbc.connect(conn_str, timeout=10)
-            logger.info(f"✓ Conectado ao SQL Server: {self.server}/{self.database}")
-            return connection
-        except pyodbc.Error as e:
-            logger.error(f"❌ Erro ao conectar SQL Server: {e}")
-            raise
+        """Conecta ao SQL Server com fallback de drivers"""
+        drivers = [
+            "ODBC Driver 17 for SQL Server",
+            "ODBC Driver 18 for SQL Server"
+        ]
+        
+        last_error = None
+        
+        for driver in drivers:
+            try:
+                logger.info(f"🔌 Tentando conectar com {driver}...")
+                conn_str = self._get_sqlserver_connection_string(driver=driver)
+                connection = pyodbc.connect(conn_str, timeout=10)
+                logger.info(f"✓ Conectado ao SQL Server ({driver}): {self.server}/{self.database}")
+                return connection
+            except pyodbc.Error as e:
+                last_error = e
+                logger.warning(f"⚠️ Falha com {driver}: {e}")
+                
+        logger.error(f"❌ Todas as tentativas de conexão falharam para {self.server}:{self.port}. Último erro: {last_error}")
+        raise last_error
     
     def _connect_postgresql(self) -> psycopg2.extensions.connection:
         """Conecta ao PostgreSQL"""

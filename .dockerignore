@@ -1,0 +1,35 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Project specific
+storage/
+storage/logs/
+storage/screenshots/
+test_peoplesoft.py
+test_google_screenshot.py
+# We keep collectors, config, orchestrator, processors, main.py, requirements.txt, max_fix_config.py as they are needed.
+# Actually, looking at the Dockerfile, it does `COPY . .`.
+# So we should be careful what we ignore.
+# The user wants to run the whole thing.
+# But `storage` is a volume, so we definitely don't need to copy it into the image.
+
+# Logs
+*.log
+
+# Docker
+docker-compose.yml
+Dockerfile
+.dockerignore

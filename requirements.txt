@@ -8,7 +8,9 @@ python-socketio==5.10.0
 python-engineio==4.8.0
 
 # Scheduler
-apscheduler==3.10.4
+apscheduler==3.10.1
+setuptools
+
 
 # Selenium
 selenium==4.15.2

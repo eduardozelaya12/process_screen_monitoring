@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Monitor TV - Todos os Sistemas</title>
+	<title>Monitor TV - Carrossel</title>
 	<style>
-		* { margin: 0; padding: 0; box-sizing: border-box; }
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
 		body {
 			background: #0a0e1a;
 			color: #e0e0e0;
 			font-family: system-ui, -apple-system, sans-serif;
+			height: 100vh;
+			display: flex;
+			flex-direction: column;
 			overflow: hidden;
 		}
+
 		.header {
 			background: #141824;
 			padding: 16px 24px;
@@ -19,155 +29,204 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+			height: 70px;
+			flex-shrink: 0;
 		}
+
 		.header h1 {
 			font-size: 24px;
 			font-weight: 600;
 			color: #fff;
 		}
+
 		.clock {
 			font-size: 20px;
 			color: #10b981;
 			font-weight: 600;
 		}
-		.grid {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-			gap: 20px;
-			padding: 20px;
-			height: calc(100vh - 70px);
-			overflow-y: auto;
+
+		/* Container principal que centraliza o card */
+		.main-container {
+			flex: 1;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 24px;
+			position: relative;
 		}
+
 		.system-card {
 			background: #141824;
 			border-radius: 12px;
-			padding: 16px 16px 12px;
+			padding: 20px;
 			border: 2px solid #1e293b;
-			transition: all 0.3s;
+			width: 100%;
+			max-width: 1400px;
+			/* Limite largura em telas ultra-wide */
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+			animation: fadeIn 0.5s ease-out;
 		}
-		.system-card:hover {
-			border-color: #3b82f6;
-			transform: translateY(-2px);
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(10px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
 		}
+
 		.system-header {
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			margin-bottom: 12px;
+			margin-bottom: 16px;
+			flex-shrink: 0;
 		}
+
 		.system-name {
-			font-size: 18px;
-			font-weight: 600;
+			font-size: 28px;
+			font-weight: 700;
 			color: #fff;
 		}
-		.status {
-			padding: 4px 12px;
-			border-radius: 6px;
-			font-size: 12px;
+
+		.status-badge {
+			padding: 6px 16px;
+			border-radius: 8px;
+			font-size: 14px;
 			font-weight: 600;
 		}
+
 		.status-active {
 			background: #10b981;
 			color: #fff;
 		}
+
 		.status-inactive {
 			background: #6b7280;
 			color: #fff;
 		}
-		.status-error {
-			background: #ef4444;
-			color: #fff;
-		}
-		.screenshot-container {
-			position: relative;
+
+		.content-area {
+			flex: 1;
 			background: #000;
 			border-radius: 8px;
-			overflow: auto;
-			max-height: 70vh;
+			overflow: hidden;
 			border: 1px solid #1f2937;
-		}
-		.screenshot-container img {
-			max-width: 100%;
-			height: auto;
-			display: block;
-		}
-		.no-screenshot {
+			position: relative;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			min-height: 220px;
+		}
+
+		.content-area img {
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: contain;
+			display: block;
+		}
+
+		.no-content {
 			color: #6b7280;
-			font-size: 14px;
+			font-size: 18px;
+			text-align: center;
 		}
-		.system-info {
-			margin-top: 8px;
-			font-size: 12px;
-			color: #9ca3af;
+
+		.footer {
+			margin-top: 16px;
 			display: flex;
 			justify-content: space-between;
-		}
-		.system-card footer {
-			display: flex;
-			justify-content: space-between;
-			font-size: 12px;
 			color: #94a3b8;
-			margin-top: 6px;
+			font-size: 14px;
+			flex-shrink: 0;
 		}
-		.countdown-timer {
-			font-size: 13px;
-			font-weight: 600;
-			color: #10b981;
-			margin-top: 4px;
+
+		.progress-bar-container {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 4px;
+			background: #1e293b;
 		}
-		.countdown-timer.warning {
-			color: #f59e0b;
+
+		.progress-bar {
+			height: 100%;
+			background: #3b82f6;
+			width: 0%;
+			transition: width linear;
 		}
-		.countdown-timer.critical {
-			color: #ef4444;
+
+		/* Estilos específicos para tabela de banco de dados */
+		table.db-table {
+			width: 100%;
+			border-collapse: collapse;
+			font-size: 14px;
+			color: #e0e0e0;
 		}
-		.loading {
-			display: inline-block;
-			width: 12px;
-			height: 12px;
-			border: 2px solid #3b82f6;
-			border-top-color: transparent;
-			border-radius: 50%;
-			animation: spin 0.8s linear infinite;
+
+		table.db-table th {
+			text-align: left;
+			background: #1e293b;
+			padding: 12px;
+			border-bottom: 2px solid #334155;
+			position: sticky;
+			top: 0;
 		}
-		@keyframes spin {
-			to { transform: rotate(360deg); }
+
+		table.db-table td {
+			padding: 10px 12px;
+			border-bottom: 1px solid #1f2937;
 		}
-		.pulse {
-			animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+		table.db-table tr:nth-child(even) {
+			background: #0f1320;
 		}
-		@keyframes pulse {
-			0%, 100% { opacity: 1; }
-			50% { opacity: .5; }
+
+		table.db-table tr:hover {
+			background: #1e293b;
 		}
 	</style>
 </head>
+
 <body>
 	<div class="header">
-		<h1>📊 Monitor de Processos - TV</h1>
+		<h1>📊 Monitor Rotativo</h1>
 		<div class="clock" id="clock">--:--:--</div>
 	</div>
 
-	<div class="grid" id="systemsGrid">
-		<div style="text-align:center;color:#6b7280;padding:40px;">
-			<div class="loading"></div>
-			<p style="margin-top:12px;">Carregando sistemas...</p>
+	<div class="main-container" id="mainContainer">
+		<div style="text-align:center;color:#6b7280;">
+			<p>Carregando sistemas...</p>
 		</div>
+	</div>
+
+	<div class="progress-bar-container">
+		<div class="progress-bar" id="progressBar"></div>
 	</div>
 
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="{{ url_for('static', filename='js/websocket.js') }}"></script>
 	<script>
-		let systems = {};
-		let updateInterval = null;
-		let wsClient = null;
-		let countdownTimers = {}; // Armazena timers de contagem regressiva por sistema
+		// Configuração
+		const ROTATION_INTERVAL = 10000; // 10 segundos por sistema
 
-		// Atualizar relógio
+		// Estado
+		let systemsMap = {};
+		let enabledSystemKeys = [];
+		let currentIndex = 0;
+		let rotationTimer = null;
+		let progressInterval = null;
+		let wsClient = null;
+		let nextRotationTime = 0;
+
+		// Clock
 		function updateClock() {
 			const now = new Date();
 			document.getElementById('clock').textContent = now.toLocaleTimeString('pt-BR');
@@ -175,335 +234,228 @@
 		setInterval(updateClock, 1000);
 		updateClock();
 
-		// Carregar e atualizar sistemas
+		// Função principal de carga
 		async function loadSystems() {
 			try {
 				const response = await fetch('/api/systems/all', { cache: 'no-store' });
 				if (!response.ok) throw new Error();
-				
+
 				const data = await response.json();
-				const enabledEntries = Object.entries(data).filter(([_, system]) => system.enabled);
-				systems = Object.fromEntries(enabledEntries);
-				
-				renderSystems();
-				updateAllScreenshots();
+				systemsMap = data;
+
+				// Filtrar apenas os habilitados e ordenar (opcional: por nome)
+				const newEnabledKeys = Object.keys(systemsMap)
+					.filter(k => systemsMap[k].enabled)
+					.sort((a, b) => systemsMap[a].name.localeCompare(systemsMap[b].name));
+
+				// Se a lista mudou significativamente, resetar ou ajustar
+				// Para simplificar, se não tínhamos nada, começamos
+				if (enabledSystemKeys.length === 0 && newEnabledKeys.length > 0) {
+					enabledSystemKeys = newEnabledKeys;
+					startCarousel();
+				} else {
+					// Apenas atualiza a lista para a próxima rotação pegar novos/remover antigos
+					enabledSystemKeys = newEnabledKeys;
+				}
+
 			} catch (error) {
 				console.error('Erro ao carregar sistemas:', error);
 			}
 		}
 
-		function renderSystems() {
-			const grid = document.getElementById('systemsGrid');
-			
-			// Limpar timers de sistemas que não existem mais
-			const currentSystemKeys = new Set(Object.keys(systems));
-			for (const key in countdownTimers) {
-				if (!currentSystemKeys.has(key)) {
-					clearInterval(countdownTimers[key]);
-					delete countdownTimers[key];
-				}
-			}
-
-			grid.innerHTML = '';
-
-			const entries = Object.entries(systems);
-
-			if (entries.length === 0) {
-				grid.innerHTML = `
-					<div style="text-align:center;color:#6b7280;padding:40px;">
-						<p>Nenhum sistema habilitado para exibição.</p>
-					</div>
-				`;
+		function startCarousel() {
+			if (enabledSystemKeys.length === 0) {
+				renderEmpty();
 				return;
 			}
 
-			for (const [key, system] of entries) {
-				grid.appendChild(createSystemCard(key, system));
-			}
+			// Renderiza o primeiro imediatamente
+			renderCurrentSystem();
+
+			// Configura o loop
+			scheduleNextRotation();
 		}
 
-		function createSystemCard(key, system) {
-			const card = document.createElement('div');
-			card.className = 'system-card';
-			card.id = `system-${key}`;
+		function scheduleNextRotation() {
+			if (rotationTimer) clearTimeout(rotationTimer);
+			if (progressInterval) clearInterval(progressInterval);
 
-			const statusClass = system.running ? 'status-active' : 'status-inactive';
-			const statusText = system.running ? '● Ativo' : '○ Parado';
+			const now = Date.now();
+			nextRotationTime = now + ROTATION_INTERVAL;
+
+			// Timer para trocar o sistema
+			rotationTimer = setTimeout(() => {
+				currentIndex = (currentIndex + 1) % enabledSystemKeys.length;
+				renderCurrentSystem();
+				scheduleNextRotation();
+			}, ROTATION_INTERVAL);
+
+			// Animação da barra de progresso
+			const bar = document.getElementById('progressBar');
+			progressInterval = setInterval(() => {
+				const timeLeft = nextRotationTime - Date.now();
+				const percentage = Math.max(0, (timeLeft / ROTATION_INTERVAL) * 100);
+				bar.style.width = (100 - percentage) + '%';
+
+				if (timeLeft <= 0) clearInterval(progressInterval);
+			}, 50); // 20fps
+		}
+
+		async function renderCurrentSystem() {
+			const container = document.getElementById('mainContainer');
+
+			if (enabledSystemKeys.length === 0) {
+				renderEmpty();
+				return;
+			}
+
+			// Se o índice ficou inválido (ex: sistema removido), reseta
+			if (currentIndex >= enabledSystemKeys.length) currentIndex = 0;
+
+			const key = enabledSystemKeys[currentIndex];
+			const system = systemsMap[key];
+
+			if (!system) return; // Segurança
+
 			const isDatabase = (system.type || '').toLowerCase() === 'database';
+			const statusClass = system.running ? 'status-active' : 'status-inactive';
+			const statusText = system.running ? 'Ativo' : 'Parado';
 
-			card.innerHTML = `
-				<div class="system-header">
-					<div class="system-name">${system.name}</div>
-					<div class="status ${statusClass}">${statusText}</div>
-				</div>
-				<div class="screenshot-container" id="screenshot-${key}">
-					<div class="no-screenshot">
-						${isDatabase ? 'Aguardando dados da consulta SQL...' : 'Aguardando screenshot...'}
+			// Estrutura Base do Card
+			container.innerHTML = `
+				<div class="system-card">
+					<div class="system-header">
+						<div class="system-name">${system.name}</div>
+						<div class="status-badge ${statusClass}">
+							${statusText}
+						</div>
+					</div>
+					
+					<div class="content-area" id="content-${key}">
+						<div class="no-content">Carregando dados...</div>
+					</div>
+					
+					<div class="footer">
+						<div>Intervalo de Coleta: ${system.interval || system.collection_interval}s</div>
+						<div id="footer-update-${key}">--</div>
 					</div>
 				</div>
-				<footer>
-					<div style="display: flex; flex-direction: column; gap: 2px;">
-						<span>Intervalo: ${system.interval}s (${isDatabase ? 'Database' : 'Screenshot'})</span>
-						${isDatabase ? `<span class="countdown-timer" id="countdown-${key}">--</span>` : ''}
-					</div>
-					<span id="lastupdate-${key}">--</span>
-				</footer>
 			`;
 
-			// Carregar conteúdo inicial (screenshot ou dados da query)
+			// Carregar Conteúdo Específico
 			if (system.running) {
 				if (isDatabase) {
-					loadDatabaseData(key);
+					await loadDatabaseContent(key);
 				} else {
-					loadScreenshot(key);
+					await loadScreenshotContent(key);
 				}
 			} else {
-				// Se sistema parado, limpar contador se existir
-				if (isDatabase && countdownTimers[key]) {
-					clearInterval(countdownTimers[key]);
-					delete countdownTimers[key];
-					const countdownEl = document.getElementById(`countdown-${key}`);
-					if (countdownEl) {
-						countdownEl.textContent = 'Sistema parado';
-						countdownEl.className = 'countdown-timer';
-					}
-				}
+				document.getElementById(`content-${key}`).innerHTML = `
+					<div class="no-content">
+						Sistema pausado ou desligado.
+					</div>
+				`;
 			}
-
-			return card;
 		}
 
-		async function loadScreenshot(systemKey) {
-			const container = document.getElementById(`screenshot-${systemKey}`);
-			const lastUpdate = document.getElementById(`lastupdate-${systemKey}`);
+		function renderEmpty() {
+			const container = document.getElementById('mainContainer');
+			container.innerHTML = `
+				<div style="text-align:center;color:#6b7280;font-size:20px;">
+					<p>Nenhum sistema habilitado para exibição.</p>
+				</div>
+			`;
+		}
+
+		// --- Carregadores de Conteúdo ---
+
+		async function loadScreenshotContent(key) {
+			const contentEl = document.getElementById(`content-${key}`);
+			const footerEl = document.getElementById(`footer-update-${key}`);
 
 			try {
-				const response = await fetch(`/api/screenshot/${systemKey}`, { cache: 'no-store' });
-				
-				if (!response.ok) {
-					// Quando não houver screenshot (ex.: sistemas de banco de dados),
-					// mostramos uma mensagem amigável em vez de ficar "aguardando" para sempre.
-					if (container) {
-						container.innerHTML = `
-							<div class="no-screenshot">
-								Nenhum screenshot disponível para este sistema.
-							</div>
-						`;
-					}
-					if (lastUpdate) {
-						lastUpdate.textContent = `Sem screenshot (${new Date().toLocaleTimeString('pt-BR')})`;
-					}
-					return;
+				const r = await fetch(`/api/screenshot/${key}`, { cache: 'no-store' });
+				if (!r.ok) throw new Error('No Data');
+				const data = await r.json();
+
+				if (data && data.path) {
+					contentEl.innerHTML = `<img src="${data.path}?t=${Date.now()}" alt="Screenshot">`;
+					if (footerEl) footerEl.textContent = `Atualizado: ${new Date().toLocaleTimeString()}`;
+				} else {
+					throw new Error('Sem imagem');
 				}
-				
-				const data = await response.json();
-				
-				if (container && data && data.path) {
-					container.innerHTML = `<img src="${data.path}?t=${Date.now()}" alt="${systemKey}">`;
-					
-					if (lastUpdate) {
-						lastUpdate.textContent = `Atualizado: ${new Date().toLocaleTimeString('pt-BR')}`;
-					}
-				}
-			} catch (error) {
-				console.error(`Erro ao carregar screenshot de ${systemKey}:`, error);
-				
-				if (container) {
-					container.innerHTML = `
-						<div class="no-screenshot">
-							Erro ao carregar screenshot.
-						</div>
-					`;
-				}
-				if (lastUpdate) {
-					lastUpdate.textContent = `Erro ao carregar (${new Date().toLocaleTimeString('pt-BR')})`;
-				}
+			} catch (e) {
+				contentEl.innerHTML = `<div class="no-content">Imagem não disponível.</div>`;
 			}
 		}
 
-		async function loadDatabaseData(systemKey) {
-			const container = document.getElementById(`screenshot-${systemKey}`);
-			const lastUpdate = document.getElementById(`lastupdate-${systemKey}`);
+		async function loadDatabaseContent(key) {
+			const contentEl = document.getElementById(`content-${key}`);
+			const footerEl = document.getElementById(`footer-update-${key}`);
 
 			try {
-				const response = await fetch(`/api/status/${systemKey}`, { cache: 'no-store' });
+				const r = await fetch(`/api/status/${key}`, { cache: 'no-store' });
+				if (!r.ok) throw new Error('No Data');
+				const data = await r.json();
+				const results = data.query_results || data.data?.query_results || [];
 
-				if (!response.ok) {
-					if (container) {
-						container.innerHTML = `
-							<div class="no-screenshot">
-								Não foi possível obter os dados da consulta SQL.
-							</div>
-						`;
-					}
-					if (lastUpdate) {
-						lastUpdate.textContent = `Erro na consulta (${new Date().toLocaleTimeString('pt-BR')})`;
-					}
-					return;
-				}
-
-				const data = await response.json();
-				const queryResults = data.query_results || data.data?.query_results || [];
-
-				if (!container) return;
-
-				if (!queryResults.length) {
-					container.innerHTML = `
-						<div class="no-screenshot">
-							Nenhum registro retornado para a consulta informada.
-						</div>
-					`;
+				if (results.length === 0) {
+					contentEl.innerHTML = `<div class="no-content">Consulta retornou 0 registros.</div>`;
 				} else {
-					// Monta uma pequena tabela com os primeiros registros/colunas
-					const firstRow = queryResults[0];
-					const allColumns = Object.keys(firstRow);
-					const columns = allColumns.slice(0, 6); // limitar colunas para caber na TV
-					const rows = queryResults.slice(0, 10); // limitar linhas
+					// Renderizar Tabela
+					if (footerEl) footerEl.textContent = `Atualizado: ${new Date().toLocaleTimeString()}`;
 
-					let tableHtml = '<table style="width:100%;border-collapse:collapse;font-size:11px;">';
-					tableHtml += '<thead><tr>';
-					for (const col of columns) {
-						tableHtml += `<th style="text-align:left;border-bottom:1px solid #1f2937;padding:4px 6px;color:#9ca3af;">${col}</th>`;
-					}
-					tableHtml += '</tr></thead><tbody>';
+					// Criar tabela dinâmica
+					// Pegar colunas do primeiro registro
+					const cols = Object.keys(results[0]);
 
-					for (const row of rows) {
-						tableHtml += '<tr>';
-						for (const col of columns) {
-							const value = row[col] != null ? row[col] : '';
-							tableHtml += `<td style="padding:3px 6px;border-bottom:1px solid #111827;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px;">${value}</td>`;
-						}
-						tableHtml += '</tr>';
-					}
+					let html = `<div style="width:100%;height:100%;overflow:auto;"><table class="db-table"><thead><tr>`;
+					cols.forEach(c => html += `<th>${c}</th>`);
+					html += `</tr></thead><tbody>`;
 
-					tableHtml += '</tbody></table>';
+					results.forEach(row => {
+						html += `<tr>`;
+						cols.forEach(c => html += `<td>${row[c] !== null ? row[c] : ''}</td>`);
+						html += `</tr>`;
+					});
 
-					container.innerHTML = tableHtml;
+					html += `</tbody></table></div>`;
+					contentEl.innerHTML = html;
 				}
 
-				if (lastUpdate) {
-					lastUpdate.textContent = `Atualizado: ${new Date().toLocaleTimeString('pt-BR')}`;
-				}
-
-				// Iniciar/atualizar contador regressivo se houver timestamp da última coleta
-				// Pode vir em last_collection (do backend) ou timestamp (dos dados processados)
-				const lastCollectionTime = data.last_collection || data.timestamp || data.processed_at;
-				const collectionInterval = data.collection_interval || systems[systemKey]?.interval || 300;
-				
-				if (lastCollectionTime && collectionInterval) {
-					updateCountdown(systemKey, lastCollectionTime, collectionInterval);
-				}
-			} catch (error) {
-				console.error(`Erro ao carregar dados de banco para ${systemKey}:`, error);
-
-				if (container) {
-					container.innerHTML = `
-						<div class="no-screenshot">
-							Erro ao carregar dados da consulta SQL.
-						</div>
-					`;
-				}
-				if (lastUpdate) {
-					lastUpdate.textContent = `Erro ao carregar (${new Date().toLocaleTimeString('pt-BR')})`;
-				}
+			} catch (e) {
+				contentEl.innerHTML = `<div class="no-content">Erro ao carregar dados do banco.</div>`;
 			}
 		}
 
-		function updateAllScreenshots() {
-			for (const [key, system] of Object.entries(systems)) {
-				if (!system.running) continue;
-
-				const isDatabase = (system.type || '').toLowerCase() === 'database';
-				if (isDatabase) {
-					loadDatabaseData(key);
-				} else {
-					loadScreenshot(key);
-				}
-			}
-		}
-
+		// Websocket para atualizações em tempo real (opcional para forçar refresh se estiver na tela)
 		function initWebSocket() {
 			try {
 				wsClient = new WebSocketClient();
-				wsClient.on('connected', () => {
-					console.log('WebSocket conectado (tv display)');
-				});
 				wsClient.on('update', (data) => {
-					// Atualizar contador quando novos dados chegarem via WebSocket
-					const systemKey = data.system;
-					if (systemKey && systems[systemKey]) {
-						const system = systems[systemKey];
-						const isDatabase = (system.type || '').toLowerCase() === 'database';
-						
-						if (isDatabase && data.data) {
-							// Recarregar dados do banco (que já atualiza o contador)
-							loadDatabaseData(systemKey);
+					// Se o sistema atual recebeu update, recarrega o conteúdo
+					if (enabledSystemKeys[currentIndex] === data.system) {
+						// Verifica tipo e recarrega
+						const sys = systemsMap[data.system];
+						if (sys) {
+							const isDatabase = (sys.type || '').toLowerCase() === 'database';
+							if (isDatabase) loadDatabaseContent(data.system);
+							else loadScreenshotContent(data.system);
 						}
 					}
 				});
-				wsClient.on('config_update', () => {
-					loadSystems();
-				});
-				wsClient.on('error', (data) => {
-					console.warn('WS error:', data);
-				});
 				wsClient.connect();
-			} catch (error) {
-				console.error('Falha ao inicializar WebSocket:', error);
-			}
+			} catch (e) { console.error(e); }
 		}
 
-		function updateCountdown(systemKey, lastCollectionISO, intervalSeconds) {
-			const countdownEl = document.getElementById(`countdown-${systemKey}`);
-			if (!countdownEl) return;
-
-			// Limpar timer anterior se existir
-			if (countdownTimers[systemKey]) {
-				clearInterval(countdownTimers[systemKey]);
-			}
-
-			const updateTimer = () => {
-				const lastCollection = new Date(lastCollectionISO);
-				const now = new Date();
-				const elapsed = Math.floor((now - lastCollection) / 1000); // segundos desde última coleta
-				const remaining = Math.max(0, intervalSeconds - elapsed);
-
-				if (remaining <= 0) {
-					countdownEl.textContent = 'Coletando...';
-					countdownEl.className = 'countdown-timer';
-					return;
-				}
-
-				const minutes = Math.floor(remaining / 60);
-				const seconds = remaining % 60;
-				const formatted = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-
-				countdownEl.textContent = `Próxima coleta em: ${formatted}`;
-
-				// Mudar cor baseado no tempo restante
-				if (remaining <= 10) {
-					countdownEl.className = 'countdown-timer critical';
-				} else if (remaining <= 30) {
-					countdownEl.className = 'countdown-timer warning';
-				} else {
-					countdownEl.className = 'countdown-timer';
-				}
-			};
-
-			// Atualizar imediatamente e depois a cada segundo
-			updateTimer();
-			countdownTimers[systemKey] = setInterval(updateTimer, 1000);
-		}
-
-		// Inicialização
+		// Iniciar
 		loadSystems();
 		initWebSocket();
-		
-		// Atualizar lista de sistemas a cada 10 segundos
-		setInterval(loadSystems, 10000);
-		
-		// Atualizar screenshots a cada 15 segundos
-		setInterval(updateAllScreenshots, 15000);
+
+		// Verificar novos sistemas periodicamente
+		setInterval(loadSystems, 15000);
+
 	</script>
 </body>
+
 </html>
