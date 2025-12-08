@@ -70,8 +70,8 @@
         "name": "Bonita BPM",
         "base_url": "https:///bonita",
         "credentials": {
-            "username": "ekitagawa",
-            "password": "bpm"
+            "username": "",
+            "password": ""
         },
         "collection_interval": 300,
         "headless": true,
