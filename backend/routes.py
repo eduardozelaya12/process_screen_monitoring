@@ -25,7 +25,8 @@ ALLOWED_SYSTEM_FIELDS = {
     'timeout',
     'name',
     'type',
-    'screenshot'
+    'screenshot',
+    'description'
 }
 
 
@@ -464,7 +465,8 @@ def register_routes(app):
                     'type': config['type'],
                     'enabled': config.get('enabled', False),
                     'running': running,
-                    'interval': interval
+                    'interval': interval,
+                    'description': config.get('description', '')
                 }
             
             return jsonify(result)

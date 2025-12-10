@@ -215,7 +215,7 @@
 	<script src="{{ url_for('static', filename='js/websocket.js') }}"></script>
 	<script>
 		// Configuração
-		const ROTATION_INTERVAL = 10000; // 10 segundos por sistema
+		const ROTATION_INTERVAL = 30000; // 10 segundos por sistema
 
 		// Estado
 		let systemsMap = {};
@@ -321,11 +321,16 @@
 			const statusClass = system.running ? 'status-active' : 'status-inactive';
 			const statusText = system.running ? 'Ativo' : 'Parado';
 
+			// Montar título com description, se existir
+			const displayTitle = system.description
+				? `${system.name} - ${system.description}`
+				: system.name;
+
 			// Estrutura Base do Card
 			container.innerHTML = `
 				<div class="system-card">
 					<div class="system-header">
-						<div class="system-name">${system.name}</div>
+						<div class="system-name">${displayTitle}</div>
 						<div class="status-badge ${statusClass}">
 							${statusText}
 						</div>

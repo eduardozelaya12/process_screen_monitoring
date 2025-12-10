@@ -17,6 +17,7 @@
     const headlessCheckbox = document.getElementById('headless');
     const credentialUsernameInput = document.getElementById('credentialUsername');
     const credentialPasswordInput = document.getElementById('credentialPassword');
+    const descriptionInput = document.getElementById('description');
 
     // Database connection fields
     const databaseTypeSelect = document.getElementById('databaseType');
@@ -147,6 +148,7 @@
         processMonitorUrlInput.value = config.process_monitor_url ?? '';
         enabledCheckbox.checked = Boolean(config.enabled);
         headlessCheckbox.checked = Boolean(config.headless);
+        descriptionInput.value = config.description ?? '';
 
         // Credentials section
         credentialUsernameInput.value = credentials.username ?? '';
@@ -193,7 +195,7 @@
         }
 
         // Filters section
-        if (filters && systemType !== 'bonita') {
+        if (filters && (systemType !== 'bonita' && systemType !== 'database' && systemType !== 'api')) {
             filtersSection.classList.remove('hidden');
 
             filterInputs.forEach(input => {
@@ -224,9 +226,17 @@
                 processMonitorUrlInput.closest('label').classList.add('hidden');
             } else {
                 bonitaSection.classList.add('hidden');
-                // Restaurar campos de URL
-                baseUrlInput.closest('label').classList.remove('hidden');
-                processMonitorUrlInput.closest('label').classList.remove('hidden');
+                // Restaurar campo de URL Base (exceto para database, já tratado acima)
+                if (systemType !== 'database') {
+                    baseUrlInput.closest('label').classList.remove('hidden');
+                }
+                // URL Monitor de Processos: só aparece para PeopleSoft
+                const isPeopleSoft = currentSystem && currentSystem.toLowerCase().includes('peoplesoft');
+                if (isPeopleSoft) {
+                    processMonitorUrlInput.closest('label').classList.remove('hidden');
+                } else {
+                    processMonitorUrlInput.closest('label').classList.add('hidden');
+                }
             }
         }
     }
@@ -261,6 +271,7 @@
 
         payload.base_url = sanitizeTextValue(baseUrlInput);
         payload.process_monitor_url = sanitizeTextValue(processMonitorUrlInput);
+        payload.description = sanitizeTextValue(descriptionInput);
 
         if (!credentialsSection.classList.contains('hidden')) {
             payload.credentials = {
