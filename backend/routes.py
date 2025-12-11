@@ -218,27 +218,35 @@ def _format_system_display_name(system_key: str, config: dict) -> str:
 def register_routes(app):
     """Registra todas as rotas REST da aplicação"""
     
-    @app.route('/api/config/systems/<system_name>/clone-database', methods=['POST'])
-    def clone_database_system(system_name):
-        """Clona um sistema do tipo database criando um novo sistema para outro DB/query"""
+    @app.route('/api/config/systems/<system_name>/clone', methods=['POST'])
+    def clone_system(system_name):
+        """Clona qualquer sistema criando uma nova configuração baseada no original"""
         try:
             configs = _load_systems_config()
             if system_name not in configs:
                 return jsonify({'error': 'Sistema não encontrado'}), 404
 
             base_config = configs[system_name]
-            if base_config.get('type') != 'database':
-                return jsonify({'error': 'Apenas sistemas do tipo database podem ser clonados'}), 400
+            system_type = (base_config.get('type') or '').lower()
 
-            # Descobrir a chave raiz (sem sufixos _dbN)
-            root_key = system_name.split('_db')[0]
+            # Determinar sufixo baseado no tipo
+            if system_type == 'database':
+                suffix_pattern = '_db'
+            else:
+                suffix_pattern = '_copy'
+
+            # Descobrir a chave raiz (sem sufixos _dbN ou _copyN)
+            root_key = system_name
+            if suffix_pattern in system_name:
+                root_key = system_name.split(suffix_pattern)[0]
+            
             if root_key not in configs:
                 root_key = system_name
 
             root_config = configs[root_key]
 
             # Encontrar próximo índice disponível baseado em todas as chaves da família root_key
-            family_prefix = f"{root_key}_db"
+            family_prefix = f"{root_key}{suffix_pattern}"
             indices = []
             for key in configs.keys():
                 if key.startswith(family_prefix):
@@ -277,6 +285,24 @@ def register_routes(app):
                 'system': new_key,
                 'config': new_config
             }), 201
+        except Exception as e:
+            logger.error(f"Erro ao clonar sistema: {e}")
+            return jsonify({'error': str(e)}), 500
+
+    @app.route('/api/config/systems/<system_name>/clone-database', methods=['POST'])
+    def clone_database_system(system_name):
+        """Compatibilidade: redireciona para clone genérico (apenas para sistemas database)"""
+        try:
+            configs = _load_systems_config()
+            if system_name not in configs:
+                return jsonify({'error': 'Sistema não encontrado'}), 404
+
+            base_config = configs[system_name]
+            if base_config.get('type') != 'database':
+                return jsonify({'error': 'Apenas sistemas do tipo database podem usar esta rota'}), 400
+
+            # Delegar para clone genérico
+            return clone_system(system_name)
         except Exception as e:
             logger.error(f"Erro ao clonar sistema de banco de dados: {e}")
             return jsonify({'error': str(e)}), 500

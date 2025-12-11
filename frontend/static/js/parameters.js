@@ -32,6 +32,7 @@
     const connectionStatusSpan = document.getElementById('connectionStatus');
     const addDatabaseButton = document.getElementById('addDatabaseButton');
     const deleteDatabaseButton = document.getElementById('deleteDatabaseButton');
+    const addConfigButton = document.getElementById('addConfigButton');
 
     const filterInputs = filtersSection.querySelectorAll('[data-filter-key]');
     const timeFilterInputs = filtersSection.querySelectorAll('[data-time-key]');
@@ -60,6 +61,9 @@
         }
         if (databaseTypeSelect) {
             databaseTypeSelect.addEventListener('change', handleDatabaseTypeChange);
+        }
+        if (addConfigButton) {
+            addConfigButton.addEventListener('click', handleAddConfigSystem);
         }
     }
 
@@ -651,6 +655,49 @@
 
         const newDbType = databaseTypeSelect.value;
         option.textContent = computeDisplayName(currentSystem, cfg, newDbType);
+    }
+
+    async function handleAddConfigSystem() {
+        hideMessage();
+
+        if (!currentSystem) {
+            showMessage('Selecione um sistema antes de adicionar nova configuração', 'error');
+            return;
+        }
+
+        try {
+            addConfigButton.disabled = true;
+            addConfigButton.textContent = 'Clonando...';
+
+            const response = await fetch(`/api/config/systems/${currentSystem}/clone`, {
+                method: 'POST'
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.error || 'Erro ao adicionar nova configuração');
+            }
+
+            const newKey = result.system;
+            const newConfig = result.config;
+
+            // Atualiza cache local e opções do select
+            configs[newKey] = newConfig;
+            renderSystemOptions();
+
+            // Seleciona automaticamente o novo sistema clonado
+            systemSelect.value = newKey;
+            currentSystem = newKey;
+            populateForm(newConfig);
+
+            showMessage('Nova configuração criada. Ajuste os parâmetros e salve as alterações.', 'success');
+        } catch (error) {
+            showMessage(error.message, 'error');
+        } finally {
+            addConfigButton.disabled = false;
+            addConfigButton.textContent = 'Adicionar nova configuração';
+        }
     }
 
     document.addEventListener('DOMContentLoaded', init);

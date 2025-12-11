@@ -32,6 +32,9 @@ class PeopleSoftCollector(BaseCollector):
         self.driver = None
         self.timeout = config.get('timeout', 30)
         
+        # Chave do sistema para diretórios únicos (ex: peoplesoft, peoplesoft_copy1)
+        self._system_key = config.get('_system_key', 'peoplesoft')
+        
         # ✅ NOVO: Carregar filtros do config
         self.filters = config.get('filters', {})
         
@@ -337,7 +340,7 @@ class PeopleSoftCollector(BaseCollector):
 
                 # Salvar screenshot
                 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-                screenshot_dir = f"storage/screenshots/peoplesoft"
+                screenshot_dir = f"storage/screenshots/{self._system_key}"
                 os.makedirs(screenshot_dir, exist_ok=True)
                 screenshot_path = f"{screenshot_dir}/screenshot_{timestamp}.png"
                 try:

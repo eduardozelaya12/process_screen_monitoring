@@ -288,9 +288,21 @@ class DashboardOrchestrator:
             # Fallback: tentar pelo nome (compatibilidade)
             if not collector_class:
                 collector_class = name_collector_map.get(system_name)
+                
+                # Se não encontrou, tentar extrair o nome base (para sistemas clonados)
+                # Ex: peoplesoft_copy1 -> peoplesoft, bonita_copy2 -> bonita
+                if not collector_class:
+                    base_name = system_name
+                    if '_copy' in system_name:
+                        base_name = system_name.split('_copy')[0]
+                    elif '_db' in system_name:
+                        base_name = system_name.split('_db')[0]
+                    collector_class = name_collector_map.get(base_name)
             
             if collector_class:
                 try:
+                    # Adicionar system_key ao config para uso nos coletores
+                    system_config['_system_key'] = system_name
                     self.collectors[system_name] = collector_class(system_config)
                     logger.info(f"✓ Coletor {system_name} inicializado (tipo: {system_type})")
                 except Exception as e:
@@ -447,12 +459,25 @@ class DashboardOrchestrator:
                 if system_type == 'database':
                     collector_class = DatabaseCollector
                 else:
+                    # Tentar nome exato primeiro
                     collector_class = name_collector_map.get(system_name)
+                    
+                    # Se não encontrou, tentar extrair o nome base (para sistemas clonados)
+                    # Ex: peoplesoft_copy1 -> peoplesoft, bonita_copy2 -> bonita
+                    if not collector_class:
+                        base_name = system_name
+                        if '_copy' in system_name:
+                            base_name = system_name.split('_copy')[0]
+                        elif '_db' in system_name:
+                            base_name = system_name.split('_db')[0]
+                        collector_class = name_collector_map.get(base_name)
                 
                 if not collector_class:
                     logger.error(f"❌ Collector {system_name} não implementado (tipo: {system_type})")
                     return False
                 
+                # Adicionar system_key ao config para uso nos coletores
+                system_config['_system_key'] = system_name
                 self.collectors[system_name] = collector_class(system_config)
                 logger.info(f"✓ Collector {system_name} criado")
             

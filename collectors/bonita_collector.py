@@ -25,6 +25,9 @@ class BonitaCollector(BaseCollector):
         self.timeout = config.get('timeout', 30)
         self.driver = None
         self.headless = config.get('headless', True)
+        
+        # Chave do sistema para diretórios únicos (ex: bonita, bonita_copy1)
+        self._system_key = config.get('_system_key', 'bonita')
 
     def update_config(self, config: Dict):
         """Atualiza configuração em tempo de execução"""
@@ -198,8 +201,9 @@ class BonitaCollector(BaseCollector):
             
             # 4. Capturar Screenshot
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            os.makedirs("storage/screenshots/bonita", exist_ok=True)
-            screenshot_path = f"storage/screenshots/bonita/screenshot_{timestamp}.png"
+            screenshot_dir = f"storage/screenshots/{self._system_key}"
+            os.makedirs(screenshot_dir, exist_ok=True)
+            screenshot_path = f"{screenshot_dir}/screenshot_{timestamp}.png"
             
             # Voltar para contexto default para full page se necessário, mas as vezes o print fica melhor no frame
             if iframe_switched:
