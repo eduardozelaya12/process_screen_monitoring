@@ -13,6 +13,7 @@ from collectors.peoplesoft_collector import PeopleSoftCollector
 from collectors.google_collector import GoogleCollector
 from collectors.database_collector import DatabaseCollector
 from collectors.bonita_collector import BonitaCollector
+from collectors.fusion_collector import FusionCollector
 from processors.data_processors import DataProcessor
 from storage.local_storage import LocalStorage
 
@@ -266,6 +267,8 @@ class DashboardOrchestrator:
             'peoplesoft': PeopleSoftCollector,
             'google': GoogleCollector,
             'bonita': BonitaCollector,
+            'oracle_fusion': FusionCollector,
+            'fusion': FusionCollector,
         }
         
         for system_name, system_config in self.config.items():
@@ -441,6 +444,8 @@ class DashboardOrchestrator:
                     'peoplesoft': PeopleSoftCollector,
                     'google': GoogleCollector,
                     'bonita': BonitaCollector,
+                    'oracle_fusion': FusionCollector,
+                    'fusion': FusionCollector,
                 }
                 
                 collector_class = None
