@@ -738,5 +738,5 @@ def register_routes(app):
         except Exception as e:
             logger.error(f"Erro ao testar conexão: {e}")
             return jsonify({'error': str(e)}), 500
-    
+
     logger.info("✓ Rotas registradas")
