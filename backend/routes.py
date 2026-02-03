@@ -739,4 +739,242 @@ def register_routes(app):
             logger.error(f"Erro ao testar conexão: {e}")
             return jsonify({'error': str(e)}), 500
 
+    @app.route('/api/screenshots/list')
+    def list_all_screenshots():
+        """Lista todos os screenshots de todos os sistemas (independente de habilitado)"""
+        try:
+            older_than_days = request.args.get('older_than_days', default=1, type=int)
+            
+            screenshots_base = os.path.abspath('storage/screenshots')
+            result = {}
+            
+            from datetime import datetime, timedelta
+            cutoff_date = datetime.now() - timedelta(days=older_than_days)
+            
+            # Listar todos os diretórios de sistemas (não apenas habilitados)
+            if not os.path.exists(screenshots_base):
+                return jsonify({'status': 'success', 'total_files': 0, 'systems': {}})
+            
+            for system_name in os.listdir(screenshots_base):
+                system_dir = os.path.join(screenshots_base, system_name)
+                if not os.path.isdir(system_dir):
+                    continue
+                
+                files = [f for f in os.listdir(system_dir) if f.endswith('.png')]
+                if not files:
+                    continue
+                
+                # Ordenar por nome (que contém timestamp)
+                files_sorted = sorted(files, reverse=True)
+                latest_file = files_sorted[0] if files_sorted else None
+                
+                system_screenshots = []
+                for filename in files_sorted:
+                    file_path = os.path.join(system_dir, filename)
+                    file_stat = os.stat(file_path)
+                    file_mtime = datetime.fromtimestamp(file_stat.st_mtime)
+                    
+                    # Extrair timestamp do nome: screenshot_YYYYMMDD_HHMMSS.png
+                    is_latest = (filename == latest_file)
+                    is_old = file_mtime < cutoff_date
+                    
+                    system_screenshots.append({
+                        'filename': filename,
+                        'path': f"/storage/screenshots/{system_name}/{filename}",
+                        'size_bytes': file_stat.st_size,
+                        'modified': file_mtime.isoformat(),
+                        'is_latest': is_latest,
+                        'is_old': is_old and not is_latest
+                    })
+                
+                if system_screenshots:
+                    result[system_name] = system_screenshots
+            
+            # Estatísticas gerais
+            total_files = sum(len(files) for files in result.values())
+            old_files = sum(1 for files in result.values() for f in files if f['is_old'])
+            
+            return jsonify({
+                'status': 'success',
+                'older_than_days': older_than_days,
+                'total_files': total_files,
+                'files_to_cleanup': old_files,
+                'systems': result
+            })
+            
+        except Exception as e:
+            logger.error(f"Erro ao listar screenshots: {e}")
+            return jsonify({'error': str(e)}), 500
+    @app.route('/api/screenshots/cleanup', methods=['POST'])
+    def cleanup_all_screenshots():
+        """
+        Limpa screenshots de todos os sistemas.
+        Mantém APENAS o screenshot mais recente de cada sistema.
+        
+        Body: { "dry_run": false }
+        """
+        try:
+            data = request.get_json(silent=True) or {}
+            dry_run = data.get('dry_run', False)
+            
+            screenshots_base = os.path.abspath('storage/screenshots')
+            
+            if not os.path.exists(screenshots_base):
+                return jsonify({'status': 'success', 'deleted_count': 0, 'message': 'Diretório de screenshots não existe'})
+            
+            deleted_files = []
+            kept_files = []
+            errors = []
+            total_bytes_freed = 0
+            
+            # Iterar sobre todos os diretórios de sistemas
+            for system_name in os.listdir(screenshots_base):
+                system_dir = os.path.join(screenshots_base, system_name)
+                if not os.path.isdir(system_dir):
+                    continue
+                
+                files = [f for f in os.listdir(system_dir) if f.endswith('.png')]
+                if not files:
+                    continue
+                
+                # Ordenar: mais recente primeiro
+                files_sorted = sorted(files, reverse=True)
+                latest_file = files_sorted[0]
+                
+                for filename in files_sorted:
+                    file_path = os.path.join(system_dir, filename)
+                    
+                    # SEMPRE manter o mais recente
+                    if filename == latest_file:
+                        kept_files.append({
+                            'system': system_name,
+                            'filename': filename,
+                            'reason': 'latest'
+                        })
+                        continue
+                    
+                    try:
+                        file_size = os.path.getsize(file_path)
+                        
+                        if not dry_run:
+                            os.remove(file_path)
+                        
+                        deleted_files.append({
+                            'system': system_name,
+                            'filename': filename,
+                            'size_bytes': file_size
+                        })
+                        total_bytes_freed += file_size
+                            
+                    except Exception as e:
+                        errors.append({
+                            'system': system_name,
+                            'filename': filename,
+                            'error': str(e)
+                        })
+            
+            # Formatar tamanho liberado
+            if total_bytes_freed >= 1024 * 1024:
+                size_freed_str = f"{total_bytes_freed / (1024 * 1024):.2f} MB"
+            elif total_bytes_freed >= 1024:
+                size_freed_str = f"{total_bytes_freed / 1024:.2f} KB"
+            else:
+                size_freed_str = f"{total_bytes_freed} bytes"
+            
+            return jsonify({
+                'status': 'success',
+                'dry_run': dry_run,
+                'deleted_count': len(deleted_files),
+                'kept_count': len(kept_files),
+                'bytes_freed': total_bytes_freed,
+                'size_freed': size_freed_str,
+                'deleted_files': deleted_files,
+                'errors': errors if errors else None
+            })
+            
+        except Exception as e:
+            logger.error(f"Erro ao limpar screenshots: {e}")
+            return jsonify({'error': str(e)}), 500
+    
+    @app.route('/api/screenshots/<system_name>/cleanup', methods=['POST'])
+    def cleanup_system_screenshots(system_name):
+        """
+        Limpa screenshots antigos de um sistema específico.
+        Mantém sempre o screenshot mais recente.
+        
+        Body: { "older_than_days": 7, "dry_run": false }
+        """
+        try:
+            data = request.get_json(silent=True) or {}
+            older_than_days = data.get('older_than_days', 7)
+            dry_run = data.get('dry_run', False)
+            
+            if not isinstance(older_than_days, int) or older_than_days < 1:
+                return jsonify({'error': 'older_than_days deve ser inteiro >= 1'}), 400
+            
+            screenshots_base = os.path.abspath('storage/screenshots')
+            system_dir = os.path.join(screenshots_base, system_name)
+            
+            if not os.path.exists(system_dir):
+                return jsonify({'error': f'Diretório não encontrado para {system_name}'}), 404
+            
+            from datetime import datetime, timedelta
+            cutoff_date = datetime.now() - timedelta(days=older_than_days)
+            
+            files = [f for f in os.listdir(system_dir) if f.endswith('.png')]
+            if not files:
+                return jsonify({
+                    'status': 'success',
+                    'message': 'Nenhum screenshot encontrado',
+                    'deleted_count': 0
+                })
+            
+            # Ordenar: mais recente primeiro
+            files_sorted = sorted(files, reverse=True)
+            latest_file = files_sorted[0]
+            
+            deleted_files = []
+            total_bytes_freed = 0
+            
+            for filename in files_sorted:
+                file_path = os.path.join(system_dir, filename)
+                
+                # SEMPRE manter o mais recente
+                if filename == latest_file:
+                    continue
+                
+                try:
+                    file_stat = os.stat(file_path)
+                    file_mtime = datetime.fromtimestamp(file_stat.st_mtime)
+                    
+                    if file_mtime < cutoff_date:
+                        file_size = file_stat.st_size
+                        
+                        if not dry_run:
+                            os.remove(file_path)
+                        
+                        deleted_files.append({
+                            'filename': filename,
+                            'size_bytes': file_size
+                        })
+                        total_bytes_freed += file_size
+                        
+                except Exception as e:
+                    logger.error(f"Erro ao deletar {filename}: {e}")
+            
+            return jsonify({
+                'status': 'success',
+                'system': system_name,
+                'dry_run': dry_run,
+                'older_than_days': older_than_days,
+                'deleted_count': len(deleted_files),
+                'bytes_freed': total_bytes_freed,
+                'deleted_files': deleted_files,
+                'latest_kept': latest_file
+            })
+            
+        except Exception as e:
+            logger.error(f"Erro ao limpar screenshots de {system_name}: {e}")
+            return jsonify({'error': str(e)}), 500
+
     logger.info("✓ Rotas registradas")

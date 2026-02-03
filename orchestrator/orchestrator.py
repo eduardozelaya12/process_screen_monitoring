@@ -333,14 +333,24 @@ class DashboardOrchestrator:
             self.running_systems.add(system_name)  # Marcar como rodando
             logger.info(f"✓ Job agendado: {system_name} a cada {interval}s")
         
-        # Job de limpeza diária
+        # Job de limpeza diária do banco de dados
         self.scheduler.add_job(
             func=self.storage.cleanup_old_data,
             trigger='cron',
             hour=2,
             minute=0,
-            id='cleanup',
-            name='Limpeza diária'
+            id='cleanup_db',
+            name='Limpeza diária do banco'
+        )
+        
+        # Job de limpeza de screenshots (24h após, mantém o mais recente)
+        self.scheduler.add_job(
+            func=self._cleanup_old_screenshots,
+            trigger='cron',
+            hour=2,
+            minute=30,
+            id='cleanup_screenshots',
+            name='Limpeza diária de screenshots'
         )
         
         logger.info("✓ Jobs agendados")
@@ -394,6 +404,66 @@ class DashboardOrchestrator:
             broadcast_update(self.socketio, system_name, data)
         except Exception as e:
             logger.error(f"Erro ao fazer broadcast: {e}")
+    
+    def _cleanup_old_screenshots(self):
+        """
+        Limpa screenshots de todos os sistemas.
+        Mantém APENAS o screenshot mais recente de cada sistema.
+        """
+        screenshots_base = os.path.abspath('storage/screenshots')
+        
+        if not os.path.exists(screenshots_base):
+            logger.info("📁 Diretório de screenshots não existe - nada a limpar")
+            return
+        
+        
+        total_deleted = 0
+        total_bytes_freed = 0
+        
+        try:
+            for system_name in os.listdir(screenshots_base):
+                system_dir = os.path.join(screenshots_base, system_name)
+                if not os.path.isdir(system_dir):
+                    continue
+                
+                files = [f for f in os.listdir(system_dir) if f.endswith('.png')]
+                if not files:
+                    continue
+                
+                # Ordenar: mais recente primeiro (pelo nome que contém timestamp)
+                files_sorted = sorted(files, reverse=True)
+                latest_file = files_sorted[0]
+                
+                for filename in files_sorted:
+                    # SEMPRE manter o mais recente
+                    if filename == latest_file:
+                        continue
+                    
+                    file_path = os.path.join(system_dir, filename)
+                    try:
+                        file_size = os.path.getsize(file_path)
+                        os.remove(file_path)
+                        total_deleted += 1
+                        total_bytes_freed += file_size
+                            
+                    except Exception as e:
+                        logger.warning(f"⚠️ Erro ao deletar {filename}: {e}")
+            
+            # Formatar tamanho liberado
+            if total_bytes_freed >= 1024 * 1024:
+                size_str = f"{total_bytes_freed / (1024 * 1024):.2f} MB"
+            elif total_bytes_freed >= 1024:
+                size_str = f"{total_bytes_freed / 1024:.2f} KB"
+            else:
+                size_str = f"{total_bytes_freed} bytes"
+            
+            if total_deleted > 0:
+                logger.info(f"🧹 Limpeza de screenshots: {total_deleted} arquivos removidos ({size_str} liberados)")
+            else:
+                logger.info("🧹 Limpeza de screenshots: todos os sistemas já possuem apenas 1 screenshot")
+                
+        except Exception as e:
+            logger.error(f"❌ Erro na limpeza de screenshots: {e}")
     
     def start(self):
         """Inicia o orquestrador"""
